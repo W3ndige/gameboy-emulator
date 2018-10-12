@@ -34,10 +34,16 @@ class CPU {
         uint16_t program_counter; /**< Program counter register */
         
         Memory memory;
-        Timer timer;        
+        Timer timer;
+        int halt;
+        int stop;      
 
-        // Opcodes
-        void NOP();
+        // Miscellaneous Opcodes
+        void Nop();
+        void Halt();
+        void Stop();
+        void Di();
+        void Ei();
 };  
 
 

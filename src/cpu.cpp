@@ -13,6 +13,8 @@ CPU::CPU() {
 
     timer.m_cycles = 0;
     timer.t_cycles = 0;
+    halt = 0;
+    stop = 0;
 
     /**< Place power up sequence values in memory */
     memory.WriteMemory(0xFF05, 0x00);
@@ -53,7 +55,7 @@ void CPU::ExecuteInstruction() {
     printf("OPCODE\t0x%02x\n", opcode);
     switch (opcode) {
         case 0x00:
-            NOP();
+            Nop();
     }
     program_counter++;
 }
@@ -77,7 +79,54 @@ void CPU::Diagnostics() {
     No operation
 */
 
-void CPU::NOP() {
+void CPU::Nop() {
+    timer.m_cycles += 1;
+    timer.t_cycles += 4;
+}
+
+/*
+    0x76 (HALT)
+    Power down CPU until an interrupt occurs. Use this
+    when ever possible to reduce energy consumption
+*/
+
+void CPU::Halt() {
+    halt = 1;
+    timer.m_cycles += 1;
+    timer.t_cycles += 4;
+}
+
+/*
+    0x1000 (STOP)
+    Halt CPU & LCD display until button pressed.
+*/
+
+void CPU::Stop() {
+    stop = 1;
+    timer.m_cycles += 1;
+    timer.t_cycles += 4;
+}
+
+/*
+    0xF3 (DI)
+    This instruction disables interrupts but not
+    immediately. Interrupts are disabled after
+    instruction after DI is executed.
+*/
+
+void CPU::Di() {
+    timer.m_cycles += 1;
+    timer.t_cycles += 4;
+}
+
+/*
+    0xFB (EI)
+    Enable interrupts. This intruction enables interrupts
+    but not immediately. Interrupts are enabled after
+    instruction after EI is executed.
+*/
+
+void CPU::Ei() {
     timer.m_cycles += 1;
     timer.t_cycles += 4;
 }
