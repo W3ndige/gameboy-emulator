@@ -22,6 +22,31 @@ void Memory::WriteMemory(uint16_t address, uint8_t data) {
     }
 }
 
+int Memory::WriteMemoryChunk(uint16_t offset, uint16_t size, uint8_t *data) {
+    if ((memory + offset + size) <= (memory + sizeof(memory))) {
+        memcpy(memory + offset, data, size);
+        return 0;
+    }
+    return -1;
+}
+
 uint8_t Memory::ReadMemory(uint16_t address) {
     return memory[address];
+}
+
+uint16_t Memory::ReadWordMemory(uint16_t address) {
+    uint16_t word = ReadMemory(address + 1);
+	word = word << 8;
+	word |= ReadMemory(address) ;
+	return word ;
+}
+
+int Memory::DumpMemory() {
+    FILE *dump = fopen("memory_dump.bin", "wb");
+    if (dump == NULL) {
+        return -1;
+    }
+	fwrite(memory, sizeof(uint8_t), 0x10000, dump);
+    fclose(dump);
+    return 0;
 }

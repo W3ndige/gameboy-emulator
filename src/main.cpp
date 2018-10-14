@@ -11,7 +11,9 @@ int main(int argv, char **argc) {
     CPU cpu;
 
     // Test execution
-    cpu.ExecuteInstruction();
+    for (int i = 0; i < 0x2D; i++) {
+         cpu.FetchAndDispatch();
+    }
     cpu.Diagnostics();
 
 

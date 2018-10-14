@@ -34,3 +34,5 @@ FF00-FF7F I/O Ports
 FF80-FFFE High RAM (HRAM)
 FFFF Interrupt Enable Register 
 ```
+
+[Gameboy Bootstrap](http://gbdev.gg8.se/wiki/articles/Gameboy_Bootstrap_ROM)

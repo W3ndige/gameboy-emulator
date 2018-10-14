@@ -1,7 +1,7 @@
 #ifndef CPU_HPP
 #define CPU_HPP
 
-#include <stdio.h>
+#include <exception>
 #include "memory.hpp"
 
 #define ZERO_FLAG 7; 
@@ -25,7 +25,8 @@ struct Timer {
 class CPU {
     public:
         CPU();
-        void ExecuteInstruction();
+        void ExecuteInstruction(uint8_t opcode);
+        void FetchAndDispatch();
         void Diagnostics();
 
     private:
@@ -39,11 +40,18 @@ class CPU {
         int stop;      
 
         // Miscellaneous Opcodes
-        void Nop();
-        void Halt();
-        void Stop();
-        void Di();
-        void Ei();
+        void NOP();
+        void HALT();
+        void STOP();
+        void DI();
+        void EI();
+
+        // 8 bit loads
+        void LD8_r_nn(uint8_t &reg);
+        void LD8_r1_r2(uint8_t &reg1, uint8_t &reg2);
+
+        // 16 bit loads
+        void LD16_r_nn(uint16_t &reg);
 };  
 
 
