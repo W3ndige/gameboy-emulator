@@ -31,7 +31,7 @@ class CPU {
 
     private:
         Register af_register, bc_register, de_register, hl_register; /**< General purpose register */
-        Register stack_pointer; /**< Stack pointer register, no need for low/high access */
+        Register sp_register; /**< Stack pointer register, no need for low/high access */
         uint16_t program_counter; /**< Program counter register */
         
         Memory memory;

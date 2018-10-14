@@ -30,14 +30,14 @@ int Memory::WriteMemoryChunk(uint16_t offset, uint16_t size, uint8_t *data) {
     return -1;
 }
 
-uint8_t Memory::ReadMemory(uint16_t address) {
+uint8_t Memory::ReadByteMemory(uint16_t address) {
     return memory[address];
 }
 
 uint16_t Memory::ReadWordMemory(uint16_t address) {
-    uint16_t word = ReadMemory(address + 1);
+    uint16_t word = ReadByteMemory(address + 1);
 	word = word << 8;
-	word |= ReadMemory(address) ;
+	word |= ReadByteMemory(address) ;
 	return word ;
 }
 

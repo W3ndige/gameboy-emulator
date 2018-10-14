@@ -9,7 +9,7 @@ CPU::CPU() {
     de_register.pair = 0x00D8; 
     hl_register.pair = 0x014D;
 
-    stack_pointer.pair = 0xFFFE;
+    sp_register.pair = 0xFFFE;
 
     timer.m_cycles = 0;
     timer.t_cycles = 0;
@@ -64,162 +64,78 @@ CPU::CPU() {
 
 void CPU::ExecuteInstruction(uint8_t opcode) {
     switch (opcode) {
-        case 0x00:
-            NOP();
-            break;
-        case 0x06:
-            LD8_r_nn(bc_register.high);
-            break;
-        case 0x0E:
-            LD8_r_nn(bc_register.low);
-            break;
-        case 0x16:
-            LD8_r_nn(de_register.high);
-            break;
-        case 0x1E:
-            LD8_r_nn(de_register.low);
-            break;
-        case 0x26:
-            LD8_r_nn(hl_register.high);
-            break;
-        case 0x2E:
-            LD8_r_nn(hl_register.low);
-            break;
-        case 0x7F:
-            LD8_r1_r2(af_register.high, af_register.high);
-            break;
-        case 0x78:
-            LD8_r1_r2(af_register.high, bc_register.high);
-            break;
-        case 0x79:
-            LD8_r1_r2(af_register.high, bc_register.low);
-            break;
-        case 0x7A:
-            LD8_r1_r2(af_register.high, de_register.high);
-            break;
-        case 0x7B:
-            LD8_r1_r2(af_register.high, de_register.low);
-            break;
-        case 0x7C:
-            LD8_r1_r2(af_register.high, hl_register.high);
-            break;
-        case 0x7D:
-            LD8_r1_r2(af_register.high, hl_register.low);
-            break;
+        case 0x00: NOP(); break;
+        case 0x76: HALT(); break;
+        //case 0x1000: STOP(); break;
+        case 0xF3: DI(); break;
+        case 0xFB: EI(); break;
+        
+        /**< Load 8 bit immediate value */
+        case 0x06: LD8_r_nn(bc_register.high); break;
+        case 0x0E: LD8_r_nn(bc_register.low); break;
+        case 0x16: LD8_r_nn(de_register.high); break;
+        case 0x1E: LD8_r_nn(de_register.low); break;
+        case 0x26: LD8_r_nn(hl_register.high); break;
+        case 0x2E: LD8_r_nn(hl_register.low); break;
+
+        /**< Load register to register */
+        case 0x7F: LD8_r1_r2(af_register.high, af_register.high); break;
+        case 0x78: LD8_r1_r2(af_register.high, bc_register.high); break;
+        case 0x79: LD8_r1_r2(af_register.high, bc_register.low); break;
+        case 0x7A: LD8_r1_r2(af_register.high, de_register.high); break;
+        case 0x7B: LD8_r1_r2(af_register.high, de_register.low); break;
+        case 0x7C: LD8_r1_r2(af_register.high, hl_register.high); break;
+        case 0x7D: LD8_r1_r2(af_register.high, hl_register.low); break;
         //  LD A,(HL) 7E 8
-        case 0x40:
-            LD8_r1_r2(bc_register.high, bc_register.high);
-            break;
-        case 0x41:
-            LD8_r1_r2(bc_register.high, bc_register.low);
-            break;
-        case 0x42:
-            LD8_r1_r2(bc_register.high, de_register.high);
-            break;
-        case 0x43:
-            LD8_r1_r2(bc_register.high, de_register.low);
-            break;
-        case 0x44:
-            LD8_r1_r2(bc_register.high, hl_register.high);
-            break;
-        case 0x45:
-            LD8_r1_r2(bc_register.high, hl_register.low);
-            break;
+        case 0x40: LD8_r1_r2(bc_register.high, bc_register.high); break;
+        case 0x41: LD8_r1_r2(bc_register.high, bc_register.low); break;
+        case 0x42: LD8_r1_r2(bc_register.high, de_register.high); break;
+        case 0x43: LD8_r1_r2(bc_register.high, de_register.low); break;
+        case 0x44: LD8_r1_r2(bc_register.high, hl_register.high); break;
+        case 0x45: LD8_r1_r2(bc_register.high, hl_register.low); break;
         //  LD B,(HL) 46 8
-        case 0x48:
-            LD8_r1_r2(bc_register.low, bc_register.high);
-            break;
-        case 0x49:
-            LD8_r1_r2(bc_register.low, bc_register.low);
-            break;
-        case 0x4A:
-            LD8_r1_r2(bc_register.low, de_register.high);
-            break;
-        case 0x4B:
-            LD8_r1_r2(bc_register.low, de_register.low);
-            break;
-        case 0x4C:
-            LD8_r1_r2(bc_register.low, hl_register.high);
-            break;
-        case 0x4D:
-            LD8_r1_r2(bc_register.low, hl_register.low);
-            break;
+        case 0x48: LD8_r1_r2(bc_register.low, bc_register.high); break;
+        case 0x49: LD8_r1_r2(bc_register.low, bc_register.low); break;
+        case 0x4A: LD8_r1_r2(bc_register.low, de_register.high); break;
+        case 0x4B: LD8_r1_r2(bc_register.low, de_register.low); break;
+        case 0x4C: LD8_r1_r2(bc_register.low, hl_register.high); break;
+        case 0x4D: LD8_r1_r2(bc_register.low, hl_register.low); break;
         //  LD C,(HL) 4E 8
-        case 0x50:
-            LD8_r1_r2(de_register.high, bc_register.high);
-            break;
-        case 0x51:
-            LD8_r1_r2(de_register.high, bc_register.low);
-            break;
-        case 0x52:
-            LD8_r1_r2(de_register.high, de_register.high);
-            break;
-        case 0x53:
-            LD8_r1_r2(de_register.high, de_register.low);
-            break;
-        case 0x54:
-            LD8_r1_r2(de_register.high, hl_register.high);
-            break;
-        case 0x55:
-            LD8_r1_r2(de_register.high, hl_register.low);
-            break;
+        case 0x50: LD8_r1_r2(de_register.high, bc_register.high); break;
+        case 0x51: LD8_r1_r2(de_register.high, bc_register.low); break;
+        case 0x52: LD8_r1_r2(de_register.high, de_register.high); break;
+        case 0x53: LD8_r1_r2(de_register.high, de_register.low); break;
+        case 0x54: LD8_r1_r2(de_register.high, hl_register.high); break;
+        case 0x55: LD8_r1_r2(de_register.high, hl_register.low); break;
         //  LD D,(HL) 56 8
-        case 0x58:
-            LD8_r1_r2(de_register.low, bc_register.high);
-            break;
-        case 0x59:
-            LD8_r1_r2(de_register.low, bc_register.low);
-            break;
-        case 0x5A:
-            LD8_r1_r2(de_register.low, de_register.high);
-            break;
-        case 0x5B:
-            LD8_r1_r2(de_register.low, de_register.low);
-            break;
-        case 0x5C:
-            LD8_r1_r2(de_register.low, hl_register.high);
-            break;
-        case 0x5D:
-            LD8_r1_r2(de_register.low, hl_register.low);
-            break;
+        case 0x58: LD8_r1_r2(de_register.low, bc_register.high); break;
+        case 0x59: LD8_r1_r2(de_register.low, bc_register.low); break;
+        case 0x5A: LD8_r1_r2(de_register.low, de_register.high); break;
+        case 0x5B: LD8_r1_r2(de_register.low, de_register.low); break;
+        case 0x5C: LD8_r1_r2(de_register.low, hl_register.high); break;
+        case 0x5D: LD8_r1_r2(de_register.low, hl_register.low); break;
         //  LD E,(HL) 5E 8
-        case 0x60:
-            LD8_r1_r2(hl_register.high, bc_register.high);
-            break;
-        case 0x61:
-            LD8_r1_r2(hl_register.high, bc_register.low);
-            break;
-        case 0x62:
-            LD8_r1_r2(hl_register.high, de_register.high);
-            break;
-        case 0x63:
-            LD8_r1_r2(hl_register.high, de_register.low);
-            break;
-        case 0x64:
-            LD8_r1_r2(hl_register.high, hl_register.high);
-            break;
-        case 0x65:
-            LD8_r1_r2(hl_register.high, hl_register.low);
-            break;
+        case 0x60: LD8_r1_r2(hl_register.high, bc_register.high); break;
+        case 0x61: LD8_r1_r2(hl_register.high, bc_register.low); break;
+        case 0x62: LD8_r1_r2(hl_register.high, de_register.high); break;
+        case 0x63: LD8_r1_r2(hl_register.high, de_register.low); break;
+        case 0x64: LD8_r1_r2(hl_register.high, hl_register.high); break;
+        case 0x65: LD8_r1_r2(hl_register.high, hl_register.low); break;
         //  LD H,(HL) 66 8
-        case 0x68:
-            LD8_r1_r2(hl_register.low, bc_register.high);
-            break;
-        case 0x69:
-            LD8_r1_r2(hl_register.low, bc_register.low);
-            break;
-        case 0x6A:
-            LD8_r1_r2(hl_register.low, de_register.high);
-            break;
-        case 0x6B:
-            LD8_r1_r2(hl_register.low, de_register.low);
-            break;
-        case 0x6C:
-            LD8_r1_r2(hl_register.low, hl_register.high);
-            break;
-        case 0x6D:
-            LD8_r1_r2(hl_register.low, hl_register.low);
-            break;
+        case 0x68: LD8_r1_r2(hl_register.low, bc_register.high); break;
+        case 0x69: LD8_r1_r2(hl_register.low, bc_register.low); break;
+        case 0x6A: LD8_r1_r2(hl_register.low, de_register.high); break;
+        case 0x6B: LD8_r1_r2(hl_register.low, de_register.low); break;
+        case 0x6C: LD8_r1_r2(hl_register.low, hl_register.high); break;
+        case 0x6D: LD8_r1_r2(hl_register.low, hl_register.low); break;
+
+        case 0x47: LD8_r1_r2(bc_register.high, af_register.high); break;
+        case 0x4F: LD8_r1_r2(bc_register.low, af_register.high); break;
+        case 0x57: LD8_r1_r2(de_register.high, af_register.high); break;
+        case 0x5F: LD8_r1_r2(de_register.low, af_register.high); break;
+        case 0x67: LD8_r1_r2(hl_register.high, af_register.high); break;
+        case 0x6F: LD8_r1_r2(hl_register.low, af_register.high); break;
+
         /*
             LD           L,(HL)          6E         8
             LD           (HL),B          70         8
@@ -229,24 +145,34 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
             LD           (HL),H          74         8
             LD           (HL),L          75         8
             LD           (HL),n          36        12
+            LD           (BC),A          02         8
+            LD           (DE),A          12         8
+            LD           (HL),A          77         8
+            LD           (nn),A          EA        16
         */
-       
 
-        case 0x11:
-            LD16_r_nn(de_register.pair);
-            break;
-    }
+
+
+       /**< Load 16 bit immediate value */
+        case 0x01: LD16_r_nn(bc_register.pair); break;
+        case 0x11: LD16_r_nn(de_register.pair); break;
+        case 0x21: LD16_r_nn(hl_register.pair); break;
+        case 0x31: LD16_r_nn(sp_register.pair); break;
+        case 0x09: sp_register.pair = hl_register.pair; timer.t_cycles += 8; break;
+
+        default: printf("Unkown opcode: 0x%02x\n", opcode);
+    }   
 }
 
 void CPU::FetchAndDispatch() {
-    uint8_t opcode = memory.ReadMemory(program_counter);
+    uint8_t opcode = memory.ReadByteMemory(program_counter);
     program_counter++;
     ExecuteInstruction(opcode);
 }
 
 void CPU::Diagnostics() {
     printf("PC\t0x%02x\n", program_counter);
-    printf("SP\t0x%02x\n", stack_pointer.pair);
+    printf("SP\t0x%02x\n", sp_register.pair);
     printf("A\t0x%02x\n", af_register.high);
     printf("B\t0x%02x\n", bc_register.high);
     printf("C\t0x%02x\n", bc_register.low);
@@ -319,7 +245,7 @@ void CPU::EI() {
 /**< 8 Bit Loads */
 
 void CPU::LD8_r_nn(uint8_t &reg) {
-    uint8_t nn = memory.ReadMemory(program_counter);
+    uint8_t nn = memory.ReadByteMemory(program_counter);
     reg = nn;
     program_counter++;
     timer.m_cycles += 1;
