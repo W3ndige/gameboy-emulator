@@ -37,7 +37,9 @@ class CPU {
         Memory memory;
         Timer timer;
         int halt;
-        int stop;      
+        int stop;     
+
+         
 
         // Miscellaneous Opcodes
         void NOP();
@@ -49,6 +51,8 @@ class CPU {
         // 8 bit loads
         void LD8_r_nn(uint8_t &reg);
         void LD8_r1_r2(uint8_t &reg1, uint8_t &reg2);
+        void LD8_r1_mem(uint8_t &reg1, uint16_t address);
+        void LD8_mem_r1(uint16_t address, uint8_t reg1);
 
         // 16 bit loads
         void LD16_r_nn(uint16_t &reg);

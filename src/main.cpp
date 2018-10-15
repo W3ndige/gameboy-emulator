@@ -11,7 +11,7 @@ int main(int argv, char **argc) {
     CPU cpu;
 
     // Test execution
-    for (int i = 0; i < 0x2D; i++) {
+    for (int i = 0; i < 0x2E; i++) {
          cpu.FetchAndDispatch();
     }
     cpu.Diagnostics();
