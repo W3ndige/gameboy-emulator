@@ -4,10 +4,10 @@
 #include <exception>
 #include "memory.hpp"
 
-#define ZERO_FLAG 7; 
-#define SUBSTRACT_FLAG 6;
-#define HALF_CARRY_FLAG 5;
-#define CARRY_FLAG 4;
+const int ZERO_FLAG = 7; 
+const int SUBSTRACT_FLAG = 6;
+const int HALF_CARRY_FLAG = 5;
+const int CARRY_FLAG = 4;
 
 union Register { 
     uint16_t pair;
@@ -38,10 +38,13 @@ class CPU {
         Timer timer;
         int halt;
         int stop;     
+        
+        /**< Methods used for flag register */
+        void SetFlag(uint8_t flag);
+        int TestFlag(uint8_t flag);
+        void ClearFlag(uint8_t flag);
 
-         
-
-        // Miscellaneous Opcodes
+        // Miscellaneous opcodes
         void NOP();
         void HALT();
         void STOP();

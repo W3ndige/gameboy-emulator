@@ -59,7 +59,7 @@ CPU::CPU() {
     memory.WriteMemory(0xFF4B, 0x00);
     memory.WriteMemory(0xFFFF, 0x00);
 
-    memory.DumpMemory();
+    //memory.DumpMemory();
 }
 
 void CPU::ExecuteInstruction(uint8_t opcode) {
@@ -207,6 +207,19 @@ void CPU::Diagnostics() {
     printf("FLAG\t0x%02x\n", af_register.low);
     printf("TIMER M\t0x%02x\n", timer.m_cycles);
     printf("TIMER T\t0x%02x\n", timer.t_cycles);
+}
+
+void CPU::SetFlag(uint8_t flag) {
+    af_register.low |= 1 << flag;
+}
+
+int CPU::TestFlag(uint8_t flag) {
+    int bit = af_register.low >> flag & 1;
+    return bit;
+}
+
+void CPU::ClearFlag(uint8_t flag) {
+    af_register.low &= ~(1 << flag);
 }
 
 /*  
