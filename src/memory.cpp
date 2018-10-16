@@ -2,7 +2,7 @@
 
 Memory::Memory(): memory() {}
 
-void Memory::WriteMemory(uint16_t address, uint8_t data) {
+void Memory::WriteByteMemory(uint16_t address, uint8_t data) {
     //  Read Only Memory
     if (address < 0x8000) {
         return;
@@ -14,7 +14,7 @@ void Memory::WriteMemory(uint16_t address, uint8_t data) {
     // ECHO memory
     else if (address >= 0xE000 && address <= 0xFDFF) {
         memory[address] = data;
-        WriteMemory(address - 0x2000, data);
+        WriteByteMemory(address - 0x2000, data);
     }
     // Write to memory
     else {
@@ -22,7 +22,13 @@ void Memory::WriteMemory(uint16_t address, uint8_t data) {
     }
 }
 
-int Memory::WriteMemoryChunk(uint16_t offset, uint16_t size, uint8_t *data) {
+void Memory::WriteWordMemory(uint16_t address, uint16_t data) {
+    memory[address + 1] = data >> 8;
+    memory[address] = data & 0xFF;
+}
+
+
+int Memory::WriteChunkMemory(uint16_t offset, uint16_t size, uint8_t *data) {
     if ((memory + offset + size) <= (memory + sizeof(memory))) {
         memcpy(memory + offset, data, size);
         return 0;

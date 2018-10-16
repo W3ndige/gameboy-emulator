@@ -4,10 +4,10 @@
 #include <exception>
 #include "memory.hpp"
 
-const int ZERO_FLAG = 7; 
-const int SUBSTRACT_FLAG = 6;
-const int HALF_CARRY_FLAG = 5;
-const int CARRY_FLAG = 4;
+const int ZERO_FLAG = 7;  // Z
+const int SUBSTRACT_FLAG = 6; // N
+const int HALF_CARRY_FLAG = 5; // H
+const int CARRY_FLAG = 4; // C
 
 union Register { 
     uint16_t pair;
@@ -26,7 +26,9 @@ class CPU {
     public:
         CPU();
         void ExecuteInstruction(uint8_t opcode);
+        void ExecuteExtendedInstruction(uint8_t opcode);
         void FetchAndDispatch();
+        int Breakpoint(uint16_t pc);
         void Diagnostics();
 
     private:
@@ -40,9 +42,9 @@ class CPU {
         int stop;     
         
         /**< Methods used for flag register */
-        void SetFlag(uint8_t flag);
-        int TestFlag(uint8_t flag);
-        void ClearFlag(uint8_t flag);
+        void SetBit(uint8_t &reg, uint8_t flag);
+        int TestBit(uint8_t &reg, uint8_t flag);
+        void ClearBit(uint8_t &reg, uint8_t flag);
 
         // Miscellaneous opcodes
         void NOP();
@@ -59,6 +61,12 @@ class CPU {
 
         // 16 bit loads
         void LD16_r_nn(uint16_t &reg);
+        void Push(uint16_t &reg);
+        void Pop(uint16_t &reg);
+
+        // 8 bit alu
+        void Add8Bit(uint8_t &reg);
+        void Xor8Bit(uint8_t &reg);
 };  
 
 

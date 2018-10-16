@@ -10,11 +10,13 @@ int main(int argv, char **argc) {
     
     CPU cpu;
 
-    // Test execution
-    for (int i = 0; i < 0x2E; i++) {
-         cpu.FetchAndDispatch();
+    for (int i = 0; i < 0x1000; i++) {
+        if (cpu.Breakpoint(0x000c)) {
+            cpu.Diagnostics();
+            break;
+        }
+        cpu.FetchAndDispatch();
     }
-    cpu.Diagnostics();
 
 
     return 0;
