@@ -80,6 +80,16 @@ class CPU {
         void Inc16Bit(uint16_t &reg);
         void Dec16Bit(uint16_t &reg);
 
+        // Extended instruction set
+        void Swap(uint8_t &reg);
+
+        // Misc instructions
+        void DAA();
+
+        // Jumps
+        void JUMP(uint8_t flag, int condition, int use_condition);
+        void JUMP_IMM(uint8_t flag, int condition, int use_condition);
+
 };  
 
 

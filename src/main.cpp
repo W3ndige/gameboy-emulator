@@ -12,7 +12,7 @@ int main(int argv, char **argc) {
 
     // TODO STEP
     for (int i = 0; i < 0x1000; i++) {
-        if (cpu.Breakpoint(0x009d)) {
+        if (cpu.Breakpoint(0x0045)) {
             cpu.Diagnostics();
             break;
         }

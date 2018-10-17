@@ -59,6 +59,11 @@ CPU::CPU() {
     memory.WriteByteMemory(0xFF4B, 0x00);
     memory.WriteByteMemory(0xFFFF, 0x00);
 
+    memory.WriteByteMemory(0x8AAA, 0xFF);
+    memory.WriteByteMemory(0x8AAB, 0xFF);
+    memory.WriteByteMemory(0x8AAC, 0xFF);
+    memory.WriteByteMemory(0x8AAD, 0xFF);
+
 }
 
 void CPU::FetchAndDispatch() {
@@ -72,16 +77,16 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0x00: NOP(); break;
         case 0x76: HALT(); break;
         //case 0x1000: STOP(); break;
-        case 0xF3: DI(); break;
-        case 0xFB: EI(); break;
+        case 0xf3: DI(); break;
+        case 0xfb: EI(); break;
         
         /**< Load 8 bit immediate value */
         case 0x06: LD8_r_nn(bc_register.high); break;
-        case 0x0E: LD8_r_nn(bc_register.low); break;
+        case 0x0e: LD8_r_nn(bc_register.low); break;
         case 0x16: LD8_r_nn(de_register.high); break;
-        case 0x1E: LD8_r_nn(de_register.low); break;
+        case 0x1e: LD8_r_nn(de_register.low); break;
         case 0x26: LD8_r_nn(hl_register.high); break;
-        case 0x2E: LD8_r_nn(hl_register.low); break;
+        case 0x2e: LD8_r_nn(hl_register.low); break;
 
         /**< Load register to register */
         case 0x7F: LD8_r1_r2(af_register.high, af_register.high); break;
@@ -111,10 +116,10 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0x55: LD8_r1_r2(de_register.high, hl_register.low); break;
         case 0x58: LD8_r1_r2(de_register.low, bc_register.high); break;
         case 0x59: LD8_r1_r2(de_register.low, bc_register.low); break;
-        case 0x5A: LD8_r1_r2(de_register.low, de_register.high); break;
-        case 0x5B: LD8_r1_r2(de_register.low, de_register.low); break;
-        case 0x5C: LD8_r1_r2(de_register.low, hl_register.high); break;
-        case 0x5D: LD8_r1_r2(de_register.low, hl_register.low); break;
+        case 0x5a: LD8_r1_r2(de_register.low, de_register.high); break;
+        case 0x5b: LD8_r1_r2(de_register.low, de_register.low); break;
+        case 0x5c: LD8_r1_r2(de_register.low, hl_register.high); break;
+        case 0x5d: LD8_r1_r2(de_register.low, hl_register.low); break;
         case 0x60: LD8_r1_r2(hl_register.high, bc_register.high); break;
         case 0x61: LD8_r1_r2(hl_register.high, bc_register.low); break;
         case 0x62: LD8_r1_r2(hl_register.high, de_register.high); break;
@@ -123,25 +128,25 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0x65: LD8_r1_r2(hl_register.high, hl_register.low); break;
         case 0x68: LD8_r1_r2(hl_register.low, bc_register.high); break;
         case 0x69: LD8_r1_r2(hl_register.low, bc_register.low); break;
-        case 0x6A: LD8_r1_r2(hl_register.low, de_register.high); break;
-        case 0x6B: LD8_r1_r2(hl_register.low, de_register.low); break;
-        case 0x6C: LD8_r1_r2(hl_register.low, hl_register.high); break;
+        case 0x6a: LD8_r1_r2(hl_register.low, de_register.high); break;
+        case 0x6b: LD8_r1_r2(hl_register.low, de_register.low); break;
+        case 0x6c: LD8_r1_r2(hl_register.low, hl_register.high); break;
         case 0x6D: LD8_r1_r2(hl_register.low, hl_register.low); break;
 
         case 0x47: LD8_r1_r2(bc_register.high, af_register.high); break;
-        case 0x4F: LD8_r1_r2(bc_register.low, af_register.high); break;
+        case 0x4f: LD8_r1_r2(bc_register.low, af_register.high); break;
         case 0x57: LD8_r1_r2(de_register.high, af_register.high); break;
-        case 0x5F: LD8_r1_r2(de_register.low, af_register.high); break;
+        case 0x5f: LD8_r1_r2(de_register.low, af_register.high); break;
         case 0x67: LD8_r1_r2(hl_register.high, af_register.high); break;
-        case 0x6F: LD8_r1_r2(hl_register.low, af_register.high); break;
+        case 0x6f: LD8_r1_r2(hl_register.low, af_register.high); break;
 
-        case 0x7E: LD8_r1_mem(af_register.high, hl_register.pair); break;
+        case 0x7e: LD8_r1_mem(af_register.high, hl_register.pair); break;
         case 0x46: LD8_r1_mem(bc_register.high, hl_register.pair); break;
-        case 0x4E: LD8_r1_mem(bc_register.low, hl_register.pair); break;
+        case 0x4e: LD8_r1_mem(bc_register.low, hl_register.pair); break;
         case 0x56: LD8_r1_mem(de_register.high, hl_register.pair); break;
-        case 0x5E: LD8_r1_mem(de_register.low, hl_register.pair); break;
+        case 0x5e: LD8_r1_mem(de_register.low, hl_register.pair); break;
         case 0x66: LD8_r1_mem(hl_register.high, hl_register.pair); break;
-        case 0x6E: LD8_r1_mem(hl_register.low, hl_register.pair); break;
+        case 0x6e: LD8_r1_mem(hl_register.low, hl_register.pair); break;
 
         case 0x70: LD8_mem_r1(hl_register.pair, bc_register.high); break;
         case 0x71: LD8_mem_r1(hl_register.pair, bc_register.low); break;
@@ -150,27 +155,35 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0x74: LD8_mem_r1(hl_register.pair, hl_register.high); break;
         case 0x75: LD8_mem_r1(hl_register.pair, hl_register.low); break;
 
+        // WRONG?
         case 0x36: program_counter++; LD8_mem_r1(hl_register.pair, 
                     memory.ReadByteMemory(program_counter)); timer.t_cycles += 4; break;
 
-        case 0x0A: LD8_r1_mem(af_register.high, bc_register.pair); break;
-        case 0x1A: LD8_r1_mem(af_register.high, de_register.pair); break;
+        case 0x0a: LD8_r1_mem(af_register.high, bc_register.pair); break;
+        case 0x1a: LD8_r1_mem(af_register.high, de_register.pair); break;
 
-        case 0xFA: program_counter++; LD8_r1_mem(af_register.high, 
+        // TODO RETHINK
+        case 0xfa: program_counter++; LD8_r1_mem(af_register.high, 
                     memory.ReadWordMemory(program_counter)); timer.t_cycles += 8; break;
 
-        /*
-            LD           A,#             3E         8 
-        */
+        case 0x3e: LD8_r_nn(af_register.high); break;
 
         case 0x02: LD8_mem_r1(bc_register.pair, af_register.high); break;
         case 0x12: LD8_mem_r1(de_register.pair, af_register.high); break;
         case 0x77: LD8_mem_r1(hl_register.pair, af_register.high); break;
         
-        //   LD           (nn),A          EA        16
+        case 0xea:
+        {
+            uint16_t nn = memory.ReadWordMemory(program_counter);
+            program_counter += 2;
+            memory.WriteByteMemory(nn, af_register.high);
+            timer.m_cycles += 3;
+            timer.t_cycles += 16;
+        }
+        break;
        
-        case 0XF2: LD8_r1_mem(af_register.high, 0xFF00 + bc_register.low); break;
-        case 0XE2: LD8_mem_r1(0xFF00 + bc_register.low, af_register.high); break;
+        case 0xF2: LD8_r1_mem(af_register.high, 0xFF00 + bc_register.low); break;
+        case 0xE2: LD8_mem_r1(0xFF00 + bc_register.low, af_register.high); break;
 
         case 0x3A: LD8_r1_mem(af_register.high, hl_register.pair); hl_register.pair--; break;
         case 0X32: LD8_mem_r1(hl_register.pair, af_register.high); hl_register.pair--; break;
@@ -340,18 +353,44 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0x2B: Dec16Bit(hl_register.pair); break;
         case 0x3B: Dec16Bit(sp_register.pair); break;
 
+        // Jumps
+        case 0xc3: JUMP(0, 0, 0); break;
+        case 0xc2: JUMP(ZERO_FLAG, 0, 1); break;
+        case 0xca: JUMP(ZERO_FLAG, 1, 1); break;
+        case 0xd2: JUMP(CARRY_FLAG, 0, 1); break;
+        case 0xda: JUMP(CARRY_FLAG, 1, 1); break;
+
+        case 0xe9: program_counter += hl_register.pair; timer.m_cycles += 1;
+                    timer.t_cycles += 4; break;
+
+        case 0x18: JUMP_IMM(0, 0, 0); break;
+        case 0x20: JUMP_IMM(ZERO_FLAG, 0, 1); break;
+        case 0x28: JUMP_IMM(ZERO_FLAG, 1, 1); break;
+        case 0x30: JUMP_IMM(CARRY_FLAG, 0, 1); break;
+        case 0x38: JUMP_IMM(CARRY_FLAG, 1, 1); break;
+
          // Extended instruction set
         case 0xCB:
             ExecuteExtendedInstruction(memory.ReadByteMemory(program_counter));
             program_counter++;
             break;
         
-        default: printf("Unkown opcode: 0x%02x\n", opcode);
+        default: printf("Unkown opcode: 0x%02x at PC: 0x%02x\n", opcode, program_counter);
     }   
 }
 
 void CPU::ExecuteExtendedInstruction(uint8_t opcode) {
     switch (opcode) {
+        // Swap opcodes
+        case 37: Swap(af_register.high); break;
+        case 30: Swap(bc_register.high); break;
+        case 31: Swap(bc_register.low); break;
+        case 32: Swap(de_register.high); break;
+        case 33: Swap(de_register.low); break;
+        case 34: Swap(hl_register.high); break;
+        case 35: Swap(hl_register.low); break;
+        
+        // Add one swap opcode
 
         // Bit opcodes
         case 0x7c:
@@ -441,7 +480,7 @@ void CPU::LD8_r_nn(uint8_t &reg) {
     uint8_t nn = memory.ReadByteMemory(program_counter);
     reg = nn;
     program_counter++;
-    timer.m_cycles += 1;
+    timer.m_cycles += 2;
     timer.t_cycles += 8;
 }
 
@@ -629,3 +668,53 @@ void CPU::Dec16Bit(uint16_t &reg) {
     timer.t_cycles += 1;
     timer.m_cycles += 8;
 }
+
+// Extended instruction set
+
+void CPU::Swap(uint8_t &reg) {
+    
+    af_register.low = 0; /**< Reset flag register */
+    reg = (((reg & 0xF0) >> 4) | ((reg & 0x0F) << 4)); /**< Swap nibbles */
+    if (reg == 0) {
+        SetBit(af_register.high, ZERO_FLAG);
+    }
+    timer.t_cycles += 2;
+    timer.m_cycles += 8;
+}
+
+// Misc instructions
+
+void CPU::DAA() {
+    // TODO
+}
+
+// Jumps
+
+void CPU::JUMP(uint8_t flag, int condition, int use_condition) {
+    program_counter ++;
+    int16_t nn = (int16_t)memory.ReadWordMemory(program_counter);
+    if (!use_condition) {
+        program_counter = nn;
+    }
+    else if (TestBit(af_register.low, flag) == condition) {
+        program_counter = nn;
+    }
+    timer.t_cycles += 3;
+    timer.m_cycles += 12;
+
+}
+
+void CPU::JUMP_IMM(uint8_t flag, int condition, int use_condition) {
+    program_counter++;
+    int8_t n = (int8_t)memory.ReadByteMemory(program_counter);
+    if (!use_condition) {
+        program_counter += n;
+    }
+    else if (TestBit(af_register.low, flag) == condition) {
+        program_counter += n;
+    }
+    timer.t_cycles += 2;
+    timer.m_cycles += 8;
+
+}
+
