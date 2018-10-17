@@ -74,6 +74,12 @@ class CPU {
         void Inc8Bit(uint8_t &reg);
         void Dec8Bit(uint8_t &reg);
 
+        // 16 bit ALU
+        void Add16Bit(uint16_t &reg);
+        void AddSP16Bit();
+        void Inc16Bit(uint16_t &reg);
+        void Dec16Bit(uint16_t &reg);
+
 };  
 
 

@@ -321,6 +321,25 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0x25: Dec8Bit(hl_register.high); break;
         case 0x2d: Dec8Bit(hl_register.low); break;
 
+        // 16 bit ALU
+
+        case 0x09: Add16Bit(bc_register.pair); break;
+        case 0x19: Add16Bit(de_register.pair); break;
+        case 0x29: Add16Bit(hl_register.pair); break;
+        case 0x39: Add16Bit(sp_register.pair); break;
+
+        case 0xe8: AddSP16Bit(); break;
+
+        case 0x03: Inc16Bit(bc_register.pair); break;
+        case 0x13: Inc16Bit(de_register.pair); break;
+        case 0x23: Inc16Bit(hl_register.pair); break;
+        case 0x33: Inc16Bit(sp_register.pair); break;
+
+        case 0x0B: Dec16Bit(bc_register.pair); break;
+        case 0x1B: Dec16Bit(de_register.pair); break;
+        case 0x2B: Dec16Bit(hl_register.pair); break;
+        case 0x3B: Dec16Bit(sp_register.pair); break;
+
          // Extended instruction set
         case 0xCB:
             ExecuteExtendedInstruction(memory.ReadByteMemory(program_counter));
@@ -578,4 +597,35 @@ void CPU::Dec8Bit(uint8_t &reg) {
     SetBit(af_register.low, SUBSTRACT_FLAG);
     timer.m_cycles += 1;
     timer.t_cycles += 4;
+}
+
+// 16 bit ALU
+
+void CPU::Add16Bit(uint16_t &reg) {
+    hl_register.pair += reg;
+
+    // Rethink flags;
+    timer.m_cycles += 1;
+    timer.t_cycles += 8;
+}
+
+void CPU::AddSP16Bit() {
+    program_counter++;
+    sp_register.pair += memory.ReadByteMemory(program_counter);
+
+    // Rethink flags;
+    timer.m_cycles += 2;
+    timer.t_cycles += 16;
+}
+
+void CPU::Inc16Bit(uint16_t &reg) {
+    reg++;
+    timer.t_cycles += 1;
+    timer.m_cycles += 8;
+}
+
+void CPU::Dec16Bit(uint16_t &reg) {
+    reg--;
+    timer.t_cycles += 1;
+    timer.m_cycles += 8;
 }
