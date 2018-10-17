@@ -61,6 +61,12 @@ CPU::CPU() {
 
 }
 
+void CPU::FetchAndDispatch() {
+    uint8_t opcode = memory.ReadByteMemory(program_counter);
+    program_counter++;
+    ExecuteInstruction(opcode);
+}
+
 void CPU::ExecuteInstruction(uint8_t opcode) {
     switch (opcode) {
         case 0x00: NOP(); break;
@@ -229,8 +235,91 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0xE1: Pop(hl_register.pair); break;
 
         // 8 bit alu
-        case 0xAF: Xor8Bit(af_register.high); break;
+        case 0x80: Add8Bit(bc_register.high, 0); break;
+        case 0x81: Add8Bit(bc_register.low, 0); break;
+        case 0x82: Add8Bit(de_register.high, 0); break;
+        case 0x83: Add8Bit(de_register.low, 0); break;
+        case 0x84: Add8Bit(hl_register.high, 0); break;
+        case 0x85: Add8Bit(hl_register.low, 0); break;
+        
+        // Add two add ops
 
+        case 0x8F: Add8Bit(af_register.high, 1); break;
+        case 0x88: Add8Bit(bc_register.high, 1); break;
+        case 0x89: Add8Bit(bc_register.low, 1); break;
+        case 0x8A: Add8Bit(de_register.high, 1); break;
+        case 0x8B: Add8Bit(de_register.low, 1); break;
+        case 0x8C: Add8Bit(hl_register.high, 1); break;
+        case 0x8D: Add8Bit(hl_register.low, 1); break;
+        
+        // Add two addc ops
+
+        case 0x90: Sub8Bit(bc_register.high, 0); break;
+        case 0x91: Sub8Bit(bc_register.low, 0); break;
+        case 0x92: Sub8Bit(de_register.high, 0); break;
+        case 0x93: Sub8Bit(de_register.low, 0); break;
+        case 0x94: Sub8Bit(hl_register.high, 0); break;
+        case 0x95: Sub8Bit(hl_register.low, 0); break;
+
+        // Add two sub ops
+
+        case 0x9F: Sub8Bit(af_register.high, 1); break;
+        case 0x98: Sub8Bit(bc_register.high, 1); break;
+        case 0x99: Sub8Bit(bc_register.low, 1); break;
+        case 0x9a: Sub8Bit(de_register.high, 1); break;
+        case 0x9b: Sub8Bit(de_register.low, 1); break;
+        case 0x9c: Sub8Bit(hl_register.high, 1); break;
+        case 0x9d: Sub8Bit(hl_register.low, 1); break;
+
+        // Add two subc ops
+
+        case 0xa7: And8Bit(af_register.high); break;
+        case 0xa0: And8Bit(bc_register.high); break;
+        case 0xa1: And8Bit(bc_register.low); break;
+        case 0xa2: And8Bit(de_register.high); break;
+        case 0xa3: And8Bit(de_register.low); break;
+        case 0xa4: And8Bit(hl_register.high); break;
+        case 0xa5: And8Bit(hl_register.low); break;
+        
+        // Add two and ops
+
+        case 0xb7: Or8Bit(af_register.high); break;
+        case 0xb0: Or8Bit(bc_register.high); break;
+        case 0xb1: Or8Bit(bc_register.low); break;
+        case 0xb2: Or8Bit(de_register.high); break;
+        case 0xb3: Or8Bit(de_register.low); break;
+        case 0xb4: Or8Bit(hl_register.high); break;
+        case 0xb5: Or8Bit(hl_register.low); break;
+
+        // Add two or ops
+
+        case 0xaf: Xor8Bit(af_register.high); break;
+        case 0xa8: Xor8Bit(bc_register.high); break;
+        case 0xa9: Xor8Bit(bc_register.low); break;
+        case 0xaa: Xor8Bit(de_register.high); break;
+        case 0xab: Xor8Bit(de_register.low); break;
+        case 0xac: Xor8Bit(hl_register.high); break;
+        case 0xad: Xor8Bit(hl_register.low); break;
+
+        // Add two xor ops
+
+        case 0x3c: Inc8Bit(af_register.high); break;
+        case 0x04: Inc8Bit(bc_register.high); break;
+        case 0x0c: Inc8Bit(bc_register.low); break;
+        case 0x14: Inc8Bit(de_register.high); break;
+        case 0x1c: Inc8Bit(de_register.low); break;
+        case 0x24: Inc8Bit(hl_register.high); break;
+        case 0x2c: Inc8Bit(hl_register.low); break;
+
+        // Add inc op
+
+        case 0x3d: Dec8Bit(af_register.high); break;
+        case 0x05: Dec8Bit(bc_register.high); break;
+        case 0x0d: Dec8Bit(bc_register.low); break;
+        case 0x15: Dec8Bit(de_register.high); break;
+        case 0x1d: Dec8Bit(de_register.low); break;
+        case 0x25: Dec8Bit(hl_register.high); break;
+        case 0x2d: Dec8Bit(hl_register.low); break;
 
          // Extended instruction set
         case 0xCB:
@@ -262,12 +351,6 @@ void CPU::ExecuteExtendedInstruction(uint8_t opcode) {
         default: printf("Unknown extended opcode: 0x%02x\n", opcode);
 
     }
-}
-
-void CPU::FetchAndDispatch() {
-    uint8_t opcode = memory.ReadByteMemory(program_counter);
-    program_counter++;
-    ExecuteInstruction(opcode);
 }
 
 int CPU::Breakpoint(uint16_t pc) {
@@ -380,16 +463,21 @@ void CPU::Push(uint16_t &reg) {
 }
 
 void CPU::Pop(uint16_t &reg) {
-    sp_register.pair += 2;
     reg = memory.ReadWordMemory(sp_register.pair);
+    sp_register.pair += 2;
     timer.m_cycles += 1;
     timer.t_cycles += 12;
 }
 
-//  8 bit alu
+//  8 bit ALU
 
-void CPU::Add8Bit(uint8_t &reg) {
-    af_register.high += reg;
+void CPU::Add8Bit(uint8_t &reg, int add_carry) {
+    if (add_carry) {
+        af_register.high += (reg + TestBit(af_register.low, CARRY_FLAG));
+    }
+    else {
+        af_register.high += reg;
+    }
 
     // Rethink flags
     if (af_register.high == 0) {
@@ -400,6 +488,49 @@ void CPU::Add8Bit(uint8_t &reg) {
     timer.t_cycles += 1;
     timer.m_cycles += 4;
 
+}
+
+void CPU::Sub8Bit(uint8_t &reg, int sub_carry) {
+    if (sub_carry) {
+        af_register.high -= (reg + TestBit(af_register.low, CARRY_FLAG));
+    }
+    else {
+        af_register.high -= reg;
+    }
+
+    // Rethink flags
+    if (af_register.high == 0) {
+        SetBit(af_register.low, ZERO_FLAG);
+    }
+    SetBit(af_register.low, SUBSTRACT_FLAG);
+    timer.m_cycles += 1;
+    timer.t_cycles += 4;
+}
+
+void CPU::And8Bit(uint8_t &reg) {
+    af_register.high &= reg;
+    if (af_register.high == 0) {
+        SetBit(af_register.low, ZERO_FLAG);
+    }
+
+    ClearBit(af_register.low, SUBSTRACT_FLAG);
+    SetBit(af_register.low, HALF_CARRY_FLAG);
+    ClearBit(af_register.low, CARRY_FLAG);
+    timer.m_cycles += 1;
+    timer.t_cycles += 4;
+}
+
+void CPU::Or8Bit(uint8_t &reg) {
+    af_register.high |= reg;
+    if (af_register.high == 0) {
+        SetBit(af_register.low, ZERO_FLAG);
+    }
+
+    ClearBit(af_register.low, SUBSTRACT_FLAG);
+    ClearBit(af_register.low, HALF_CARRY_FLAG);
+    ClearBit(af_register.low, CARRY_FLAG);
+    timer.m_cycles += 1;
+    timer.t_cycles += 4;
 }
 
 void CPU::Xor8Bit(uint8_t &reg) {
@@ -413,4 +544,38 @@ void CPU::Xor8Bit(uint8_t &reg) {
     timer.m_cycles += 1;
     timer.t_cycles += 4;
 
+}
+
+void CPU::Cmp8Bit(uint8_t &reg) {
+    uint8_t res = af_register.high - reg;
+    if (res == 0) {
+        SetBit(af_register.low, ZERO_FLAG);
+    }
+    // Rethink flags
+    timer.m_cycles += 1;
+    timer.t_cycles += 4;
+}
+
+void CPU::Inc8Bit(uint8_t &reg) {
+    reg++;
+    if (reg == 0) {
+        SetBit(af_register.low, ZERO_FLAG);
+    }
+
+    // Rethink flags
+    ClearBit(af_register.low, SUBSTRACT_FLAG);
+    timer.m_cycles += 1;
+    timer.t_cycles += 4;
+}
+
+void CPU::Dec8Bit(uint8_t &reg) {
+    reg--;
+    if (reg == 0) {
+        SetBit(af_register.low, ZERO_FLAG);
+    }
+
+    // Rethink flags
+    SetBit(af_register.low, SUBSTRACT_FLAG);
+    timer.m_cycles += 1;
+    timer.t_cycles += 4;
 }

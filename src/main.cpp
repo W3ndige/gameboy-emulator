@@ -10,8 +10,9 @@ int main(int argv, char **argc) {
     
     CPU cpu;
 
+    // TODO STEP
     for (int i = 0; i < 0x1000; i++) {
-        if (cpu.Breakpoint(0x000c)) {
+        if (cpu.Breakpoint(0x009d)) {
             cpu.Diagnostics();
             break;
         }

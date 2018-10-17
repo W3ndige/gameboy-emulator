@@ -25,9 +25,9 @@ struct Timer {
 class CPU {
     public:
         CPU();
+        void FetchAndDispatch();
         void ExecuteInstruction(uint8_t opcode);
         void ExecuteExtendedInstruction(uint8_t opcode);
-        void FetchAndDispatch();
         int Breakpoint(uint16_t pc);
         void Diagnostics();
 
@@ -39,7 +39,7 @@ class CPU {
         Memory memory;
         Timer timer;
         int halt;
-        int stop;     
+        int stop;
         
         /**< Methods used for flag register */
         void SetBit(uint8_t &reg, uint8_t flag);
@@ -64,9 +64,16 @@ class CPU {
         void Push(uint16_t &reg);
         void Pop(uint16_t &reg);
 
-        // 8 bit alu
-        void Add8Bit(uint8_t &reg);
+        // 8 bit ALU
+        void Add8Bit(uint8_t &reg, int add_carry);
+        void Sub8Bit(uint8_t &reg, int sub_carry);
+        void And8Bit(uint8_t &reg);
+        void Or8Bit(uint8_t &reg);
         void Xor8Bit(uint8_t &reg);
+        void Cmp8Bit(uint8_t &reg);
+        void Inc8Bit(uint8_t &reg);
+        void Dec8Bit(uint8_t &reg);
+
 };  
 
 

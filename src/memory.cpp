@@ -44,7 +44,7 @@ uint16_t Memory::ReadWordMemory(uint16_t address) {
     uint16_t word = ReadByteMemory(address + 1);
 	word = word << 8;
 	word |= ReadByteMemory(address) ;
-	return word ;
+	return word;
 }
 
 int Memory::DumpMemory() {
