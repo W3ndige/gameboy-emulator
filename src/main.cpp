@@ -2,6 +2,8 @@
 
 // For now we don't need SDL2 code, let's implement the logic first. 
 
+int debug = 1;
+
 int main(int argv, char **argc) {
     if (argv < 2) {
         puts("Usage:\t./gb_emulator <rom_file>");
@@ -11,12 +13,12 @@ int main(int argv, char **argc) {
     CPU cpu;
 
     // TODO STEP
-    for (int i = 0; i < 0x1000; i++) {
-        if (cpu.Breakpoint(0x0045)) {
+    for (;;) {
+        if (debug) {
             cpu.Diagnostics();
-            break;
+            getchar();
         }
-        cpu.FetchAndDispatch();
+        cpu.FetchAndDispatch(debug);
     }
 
 

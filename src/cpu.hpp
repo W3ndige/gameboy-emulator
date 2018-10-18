@@ -25,7 +25,7 @@ struct Timer {
 class CPU {
     public:
         CPU();
-        void FetchAndDispatch();
+        void FetchAndDispatch(int debug);
         void ExecuteInstruction(uint8_t opcode);
         void ExecuteExtendedInstruction(uint8_t opcode);
         int Breakpoint(uint16_t pc);
@@ -82,6 +82,7 @@ class CPU {
 
         // Extended instruction set
         void Swap(uint8_t &reg);
+        void RL(uint8_t &reg);
 
         // Misc instructions
         void DAA();
@@ -89,6 +90,11 @@ class CPU {
         // Jumps
         void JUMP(uint8_t flag, int condition, int use_condition);
         void JUMP_IMM(uint8_t flag, int condition, int use_condition);
+
+        // Calls
+        void CALL(uint8_t flag, int condition, int use_condition);
+
+        void RET(uint8_t flag, int condition, int use_condition);
 
 };  
 

@@ -1,6 +1,7 @@
 # Prerequisites
 *.d
 *.bin
+*.gb
 
 # Compiled Object files
 *.slo
