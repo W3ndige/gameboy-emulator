@@ -2,7 +2,7 @@
 
 // For now we don't need SDL2 code, let's implement the logic first. 
 
-int debug = 1;
+int debug = 0;
 
 int main(int argv, char **argc) {
     if (argv < 2) {
@@ -12,15 +12,18 @@ int main(int argv, char **argc) {
     
     CPU cpu;
 
-    // TODO STEP
     for (;;) {
+        if (cpu.Breakpoint(0x0064)) {
+            cpu.Diagnostics();
+            debug = 1;
+            getchar();
+        }
         if (debug) {
             cpu.Diagnostics();
             getchar();
         }
         cpu.FetchAndDispatch(debug);
     }
-
 
     return 0;
 }

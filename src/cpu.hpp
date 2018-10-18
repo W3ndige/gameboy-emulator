@@ -41,10 +41,11 @@ class CPU {
         int halt;
         int stop;
         
-        /**< Methods used for flag register */
+        /**< Methods used for setting bits in register */
         void SetBit(uint8_t &reg, uint8_t flag);
-        int TestBit(uint8_t &reg, uint8_t flag);
+        int TestBit(uint8_t data, uint8_t flag);
         void ClearBit(uint8_t &reg, uint8_t flag);
+        void PrintFlags();
 
         // Miscellaneous opcodes
         void NOP();

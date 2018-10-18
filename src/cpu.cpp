@@ -541,7 +541,6 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
 }
 
 void CPU::ExecuteExtendedInstruction(uint8_t opcode) {
-    printf("Extended opcode: 0x%02x at PC: 0x%04x\n", opcode, program_counter);
     switch (opcode) {
         // Swap opcodes
         case 37: Swap(af_register.high); break;
@@ -561,7 +560,7 @@ void CPU::ExecuteExtendedInstruction(uint8_t opcode) {
                 ClearBit(af_register.low, ZERO_FLAG);
             }
 	        else {
-                ClearBit(af_register.low, ZERO_FLAG);
+                SetBit(af_register.low, ZERO_FLAG);
             }
             ClearBit(af_register.low, SUBSTRACT_FLAG);
             SetBit(af_register.low, HALF_CARRY_FLAG);
@@ -610,9 +609,10 @@ void CPU::Diagnostics() {
     printf("E\t0x%02x\n", de_register.low);
     printf("H\t0x%02x\n", hl_register.high);
     printf("L\t0x%02x\n", hl_register.low);
-    printf("FLAG\t0x%02x\n", af_register.low);
-    printf("TIMER M\t0x%02x\n", timer.m_cycles);
-    printf("TIMER T\t0x%02x\n", timer.t_cycles);
+    PrintFlags();
+    //printf("FLAG\t0x%02x\n", af_register.low);
+    //printf("TIMER M\t0x%02x\n", timer.m_cycles);
+    //printf("TIMER T\t0x%02x\n", timer.t_cycles);
     memory.DumpMemory();
 }
 
@@ -620,13 +620,23 @@ void CPU::SetBit(uint8_t &reg, uint8_t flag) {
     reg |= 1 << flag;
 }
 
-int CPU::TestBit(uint8_t &reg, uint8_t flag) {
-    int bit = (reg >> flag) & 1;
-    return bit;
+
+int CPU::TestBit(uint8_t data, uint8_t flag) {
+	uint8_t mask = 1 << flag;
+	return (data & mask) ? 1 : 0;
 }
+
 
 void CPU::ClearBit(uint8_t &reg, uint8_t flag) {
     reg &= ~(1 << flag);
+}
+
+void CPU::PrintFlags() {
+    printf("ZERO FLAG: %d\n", TestBit(af_register.low, 7));
+    printf("SUBSTRACT FLAG: %d\n", TestBit(af_register.low, 6));
+    printf("HALF CARRY FLAG: %d\n", TestBit(af_register.low, 5));
+    printf("CARRY FLAG: %d\n", TestBit(af_register.low, 4));
+
 }
 
 void CPU::NOP() {
@@ -788,10 +798,25 @@ void CPU::Xor8Bit(uint8_t &reg) {
 
 void CPU::Cmp8Bit(uint8_t &reg) {
     uint8_t res = af_register.high - reg;
+    af_register.low = 0;
+
     if (res == 0) {
         SetBit(af_register.low, ZERO_FLAG);
     }
-    // Rethink flags
+
+	SetBit(af_register.low, SUBSTRACT_FLAG);
+
+	if (af_register.high < reg) {
+        SetBit(af_register.low, CARRY_FLAG);
+    }
+
+	int8_t tmp = af_register.high & 0xF;
+	tmp -= (reg & 0xF);
+
+	if (tmp < 0) {
+        SetBit(af_register.low, HALF_CARRY_FLAG);
+    }
+
     timer.m_cycles += 1;
     timer.t_cycles += 4;
 }
@@ -809,12 +834,22 @@ void CPU::Inc8Bit(uint8_t &reg) {
 }
 
 void CPU::Dec8Bit(uint8_t &reg) {
+    uint8_t before = reg;
     reg--;
     if (reg == 0) {
         SetBit(af_register.low, ZERO_FLAG);
     }
+    else {
+        ClearBit(af_register.low, ZERO_FLAG);
+    }
+    if ((before & 0x0F) == 0) {
+        SetBit(af_register.low, HALF_CARRY_FLAG);
+    }
+	else {
+        ClearBit(af_register.low, HALF_CARRY_FLAG);
+    }
 
-    // Rethink flags
+
     SetBit(af_register.low, SUBSTRACT_FLAG);
     timer.m_cycles += 1;
     timer.t_cycles += 4;
@@ -912,9 +947,9 @@ void CPU::JUMP_IMM(uint8_t flag, int condition, int use_condition) {
         program_counter += n;
     }
     else if (TestBit(af_register.low, flag) == condition) {
+        puts("Elo");
         program_counter += n;
     }
-    printf("Jumping to %d\n", program_counter);
     program_counter++;
     timer.t_cycles += 2;
     timer.m_cycles += 8;
