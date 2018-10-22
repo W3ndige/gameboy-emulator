@@ -16,6 +16,9 @@ void Memory::WriteByteMemory(uint16_t address, uint8_t data) {
         memory[address] = data;
         WriteByteMemory(address - 0x2000, data);
     }
+    //else if (address == 0xFF44) {
+    //    memory[address] = 0 ;
+    //} 
     // Write to memory
     else {
         memory[address] = data;

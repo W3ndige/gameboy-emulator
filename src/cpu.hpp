@@ -3,6 +3,7 @@
 
 #include <exception>
 #include "memory.hpp"
+#include "helper.hpp"
 
 const int ZERO_FLAG = 7;  // Z
 const int SUBSTRACT_FLAG = 6; // N
@@ -24,10 +25,11 @@ struct Timer {
 
 class CPU {
     public:
-        CPU();
+        CPU(Memory *mem);
         void FetchAndDispatch(int debug);
         void ExecuteInstruction(uint8_t opcode);
         void ExecuteExtendedInstruction(uint8_t opcode);
+        unsigned int GetLastOpcodeTime();
         int Breakpoint(uint16_t pc);
         void Diagnostics();
 
@@ -36,15 +38,11 @@ class CPU {
         Register sp_register; /**< Stack pointer register, no need for low/high access */
         uint16_t program_counter; /**< Program counter register */
         
-        Memory memory;
+        Memory *memory;
         Timer timer;
         int halt;
         int stop;
-        
-        /**< Methods used for setting bits in register */
-        void SetBit(uint8_t &reg, uint8_t flag);
-        int TestBit(uint8_t data, uint8_t flag);
-        void ClearBit(uint8_t &reg, uint8_t flag);
+
         void PrintFlags();
 
         // Miscellaneous opcodes

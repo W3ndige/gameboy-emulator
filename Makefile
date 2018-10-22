@@ -1,4 +1,4 @@
-OBJS = src/main.cpp src/memory.cpp src/cpu.cpp
+OBJS = src/main.cpp src/helper.cpp src/memory.cpp src/gpu.cpp src/cpu.cpp
 CC = g++
 COMPILER_FLAGS = -Wall -Wextra -O3
 #LINKER_FLAGS = -lSDL2

@@ -1,6 +1,8 @@
 #include "cpu.hpp"
 
-CPU::CPU() {
+CPU::CPU(Memory *mem) {
+    memory = mem;
+
     /**< Initialize registers */
     program_counter = 0x00;//0x100;
 
@@ -23,7 +25,7 @@ CPU::CPU() {
     //}
     uint8_t bootstrap_data[0x100]; // 256 bytes of bootstrap file
     fread(bootstrap_data, sizeof(uint8_t), 0x100, bootstrap_file);
-    memory.WriteChunkMemory(0, 0x100, bootstrap_data);
+    memory->WriteChunkMemory(0, 0x100, bootstrap_data);
     fclose(bootstrap_file);
 
     FILE *game_file = fopen("roms/tetris.gb", "rb");
@@ -32,51 +34,51 @@ CPU::CPU() {
     //}
     uint8_t game_data[0x8000]; // 256 bytes of bootstrap file
     fread(game_data, sizeof(uint8_t), 0x8000, game_file);
-    memory.WriteChunkMemory(0x100, 0x8000, game_data);
+    memory->WriteChunkMemory(0x100, 0x8000, game_data);
     fclose(game_file);
 
     /**< Place power up sequence values in memory */
-    memory.WriteByteMemory(0xFF05, 0x00);
-    memory.WriteByteMemory(0xFF06, 0x00);
-    memory.WriteByteMemory(0xFF07, 0x00);
-    memory.WriteByteMemory(0xFF10, 0x80);
-    memory.WriteByteMemory(0xFF11, 0xBF);
-    memory.WriteByteMemory(0xFF12, 0xF3);
-    memory.WriteByteMemory(0xFF14, 0xBF);
-    memory.WriteByteMemory(0xFF16, 0x3F);
-    memory.WriteByteMemory(0xFF17, 0x00);
-    memory.WriteByteMemory(0xFF19, 0xBF);
-    memory.WriteByteMemory(0xFF1A, 0x7F);
-    memory.WriteByteMemory(0xFF1B, 0xFF);
-    memory.WriteByteMemory(0xFF1C, 0x9F);
-    memory.WriteByteMemory(0xFF1E, 0xBF);
-    memory.WriteByteMemory(0xFF20, 0xFF);
-    memory.WriteByteMemory(0xFF21, 0x00);
-    memory.WriteByteMemory(0xFF22, 0x00);
-    memory.WriteByteMemory(0xFF23, 0xBF);
-    memory.WriteByteMemory(0xFF24, 0x77);
-    memory.WriteByteMemory(0xFF25, 0xF3);
-    memory.WriteByteMemory(0xFF26, 0xF1);
-    memory.WriteByteMemory(0xFF40, 0x91);
-    memory.WriteByteMemory(0xFF42, 0x00);
-    memory.WriteByteMemory(0xFF43, 0x00);
-    memory.WriteByteMemory(0xFF45, 0x00);
-    memory.WriteByteMemory(0xFF47, 0xFC);
-    memory.WriteByteMemory(0xFF48, 0xFF);
-    memory.WriteByteMemory(0xFF49, 0xFF);
-    memory.WriteByteMemory(0xFF4A, 0x00);
-    memory.WriteByteMemory(0xFF4B, 0x00);
-    memory.WriteByteMemory(0xFFFF, 0x00);
+    memory->WriteByteMemory(0xFF05, 0x00);
+    memory->WriteByteMemory(0xFF06, 0x00);
+    memory->WriteByteMemory(0xFF07, 0x00);
+    memory->WriteByteMemory(0xFF10, 0x80);
+    memory->WriteByteMemory(0xFF11, 0xBF);
+    memory->WriteByteMemory(0xFF12, 0xF3);
+    memory->WriteByteMemory(0xFF14, 0xBF);
+    memory->WriteByteMemory(0xFF16, 0x3F);
+    memory->WriteByteMemory(0xFF17, 0x00);
+    memory->WriteByteMemory(0xFF19, 0xBF);
+    memory->WriteByteMemory(0xFF1A, 0x7F);
+    memory->WriteByteMemory(0xFF1B, 0xFF);
+    memory->WriteByteMemory(0xFF1C, 0x9F);
+    memory->WriteByteMemory(0xFF1E, 0xBF);
+    memory->WriteByteMemory(0xFF20, 0xFF);
+    memory->WriteByteMemory(0xFF21, 0x00);
+    memory->WriteByteMemory(0xFF22, 0x00);
+    memory->WriteByteMemory(0xFF23, 0xBF);
+    memory->WriteByteMemory(0xFF24, 0x77);
+    memory->WriteByteMemory(0xFF25, 0xF3);
+    memory->WriteByteMemory(0xFF26, 0xF1);
+    memory->WriteByteMemory(0xFF40, 0x91);
+    memory->WriteByteMemory(0xFF42, 0x00);
+    memory->WriteByteMemory(0xFF43, 0x00);
+    memory->WriteByteMemory(0xFF45, 0x00);
+    memory->WriteByteMemory(0xFF47, 0xFC);
+    memory->WriteByteMemory(0xFF48, 0xFF);
+    memory->WriteByteMemory(0xFF49, 0xFF);
+    memory->WriteByteMemory(0xFF4A, 0x00);
+    memory->WriteByteMemory(0xFF4B, 0x00);
+    memory->WriteByteMemory(0xFFFF, 0x00);
 
-    memory.WriteByteMemory(0x8AAA, 0xFF);
-    memory.WriteByteMemory(0x8AAB, 0xFF);
-    memory.WriteByteMemory(0x8AAC, 0xFF);
-    memory.WriteByteMemory(0x8AAD, 0xFF);
+    memory->WriteByteMemory(0x8AAA, 0xFF);
+    memory->WriteByteMemory(0x8AAB, 0xFF);
+    memory->WriteByteMemory(0x8AAC, 0xFF);
+    memory->WriteByteMemory(0x8AAD, 0xFF);
 
 }
 
 void CPU::FetchAndDispatch(int debug) {
-    uint8_t opcode = memory.ReadByteMemory(program_counter);
+    uint8_t opcode = memory->ReadByteMemory(program_counter);
     if (debug) {
         printf("OPCODE: 0x%02x\n", opcode);
     }
@@ -169,7 +171,7 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
 
         // WRONG?
         case 0x36: LD8_mem_r1(hl_register.pair, 
-                    memory.ReadByteMemory(program_counter)); program_counter++; 
+                    memory->ReadByteMemory(program_counter)); program_counter++; 
                     timer.t_cycles += 4; break;
 
         case 0x0a: LD8_r1_mem(af_register.high, bc_register.pair); break;
@@ -177,7 +179,7 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
 
         // TODO RETHINK
         case 0xfa: LD8_r1_mem(af_register.high, 
-                    memory.ReadWordMemory(program_counter)); program_counter++; 
+                    memory->ReadWordMemory(program_counter)); program_counter++; 
                     timer.t_cycles += 8; break;
 
         case 0x3e: LD8_r_nn(af_register.high); break;
@@ -188,9 +190,9 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         
         case 0xea:
         {
-            uint16_t nn = memory.ReadWordMemory(program_counter);
+            uint16_t nn = memory->ReadWordMemory(program_counter);
             program_counter += 2;
-            memory.WriteByteMemory(nn, af_register.high);
+            memory->WriteByteMemory(nn, af_register.high);
             timer.m_cycles += 3;
             timer.t_cycles += 16;
         }
@@ -204,11 +206,11 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0x2a: LD8_r1_mem(af_register.high, hl_register.pair); hl_register.pair++; break;
         case 0X22: LD8_mem_r1(hl_register.pair, af_register.high); hl_register.pair++; break;
 
-        case 0xe0: LD8_mem_r1(0xFF00 + memory.ReadByteMemory(program_counter), 
+        case 0xe0: LD8_mem_r1(0xFF00 + memory->ReadByteMemory(program_counter), 
                     af_register.high); program_counter++; timer.t_cycles += 8; break;
 
         case 0xf0: LD8_r1_mem(af_register.high, 
-                    0xFF00 + memory.ReadByteMemory(program_counter)); program_counter++; 
+                    0xFF00 + memory->ReadByteMemory(program_counter)); program_counter++; 
                     timer.t_cycles += 8; break;
 
        /**< Load 16 bit immediate value */
@@ -220,7 +222,7 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
 
         /*case 0xF8:
             {
-                int8_t n = memory.ReadByteMemory(program_counter);
+                int8_t n = memory->ReadByteMemory(program_counter);
                 program_counter++;
                 ClearFlag(ZERO_FLAG);
                 ClearFlag(SUBSTRACT_FLAG);
@@ -246,8 +248,8 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
        
         case 0x08:
         {
-            uint16_t nn = memory.ReadWordMemory(program_counter);
-            memory.WriteWordMemory(nn, sp_register.pair);
+            uint16_t nn = memory->ReadWordMemory(program_counter);
+            memory->WriteWordMemory(nn, sp_register.pair);
             program_counter += 2;
             timer.t_cycles += 3;
             timer.m_cycles += 20;
@@ -273,14 +275,14 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0x85: Add8Bit(hl_register.low, 0); break;
         case 0x86:
         {
-            uint8_t n = memory.ReadByteMemory(hl_register.pair);
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
             Add8Bit(n, 0); 
             timer.t_cycles += 4;
             break;
         }
         case 0xc6:
         {
-            uint8_t n = memory.ReadByteMemory(program_counter);
+            uint8_t n = memory->ReadByteMemory(program_counter);
             program_counter++;
             Add8Bit(n, 0);
             timer.t_cycles += 4;
@@ -296,14 +298,14 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0x8d: Add8Bit(hl_register.low, 1); break;
         case 0x8e:
         {
-            uint8_t n = memory.ReadByteMemory(hl_register.pair);
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
             Add8Bit(n, 1); 
             timer.t_cycles += 4;
             break;
         }
         case 0xce:
         {
-            uint8_t n = memory.ReadByteMemory(program_counter);
+            uint8_t n = memory->ReadByteMemory(program_counter);
             program_counter++;
             Add8Bit(n, 1);
             timer.t_cycles += 4;
@@ -318,14 +320,14 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0x95: Sub8Bit(hl_register.low, 0); break;
         case 0x96:
         {
-            uint8_t n = memory.ReadByteMemory(hl_register.pair);
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
             Sub8Bit(n, 0); 
             timer.t_cycles += 4;
             break;
         }
         case 0xd6:
         {
-            uint8_t n = memory.ReadByteMemory(program_counter);
+            uint8_t n = memory->ReadByteMemory(program_counter);
             program_counter++;
             Sub8Bit(n, 0);
             timer.t_cycles += 4;
@@ -341,7 +343,7 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0x9d: Sub8Bit(hl_register.low, 1); break;
         case 0x9e:
         {
-            uint8_t n = memory.ReadByteMemory(hl_register.pair);
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
             Sub8Bit(n, 1); 
             timer.t_cycles += 4;
             break;
@@ -349,7 +351,7 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         /* NO OPCODE?
         case 0xe6:
         {
-            uint8_t n = memory.ReadByteMemory(program_counter);
+            uint8_t n = memory->ReadByteMemory(program_counter);
             program_counter++;
             And8Bit(n);
             timer.t_cycles += 4;
@@ -365,14 +367,14 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0xa5: And8Bit(hl_register.low); break;
         case 0xa6:
         {
-            uint8_t n = memory.ReadByteMemory(hl_register.pair);
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
             And8Bit(n); 
             timer.t_cycles += 4;
             break;
         }
         case 0xe6:
         {
-            uint8_t n = memory.ReadByteMemory(program_counter);
+            uint8_t n = memory->ReadByteMemory(program_counter);
             program_counter++;
             And8Bit(n);
             timer.t_cycles += 4;
@@ -388,14 +390,14 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0xb5: Or8Bit(hl_register.low); break;
         case 0xb6:
         {
-            uint8_t n = memory.ReadByteMemory(hl_register.pair);
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
             Or8Bit(n); 
             timer.t_cycles += 4;
             break;
         }
         case 0xf6:
         {
-            uint8_t n = memory.ReadByteMemory(program_counter);
+            uint8_t n = memory->ReadByteMemory(program_counter);
             program_counter++;
             Or8Bit(n);
             timer.t_cycles += 4;
@@ -411,14 +413,14 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0xad: Xor8Bit(hl_register.low); break;
         case 0xae:
         {
-            uint8_t n = memory.ReadByteMemory(hl_register.pair);
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
             Xor8Bit(n); 
             timer.t_cycles += 4;
             break;
         }
         case 0xee:
         {
-            uint8_t n = memory.ReadByteMemory(program_counter);
+            uint8_t n = memory->ReadByteMemory(program_counter);
             program_counter++;
             Xor8Bit(n);
             timer.t_cycles += 4;
@@ -434,14 +436,14 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0xbd: Cmp8Bit(hl_register.low); break;
         case 0xbe:
         {
-            uint8_t n = memory.ReadByteMemory(hl_register.pair);
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
             Cmp8Bit(n); 
             timer.t_cycles += 4;
             break;
         }
         case 0xfe:
         {
-            uint8_t n = memory.ReadByteMemory(program_counter);
+            uint8_t n = memory->ReadByteMemory(program_counter);
             program_counter++;
             Cmp8Bit(n);
             timer.t_cycles += 4;
@@ -457,7 +459,7 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0x2c: Inc8Bit(hl_register.low); break;
         case 0x34:
         {
-            uint8_t n = memory.ReadByteMemory(hl_register.pair);
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
             Inc8Bit(n); 
             timer.t_cycles += 8;
             break;
@@ -472,7 +474,7 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0x2d: Dec8Bit(hl_register.low); break;
         case 0x35:
         {
-            uint8_t n = memory.ReadByteMemory(hl_register.pair);
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
             Dec8Bit(n); 
             timer.t_cycles += 8;
             break;
@@ -532,7 +534,7 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
 
          // Extended instruction set
         case 0xcb:
-            ExecuteExtendedInstruction(memory.ReadByteMemory(program_counter));
+            ExecuteExtendedInstruction(memory->ReadByteMemory(program_counter));
             program_counter++;
             break;
         
@@ -579,7 +581,7 @@ void CPU::ExecuteExtendedInstruction(uint8_t opcode) {
         case 0x15: RL(hl_register.low); break;
         case 0x16: 
         {
-            uint8_t n = memory.ReadByteMemory(hl_register.pair);
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
             RL(n);
             timer.m_cycles += 1;
             timer.t_cycles += 8;
@@ -590,6 +592,10 @@ void CPU::ExecuteExtendedInstruction(uint8_t opcode) {
                         opcode, program_counter);
 
     }
+}
+
+unsigned int CPU::GetLastOpcodeTime() {
+    return timer.t_cycles;
 }
 
 int CPU::Breakpoint(uint16_t pc) {
@@ -613,22 +619,7 @@ void CPU::Diagnostics() {
     //printf("FLAG\t0x%02x\n", af_register.low);
     //printf("TIMER M\t0x%02x\n", timer.m_cycles);
     //printf("TIMER T\t0x%02x\n", timer.t_cycles);
-    memory.DumpMemory();
-}
-
-void CPU::SetBit(uint8_t &reg, uint8_t flag) {
-    reg |= 1 << flag;
-}
-
-
-int CPU::TestBit(uint8_t data, uint8_t flag) {
-	uint8_t mask = 1 << flag;
-	return (data & mask) ? 1 : 0;
-}
-
-
-void CPU::ClearBit(uint8_t &reg, uint8_t flag) {
-    reg &= ~(1 << flag);
+    memory->DumpMemory();
 }
 
 void CPU::PrintFlags() {
@@ -669,7 +660,7 @@ void CPU::EI() {
 /**< 8 Bit Loads */
 
 void CPU::LD8_r_nn(uint8_t &reg) {
-    uint8_t nn = memory.ReadByteMemory(program_counter);
+    uint8_t nn = memory->ReadByteMemory(program_counter);
     reg = nn;
     program_counter++;
     timer.m_cycles += 2;
@@ -683,13 +674,13 @@ void CPU::LD8_r1_r2(uint8_t &reg1, uint8_t &reg2) {
 }
 
 void CPU::LD8_r1_mem(uint8_t &reg1, uint16_t address) {
-    reg1 = memory.ReadByteMemory(address);
+    reg1 = memory->ReadByteMemory(address);
     timer.m_cycles += 1;
     timer.t_cycles += 8;
 }
 
 void CPU::LD8_mem_r1(uint16_t address, uint8_t reg1) {
-    memory.WriteByteMemory(address, reg1);
+    memory->WriteByteMemory(address, reg1);
     timer.m_cycles += 1;
     timer.t_cycles += 8;
 }
@@ -697,7 +688,7 @@ void CPU::LD8_mem_r1(uint16_t address, uint8_t reg1) {
 /**< 16 Bit Loads */
 
 void CPU::LD16_r_nn(uint16_t &reg) {
-    uint16_t nn = memory.ReadWordMemory(program_counter);
+    uint16_t nn = memory->ReadWordMemory(program_counter);
     program_counter += 2;
     reg = nn;
     timer.m_cycles += 2;
@@ -707,13 +698,13 @@ void CPU::LD16_r_nn(uint16_t &reg) {
 
 void CPU::Push(uint16_t &reg) {
     sp_register.pair -= 2;
-    memory.WriteWordMemory(sp_register.pair, reg);
+    memory->WriteWordMemory(sp_register.pair, reg);
     timer.m_cycles += 1;
     timer.t_cycles += 16;
 }
 
 void CPU::Pop(uint16_t &reg) {
-    reg = memory.ReadWordMemory(sp_register.pair);
+    reg = memory->ReadWordMemory(sp_register.pair);
     sp_register.pair += 2;
     timer.m_cycles += 1;
     timer.t_cycles += 12;
@@ -866,7 +857,7 @@ void CPU::Add16Bit(uint16_t &reg) {
 }
 
 void CPU::AddSP16Bit() {
-    sp_register.pair += memory.ReadByteMemory(program_counter);
+    sp_register.pair += memory->ReadByteMemory(program_counter);
     program_counter++;
 
     // Rethink flags;
@@ -928,7 +919,7 @@ void CPU::DAA() {
 // Jumps
 
 void CPU::JUMP(uint8_t flag, int condition, int use_condition) {
-    int16_t nn = (int16_t)memory.ReadWordMemory(program_counter);
+    int16_t nn = (int16_t)memory->ReadWordMemory(program_counter);
     if (!use_condition) {
         program_counter = nn;
     }
@@ -942,12 +933,11 @@ void CPU::JUMP(uint8_t flag, int condition, int use_condition) {
 }
 
 void CPU::JUMP_IMM(uint8_t flag, int condition, int use_condition) {
-    int8_t n = (int8_t)memory.ReadByteMemory(program_counter);
+    int8_t n = (int8_t)memory->ReadByteMemory(program_counter);
     if (!use_condition) {
         program_counter += n;
     }
     else if (TestBit(af_register.low, flag) == condition) {
-        puts("Elo");
         program_counter += n;
     }
     program_counter++;
@@ -959,7 +949,7 @@ void CPU::JUMP_IMM(uint8_t flag, int condition, int use_condition) {
 // Calls
 
 void CPU::CALL(uint8_t flag, int condition, int use_condition) {
-    uint16_t nn = memory.ReadWordMemory(program_counter);
+    uint16_t nn = memory->ReadWordMemory(program_counter);
     program_counter += 2;
     if (!use_condition) {
         Push(program_counter);
