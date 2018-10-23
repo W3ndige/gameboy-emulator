@@ -2,7 +2,18 @@
 
 Memory::Memory(): memory() {}
 
+void Memory::LoadBootstrap() {
+    FILE *bootstrap_file = fopen("roms/DMG_ROM.bin", "rb");
+    if (bootstrap_file == NULL) {
+        booting  = false;
+    }
+    fread(bootstrap, sizeof(uint8_t), 0x100, bootstrap_file);
+    fclose(bootstrap_file);
+    booting = true;
+}
+
 void Memory::WriteByteMemory(uint16_t address, uint8_t data) {
+
     //  Read Only Memory
     if (address < 0x8000) {
         return;
@@ -16,7 +27,8 @@ void Memory::WriteByteMemory(uint16_t address, uint8_t data) {
         memory[address] = data;
         WriteByteMemory(address - 0x2000, data);
     }
-    //else if (address == 0xFF44) {
+    // Have to rethink that.
+    //else if (address == 0xFF44) { 
     //    memory[address] = 0 ;
     //} 
     // Write to memory
@@ -40,6 +52,11 @@ int Memory::WriteChunkMemory(uint16_t offset, uint16_t size, uint8_t *data) {
 }
 
 uint8_t Memory::ReadByteMemory(uint16_t address) {
+    if (booting == true && address <= 0x00FF) {
+        //puts("Czytam bajt z bootstrapa");
+        return bootstrap[address];
+    }
+
     return memory[address];
 }
 
@@ -58,4 +75,8 @@ int Memory::DumpMemory() {
 	fwrite(memory, sizeof(uint8_t), 0x10000, dump);
     fclose(dump);
     return 0;
+}
+
+void Memory::ClearBooting() {
+    booting = false;
 }

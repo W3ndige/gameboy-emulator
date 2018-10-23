@@ -16,7 +16,7 @@ int main(int argv, char **argc) {
     CPU cpu(&memory);
 
     for (;;) {
-        /*if (cpu.Breakpoint(0x0099)) {
+        /*if (cpu.Breakpoint(0x27)) {
             cpu.Diagnostics();
             debug = 1;
             getchar();

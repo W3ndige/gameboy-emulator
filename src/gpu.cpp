@@ -10,12 +10,10 @@ GPU::GPU(Memory *mem) {
 void GPU::UpdateGraphics(int cycles) {
     SetLCDStatus();
 
-    if (IsLCDEnabled()) {
-        scanline_counter -= cycles;
-    }
-    else {
+    if (!IsLCDEnabled()) {
         return;
     }
+    scanline_counter -= cycles;
 
     if (scanline_counter <= 0) {
         uint8_t memory_val = memory->ReadByteMemory(0xFF44);
@@ -88,7 +86,9 @@ void GPU::SetLCDStatus() {
         }
     }
 
-     // TODO Finish function.
+    // TODO Finish function.
+    memory->WriteByteMemory(0xFF41,status) ;
+
 }
 
 void GPU::DrawScanLine() {
@@ -128,7 +128,7 @@ void GPU::RenderTiles() {
     bool use_unsigned_values = true;
 
     if (TestBit(control, 5)) {
-        if (memory->ReadByteMemory(0xFF44) >= window_y) {
+        if (window_y <= current_line) {
             window_enabled = true;
         }
     }
@@ -181,27 +181,26 @@ void GPU::RenderTiles() {
         int16_t tile_num;
 
         uint16_t tile_address = background_memory + tile_row + tile_col;
-        uint16_t tile_location = tile_data;
+        uint16_t tile_location;
 
         if (use_unsigned_values) {
             tile_num = (uint8_t)memory->ReadByteMemory(tile_address);
-            tile_location += (tile_num * 16);
+            tile_location = tile_data + (tile_num * 16);
         }
         else {
             tile_num = (int8_t)memory->ReadByteMemory(tile_address);
-            tile_location += ((tile_num + 128) * 16);
+            tile_location = tile_data + ((tile_num + 128) * 16);
         }
 
         uint8_t line = y_pos % 8;
-        line *= 2;
-        uint8_t byte_1 = memory->ReadByteMemory(tile_location + line);
-        uint8_t byte_2 = memory->ReadByteMemory(tile_location + line + 1);
+        uint8_t byte_1 = memory->ReadByteMemory(tile_location + line * 2);
+        uint8_t byte_2 = memory->ReadByteMemory(tile_location + line * 2 + 1);
 
         uint8_t req_bit = 7 - (x_pos % 8);
         uint8_t bit_1 = (byte_1 >> req_bit) & 1;
         uint8_t bit_2 = (byte_2 >> req_bit) & 1;
 
-        pixels[pixel][current_line] = (bit_1 << 1) | bit_2;
+        pixels[pixel][memory->ReadByteMemory(0xFF44)] = (bit_1 << 1) | bit_2;
     }
 }
 

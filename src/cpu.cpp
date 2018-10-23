@@ -19,14 +19,7 @@ CPU::CPU(Memory *mem) {
     stop = 0;
 
     /**< Read the bootstrap ROM into memory */
-    FILE *bootstrap_file = fopen("bin/DMG_ROM.bin", "rb");
-    //if (bootstrap_file == NULL) {
-    //    throw 
-    //}
-    uint8_t bootstrap_data[0x100]; // 256 bytes of bootstrap file
-    fread(bootstrap_data, sizeof(uint8_t), 0x100, bootstrap_file);
-    memory->WriteChunkMemory(0, 0x100, bootstrap_data);
-    fclose(bootstrap_file);
+    memory->LoadBootstrap();
 
     FILE *game_file = fopen("roms/tetris.gb", "rb");
     //if (bootstrap_file == NULL) {
@@ -34,9 +27,9 @@ CPU::CPU(Memory *mem) {
     //}
     uint8_t game_data[0x8000]; // 256 bytes of bootstrap file
     fread(game_data, sizeof(uint8_t), 0x8000, game_file);
-    memory->WriteChunkMemory(0x100, 0x8000, game_data);
+    memory->WriteChunkMemory(0, 0x8000, game_data);
     fclose(game_file);
-
+    
     /**< Place power up sequence values in memory */
     memory->WriteByteMemory(0xFF05, 0x00);
     memory->WriteByteMemory(0xFF06, 0x00);
@@ -78,6 +71,9 @@ CPU::CPU(Memory *mem) {
 }
 
 void CPU::FetchAndDispatch(int debug) {
+    if (program_counter == 0x100) {
+        memory->ClearBooting();
+    }
     uint8_t opcode = memory->ReadByteMemory(program_counter);
     if (debug) {
         printf("OPCODE: 0x%02x\n", opcode);
