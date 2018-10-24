@@ -3,6 +3,7 @@
 
 #include "memory.hpp"
 #include "helper.hpp"
+#include "gui.hpp"
 
 class GPU {
     public:
@@ -16,6 +17,7 @@ class GPU {
         uint8_t current_mode;
         uint8_t current_line;
         Memory *memory;
+        GUI gui;
 
         uint8_t IsLCDEnabled();
         void SetLCDStatus(); /**< Set the status according to memory address 0xFF41 */

@@ -1,6 +1,8 @@
 #include "memory.hpp"
 
-Memory::Memory(): memory() {}
+Memory::Memory(): bootstrap(), memory() {
+    booting = true;
+}
 
 void Memory::LoadBootstrap() {
     FILE *bootstrap_file = fopen("roms/DMG_ROM.bin", "rb");
@@ -9,7 +11,15 @@ void Memory::LoadBootstrap() {
     }
     fread(bootstrap, sizeof(uint8_t), 0x100, bootstrap_file);
     fclose(bootstrap_file);
-    booting = true;
+}
+
+void Memory::LoadCartridge() {
+    FILE *game_file = fopen("roms/tetris.gb", "rb");
+    //if (bootstrap_file == NULL) {
+    //    throw 
+    //}
+    fread(memory, sizeof(uint8_t), 0x8000, game_file);
+    fclose(game_file);
 }
 
 void Memory::WriteByteMemory(uint16_t address, uint8_t data) {
@@ -28,9 +38,9 @@ void Memory::WriteByteMemory(uint16_t address, uint8_t data) {
         WriteByteMemory(address - 0x2000, data);
     }
     // Have to rethink that.
-    //else if (address == 0xFF44) { 
-    //    memory[address] = 0 ;
-    //} 
+    // else if (address == 0xFF44) { 
+    //     memory[address] = 0 ;
+    // } 
     // Write to memory
     else {
         memory[address] = data;
@@ -42,18 +52,8 @@ void Memory::WriteWordMemory(uint16_t address, uint16_t data) {
     memory[address] = data & 0xFF;
 }
 
-
-int Memory::WriteChunkMemory(uint16_t offset, uint16_t size, uint8_t *data) {
-    if ((memory + offset + size) <= (memory + sizeof(memory))) {
-        memcpy(memory + offset, data, size);
-        return 0;
-    }
-    return -1;
-}
-
 uint8_t Memory::ReadByteMemory(uint16_t address) {
     if (booting == true && address <= 0x00FF) {
-        //puts("Czytam bajt z bootstrapa");
         return bootstrap[address];
     }
 

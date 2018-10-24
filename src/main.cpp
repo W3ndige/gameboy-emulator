@@ -1,8 +1,6 @@
 #include "gpu.hpp"
 #include "cpu.hpp"
 
-// For now we don't need SDL2 code, let's implement the logic first. 
-
 int debug = 0;
 
 int main(int argv, char **argc) {
@@ -15,20 +13,29 @@ int main(int argv, char **argc) {
     GPU gpu(&memory);
     CPU cpu(&memory);
 
-    for (;;) {
-        /*if (cpu.Breakpoint(0x27)) {
+    bool end = false;
+    SDL_Event event;
+    char q;
+
+    while (!end) {
+        if (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                end = true;
+            }
+        }
+        /*if (cpu.Breakpoint(0x100) || debug) {
             cpu.Diagnostics();
             debug = 1;
-            getchar();
+            q = getchar();
         }
-        if (debug) {
-            cpu.Diagnostics();
-            getchar();
+        if (q == 'q') {
+            end = true;
         }*/
         unsigned int current_cycle = cpu.GetLastOpcodeTime();
         cpu.FetchAndDispatch(debug);
         unsigned int cycles = cpu.GetLastOpcodeTime() - current_cycle;
         gpu.UpdateGraphics(cycles);
+
     }
 
     return 0;

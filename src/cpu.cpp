@@ -4,69 +4,18 @@ CPU::CPU(Memory *mem) {
     memory = mem;
 
     /**< Initialize registers */
-    program_counter = 0x00;//0x100;
-
-    //af_register.pair = 0x01B0;
-    //bc_register.pair = 0x0013;
-    //de_register.pair = 0x00D8; 
-    //hl_register.pair = 0x014D;
-
-    //sp_register.pair = 0xFFFE;
+    program_counter = 0x00;
 
     timer.m_cycles = 0;
     timer.t_cycles = 0;
     halt = 0;
     stop = 0;
 
-    /**< Read the bootstrap ROM into memory */
+    /**< Read the bootstrap ROM into bootstrap memory */
     memory->LoadBootstrap();
 
-    FILE *game_file = fopen("roms/tetris.gb", "rb");
-    //if (bootstrap_file == NULL) {
-    //    throw 
-    //}
-    uint8_t game_data[0x8000]; // 256 bytes of bootstrap file
-    fread(game_data, sizeof(uint8_t), 0x8000, game_file);
-    memory->WriteChunkMemory(0, 0x8000, game_data);
-    fclose(game_file);
-    
-    /**< Place power up sequence values in memory */
-    memory->WriteByteMemory(0xFF05, 0x00);
-    memory->WriteByteMemory(0xFF06, 0x00);
-    memory->WriteByteMemory(0xFF07, 0x00);
-    memory->WriteByteMemory(0xFF10, 0x80);
-    memory->WriteByteMemory(0xFF11, 0xBF);
-    memory->WriteByteMemory(0xFF12, 0xF3);
-    memory->WriteByteMemory(0xFF14, 0xBF);
-    memory->WriteByteMemory(0xFF16, 0x3F);
-    memory->WriteByteMemory(0xFF17, 0x00);
-    memory->WriteByteMemory(0xFF19, 0xBF);
-    memory->WriteByteMemory(0xFF1A, 0x7F);
-    memory->WriteByteMemory(0xFF1B, 0xFF);
-    memory->WriteByteMemory(0xFF1C, 0x9F);
-    memory->WriteByteMemory(0xFF1E, 0xBF);
-    memory->WriteByteMemory(0xFF20, 0xFF);
-    memory->WriteByteMemory(0xFF21, 0x00);
-    memory->WriteByteMemory(0xFF22, 0x00);
-    memory->WriteByteMemory(0xFF23, 0xBF);
-    memory->WriteByteMemory(0xFF24, 0x77);
-    memory->WriteByteMemory(0xFF25, 0xF3);
-    memory->WriteByteMemory(0xFF26, 0xF1);
-    memory->WriteByteMemory(0xFF40, 0x91);
-    memory->WriteByteMemory(0xFF42, 0x00);
-    memory->WriteByteMemory(0xFF43, 0x00);
-    memory->WriteByteMemory(0xFF45, 0x00);
-    memory->WriteByteMemory(0xFF47, 0xFC);
-    memory->WriteByteMemory(0xFF48, 0xFF);
-    memory->WriteByteMemory(0xFF49, 0xFF);
-    memory->WriteByteMemory(0xFF4A, 0x00);
-    memory->WriteByteMemory(0xFF4B, 0x00);
-    memory->WriteByteMemory(0xFFFF, 0x00);
-
-    memory->WriteByteMemory(0x8AAA, 0xFF);
-    memory->WriteByteMemory(0x8AAB, 0xFF);
-    memory->WriteByteMemory(0x8AAC, 0xFF);
-    memory->WriteByteMemory(0x8AAD, 0xFF);
+    /**< Reat the game ROM into main memory */
+    memory->LoadCartridge();
 
 }
 
@@ -165,18 +114,25 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0x74: LD8_mem_r1(hl_register.pair, hl_register.high); break;
         case 0x75: LD8_mem_r1(hl_register.pair, hl_register.low); break;
 
-        // WRONG?
-        case 0x36: LD8_mem_r1(hl_register.pair, 
-                    memory->ReadByteMemory(program_counter)); program_counter++; 
-                    timer.t_cycles += 4; break;
+        case 0x36: 
+        {
+            LD8_mem_r1(hl_register.pair, memory->ReadByteMemory(program_counter));
+            program_counter++;
+            timer.t_cycles += 12;
+            break;
+        }
 
         case 0x0a: LD8_r1_mem(af_register.high, bc_register.pair); break;
         case 0x1a: LD8_r1_mem(af_register.high, de_register.pair); break;
 
-        // TODO RETHINK
-        case 0xfa: LD8_r1_mem(af_register.high, 
-                    memory->ReadWordMemory(program_counter)); program_counter++; 
-                    timer.t_cycles += 8; break;
+        case 0xfa: 
+        {
+            LD8_r1_mem(af_register.high, memory->ReadWordMemory(program_counter)); 
+            program_counter += 2;
+            timer.t_cycles += 8;
+            break;
+
+        }
 
         case 0x3e: LD8_r_nn(af_register.high); break;
 
@@ -605,6 +561,7 @@ void CPU::Diagnostics() {
     printf("PC\t0x%04x\n", program_counter);
     printf("SP\t0x%04x\n", sp_register.pair);
     printf("A\t0x%02x\n", af_register.high);
+    printf("F\t0x%02x\n", af_register.low);
     printf("B\t0x%02x\n", bc_register.high);
     printf("C\t0x%02x\n", bc_register.low);
     printf("D\t0x%02x\n", de_register.high);
@@ -612,9 +569,6 @@ void CPU::Diagnostics() {
     printf("H\t0x%02x\n", hl_register.high);
     printf("L\t0x%02x\n", hl_register.low);
     PrintFlags();
-    //printf("FLAG\t0x%02x\n", af_register.low);
-    //printf("TIMER M\t0x%02x\n", timer.m_cycles);
-    //printf("TIMER T\t0x%02x\n", timer.t_cycles);
     memory->DumpMemory();
 }
 
@@ -709,6 +663,8 @@ void CPU::Pop(uint16_t &reg) {
 //  8 bit ALU
 
 void CPU::Add8Bit(uint8_t &reg, int add_carry) {
+    uint8_t before = reg;
+
     if (add_carry) {
         af_register.high += (reg + TestBit(af_register.low, CARRY_FLAG));
     }
@@ -716,11 +672,24 @@ void CPU::Add8Bit(uint8_t &reg, int add_carry) {
         af_register.high += reg;
     }
 
-    // Rethink flags
-    if (af_register.high == 0) {
+    // Strange behaviour?
+
+    //af_register.low = 0;
+
+	if (reg == 0) {
         SetBit(af_register.low, ZERO_FLAG);
     }
-    ClearBit(af_register.low, SUBSTRACT_FLAG);
+
+	uint8_t htest = (before & 0xF);
+	htest += (reg & 0xF);
+
+	if (htest > 0xF) {
+        SetBit(af_register.low, HALF_CARRY_FLAG);
+    }
+
+	if (((uint16_t)before + reg) > 0xFF) {
+        SetBit(af_register.low, CARRY_FLAG);
+    }
 
     timer.t_cycles += 1;
     timer.m_cycles += 4;
@@ -728,18 +697,32 @@ void CPU::Add8Bit(uint8_t &reg, int add_carry) {
 }
 
 void CPU::Sub8Bit(uint8_t &reg, int sub_carry) {
+    uint8_t before = reg;
+
     if (sub_carry) {
         af_register.high -= (reg + TestBit(af_register.low, CARRY_FLAG));
     }
     else {
         af_register.high -= reg;
     }
+    af_register.low = 0;
 
-    // Rethink flags
-    if (af_register.high == 0) {
+    if (reg == 0) {
         SetBit(af_register.low, ZERO_FLAG);
     }
+
     SetBit(af_register.low, SUBSTRACT_FLAG);
+
+	if (before < reg) {
+        SetBit(af_register.low, CARRY_FLAG);
+    }
+
+	int16_t htest = (before & 0xF);
+	htest -= (reg & 0xF);
+
+	if (htest < 0)
+		SetBit(af_register.low, HALF_CARRY_FLAG);
+
     timer.m_cycles += 1;
     timer.t_cycles += 4;
 }
@@ -809,13 +792,25 @@ void CPU::Cmp8Bit(uint8_t &reg) {
 }
 
 void CPU::Inc8Bit(uint8_t &reg) {
+    uint8_t before = reg;
     reg++;
-    if (reg == 0) {
+
+	if (reg == 0) {
         SetBit(af_register.low, ZERO_FLAG);
     }
+    else {
+        ClearBit(af_register.low, ZERO_FLAG);
+    }
 
-    // Rethink flags
     ClearBit(af_register.low, SUBSTRACT_FLAG);
+
+	if ((before & 0xF) == 0xF) {
+        SetBit(af_register.low, HALF_CARRY_FLAG);
+    }
+	else {
+        ClearBit(af_register.low, HALF_CARRY_FLAG);
+    }
+
     timer.m_cycles += 1;
     timer.t_cycles += 4;
 }
@@ -835,7 +830,6 @@ void CPU::Dec8Bit(uint8_t &reg) {
 	else {
         ClearBit(af_register.low, HALF_CARRY_FLAG);
     }
-
 
     SetBit(af_register.low, SUBSTRACT_FLAG);
     timer.m_cycles += 1;
@@ -887,9 +881,10 @@ void CPU::Swap(uint8_t &reg) {
 }
 
 void CPU::RL(uint8_t &reg) {
-	int msb_set = TestBit(reg, 7) ;
+	int msb_set = TestBit(reg, 7);
+    int carry_set = TestBit(af_register.low, CARRY_FLAG);
 
-	af_register.low = 0 ;
+	af_register.low = 0;
 
 	reg <<= 1;
 
@@ -897,6 +892,10 @@ void CPU::RL(uint8_t &reg) {
 		SetBit(af_register.low, CARRY_FLAG);
 		SetBit(reg, 0) ;
 	}
+
+    if (carry_set) {
+        SetBit(reg, 0);
+    }
 
 	if (reg == 0) {
         SetBit(af_register.low, ZERO_FLAG);
@@ -959,7 +958,7 @@ void CPU::CALL(uint8_t flag, int condition, int use_condition) {
     timer.m_cycles += 16;
 }
 
-// Add restart
+// TODO Add restart
 
 void CPU::RET(uint8_t flag, int condition, int use_condition) {
     if (!use_condition) {

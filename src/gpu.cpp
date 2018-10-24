@@ -1,10 +1,11 @@
 #include "gpu.hpp"
 
-GPU::GPU(Memory *mem) {
+GPU::GPU(Memory *mem): pixels() {
     memory = mem;
     current_line = 0;
     current_mode = 0;
     scanline_counter = 0;
+    gui.Init();
 }
 
 void GPU::UpdateGraphics(int cycles) {
@@ -16,16 +17,13 @@ void GPU::UpdateGraphics(int cycles) {
     scanline_counter -= cycles;
 
     if (scanline_counter <= 0) {
-        uint8_t memory_val = memory->ReadByteMemory(0xFF44);
-        memory_val++;
-        memory->WriteByteMemory(0xFF44, memory_val);
-        current_line = memory_val;
+        current_line = memory->ReadByteMemory(0xFF44);
+        current_line++;
+        memory->WriteByteMemory(0xFF44, current_line);
         scanline_counter = 456;
 
         if (current_line == 144) {
-            printf("New Frame\n");
             PrintPixels();
-            puts("\n");
             // TODO() Request Interrupt
         }
         else if (current_line > 153) {
@@ -86,7 +84,11 @@ void GPU::SetLCDStatus() {
         }
     }
 
-    // TODO Finish function.
+    // TODO Finish function
+    if (request_interrupt && (mode != current_mode)) {
+        // TODO Request Interrupt
+    }
+
     memory->WriteByteMemory(0xFF41,status) ;
 
 }
@@ -119,19 +121,10 @@ void GPU::RenderTiles() {
     uint16_t tile_data = 0;
     uint16_t background_memory = 0;
 
-    uint8_t scroll_x = memory->ReadByteMemory(0xFF42);
-    uint8_t scroll_y = memory->ReadByteMemory(0xFF43);
-    uint8_t window_x = memory->ReadByteMemory(0xFF4A);
-    uint8_t window_y = memory->ReadByteMemory(0xFF4B) - 7;
+    uint8_t scroll_y = memory->ReadByteMemory(0xFF42);
+    uint8_t scroll_x = memory->ReadByteMemory(0xFF43);
 
-    bool window_enabled = false;
     bool use_unsigned_values = true;
-
-    if (TestBit(control, 5)) {
-        if (window_y <= current_line) {
-            window_enabled = true;
-        }
-    }
 
     if (TestBit(control, 4)) {
         tile_data = 0x8000;
@@ -141,66 +134,44 @@ void GPU::RenderTiles() {
         tile_data = 0x8800;
     }
 
-    if (window_enabled == false) {
-        if (TestBit(control, 3)) {
-            background_memory = 0x9C00;
-        }
-        else {
-            background_memory = 0x9800;
-        }
+    if (TestBit(control, 3)) {
+        background_memory = 0x9C00;
     }
     else {
-        if (TestBit(control, 6)) {
-            background_memory = 0x9C00;
-        }
-        else {
-            background_memory = 0x9800;
-        }
+        background_memory = 0x9800;
     }
 
-    uint8_t y_pos = 0;
+    uint8_t y_pos = scroll_y + current_line;
 
-    if (!window_enabled) {
-        y_pos = scroll_y + current_line;
-    }
-    else {
-        y_pos = current_line - window_y;
-    }
 
-    uint16_t tile_row = (uint16_t)((y_pos / 8) * 32);
-
+    uint16_t tile_row = (((uint8_t)(y_pos / 8)) * 32);
     for (int pixel = 0; pixel < 160; pixel++) {
         uint8_t x_pos = pixel + scroll_x;
-        if (window_enabled) {
-            if (pixel >= window_x) {
-                x_pos = pixel - window_x;
-            }
-        }
 
         uint16_t tile_col = x_pos / 8;
         int16_t tile_num;
 
         uint16_t tile_address = background_memory + tile_row + tile_col;
-        uint16_t tile_location;
+        uint16_t tile_location = tile_data;
 
         if (use_unsigned_values) {
             tile_num = (uint8_t)memory->ReadByteMemory(tile_address);
-            tile_location = tile_data + (tile_num * 16);
+            tile_location += (tile_num * 16);
         }
         else {
             tile_num = (int8_t)memory->ReadByteMemory(tile_address);
-            tile_location = tile_data + ((tile_num + 128) * 16);
+            tile_location += ((tile_num + 128) * 16);
         }
 
-        uint8_t line = y_pos % 8;
-        uint8_t byte_1 = memory->ReadByteMemory(tile_location + line * 2);
-        uint8_t byte_2 = memory->ReadByteMemory(tile_location + line * 2 + 1);
+        uint8_t line = (y_pos % 8) * 2;
+        uint8_t byte_1 = memory->ReadByteMemory(tile_location + line);
+        uint8_t byte_2 = memory->ReadByteMemory(tile_location + line + 1);
 
         uint8_t req_bit = 7 - (x_pos % 8);
-        uint8_t bit_1 = (byte_1 >> req_bit) & 1;
-        uint8_t bit_2 = (byte_2 >> req_bit) & 1;
+        uint8_t bit_1 = TestBit(byte_1, req_bit);
+        uint8_t bit_2 = TestBit(byte_2, req_bit);
 
-        pixels[pixel][memory->ReadByteMemory(0xFF44)] = (bit_1 << 1) | bit_2;
+        pixels[pixel][current_line] = (bit_1 << 1) | bit_2;
     }
 }
 
@@ -213,19 +184,23 @@ void GPU::PrintPixels() {
     /**< Drawing lines first */
     for (int i = 0; i < 144; i++) {
         for (int j = 0; j < 160; j++) {
-            if (pixels[j][i] == 0) {
-                printf(" ");
-            }
-            else if (pixels[j][i]== 1) {
-                printf("*");
-            }
-            else if (pixels[j][i] == 2) {
-                printf(".");
-            }
-            else {
-                printf("#");
+            switch (pixels[j][i]) {
+                case 0:
+                    SDL_SetRenderDrawColor(gui.renderer, 0xff, 0xff, 0xff, 0xff);
+                    SDL_RenderDrawPoint(gui.renderer, j, i);
+                    break;
+                case 1:
+                    // TODO
+                    break;
+                case 2:
+                    SDL_SetRenderDrawColor(gui.renderer, 0x00, 0x00, 0x00, 0xff);
+                    SDL_RenderDrawPoint(gui.renderer, j, i);
+                    break;
+                case 3:
+                    // TODO
+                    break;                    
             }
         }
-        printf("\n");
     }
+    SDL_RenderPresent(gui.renderer);
 }
