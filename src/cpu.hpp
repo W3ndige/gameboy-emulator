@@ -64,7 +64,7 @@ class CPU {
         void Pop(uint16_t &reg);
 
         // 8 bit ALU
-        void Add8Bit(uint8_t &reg, int add_carry);
+        void Add8Bit(uint8_t reg, int add_carry);
         void Sub8Bit(uint8_t &reg, int sub_carry);
         void And8Bit(uint8_t &reg);
         void Or8Bit(uint8_t &reg);

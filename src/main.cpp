@@ -31,6 +31,7 @@ int main(int argv, char **argc) {
         if (q == 'q') {
             end = true;
         }*/
+
         unsigned int current_cycle = cpu.GetLastOpcodeTime();
         cpu.FetchAndDispatch(debug);
         unsigned int cycles = cpu.GetLastOpcodeTime() - current_cycle;

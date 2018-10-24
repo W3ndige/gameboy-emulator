@@ -14,7 +14,7 @@ CPU::CPU(Memory *mem) {
     /**< Read the bootstrap ROM into bootstrap memory */
     memory->LoadBootstrap();
 
-    /**< Reat the game ROM into main memory */
+    /**< Read the game ROM into main memory */
     memory->LoadCartridge();
 
 }
@@ -24,9 +24,6 @@ void CPU::FetchAndDispatch(int debug) {
         memory->ClearBooting();
     }
     uint8_t opcode = memory->ReadByteMemory(program_counter);
-    if (debug) {
-        printf("OPCODE: 0x%02x\n", opcode);
-    }
     program_counter++;
     ExecuteInstruction(opcode);
 }
@@ -662,8 +659,8 @@ void CPU::Pop(uint16_t &reg) {
 
 //  8 bit ALU
 
-void CPU::Add8Bit(uint8_t &reg, int add_carry) {
-    uint8_t before = reg;
+void CPU::Add8Bit(uint8_t reg, int add_carry) {
+    uint8_t before = af_register.high;
 
     if (add_carry) {
         af_register.high += (reg + TestBit(af_register.low, CARRY_FLAG));
@@ -672,14 +669,12 @@ void CPU::Add8Bit(uint8_t &reg, int add_carry) {
         af_register.high += reg;
     }
 
-    // Strange behaviour?
-
-    //af_register.low = 0;
-
-	if (reg == 0) {
+    af_register.low = 0;
+	if (af_register.high == 0) {
         SetBit(af_register.low, ZERO_FLAG);
     }
 
+    ClearBit(af_register.low, SUBSTRACT_FLAG);
 	uint8_t htest = (before & 0xF);
 	htest += (reg & 0xF);
 
@@ -687,7 +682,7 @@ void CPU::Add8Bit(uint8_t &reg, int add_carry) {
         SetBit(af_register.low, HALF_CARRY_FLAG);
     }
 
-	if (((uint16_t)before + reg) > 0xFF) {
+	if ((before + reg) > 0xFF) {
         SetBit(af_register.low, CARRY_FLAG);
     }
 
@@ -697,7 +692,7 @@ void CPU::Add8Bit(uint8_t &reg, int add_carry) {
 }
 
 void CPU::Sub8Bit(uint8_t &reg, int sub_carry) {
-    uint8_t before = reg;
+    uint8_t before = af_register.high;
 
     if (sub_carry) {
         af_register.high -= (reg + TestBit(af_register.low, CARRY_FLAG));
@@ -705,9 +700,9 @@ void CPU::Sub8Bit(uint8_t &reg, int sub_carry) {
     else {
         af_register.high -= reg;
     }
-    af_register.low = 0;
 
-    if (reg == 0) {
+    af_register.low = 0;
+    if (af_register.high == 0) {
         SetBit(af_register.low, ZERO_FLAG);
     }
 
@@ -720,8 +715,9 @@ void CPU::Sub8Bit(uint8_t &reg, int sub_carry) {
 	int16_t htest = (before & 0xF);
 	htest -= (reg & 0xF);
 
-	if (htest < 0)
-		SetBit(af_register.low, HALF_CARRY_FLAG);
+	if (htest < 0) {
+        SetBit(af_register.low, HALF_CARRY_FLAG);
+    }
 
     timer.m_cycles += 1;
     timer.t_cycles += 4;
@@ -754,8 +750,8 @@ void CPU::Or8Bit(uint8_t &reg) {
 }
 
 void CPU::Xor8Bit(uint8_t &reg) {
-    reg ^= reg;
-    if (reg == 0) {
+    af_register.high ^= reg;
+    if (af_register.high == 0) {
         SetBit(af_register.low, ZERO_FLAG);
     }
     ClearBit(af_register.low, SUBSTRACT_FLAG);
@@ -890,7 +886,7 @@ void CPU::RL(uint8_t &reg) {
 
 	if (msb_set) {
 		SetBit(af_register.low, CARRY_FLAG);
-		SetBit(reg, 0) ;
+		//SetBit(reg, 0) ;
 	}
 
     if (carry_set) {
