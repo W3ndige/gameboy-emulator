@@ -1,6 +1,6 @@
-OBJS = src/main.cpp src/helper.cpp src/memory.cpp src/cpu.cpp src/gpu.cpp src/gui.cpp
-CC = clang++
-COMPILER_FLAGS = -Wall -Wextra -O3
+OBJS = src/main.cpp src/helper/helper.cpp src/memory/memory.cpp src/cpu/cpu.cpp src/gpu/gpu.cpp src/gui/gui.cpp src/gameboy/gameboy.cpp
+CC = g++
+COMPILER_FLAGS = -std=c++11 -Wall -Wextra -O3
 LINKER_FLAGS = -lSDL2
 OBJ_NAME = bin/emulator
 
@@ -9,3 +9,4 @@ all: $(OBJS)
 
 clean:
 	rm $(OBJ_NAME)
+	rm memory_dump.bin

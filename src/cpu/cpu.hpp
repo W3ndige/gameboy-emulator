@@ -2,8 +2,8 @@
 #define CPU_HPP
 
 #include <exception>
-#include "memory.hpp"
-#include "helper.hpp"
+#include "../memory/memory.hpp"
+#include "../helper/helper.hpp"
 
 const int ZERO_FLAG = 7;  // Z
 const int SUBSTRACT_FLAG = 6; // N
@@ -26,7 +26,7 @@ struct Timer {
 class CPU {
     public:
         CPU(Memory *mem);
-        void FetchAndDispatch(int debug);
+        void FetchAndDispatch();
         void ExecuteInstruction(uint8_t opcode);
         void ExecuteExtendedInstruction(uint8_t opcode);
         unsigned int GetLastOpcodeTime();

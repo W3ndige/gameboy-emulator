@@ -1,9 +1,9 @@
 #ifndef GPU_HPP
 #define GPU_HPP
 
-#include "memory.hpp"
-#include "helper.hpp"
-#include "gui.hpp"
+#include "../memory/memory.hpp"
+#include "../helper/helper.hpp"
+#include "../gui/gui.hpp"
 
 class GPU {
     public:

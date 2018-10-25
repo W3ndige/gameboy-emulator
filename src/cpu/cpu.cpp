@@ -19,7 +19,7 @@ CPU::CPU(Memory *mem) {
 
 }
 
-void CPU::FetchAndDispatch(int debug) {
+void CPU::FetchAndDispatch() {
     if (program_counter == 0x100) {
         memory->ClearBooting();
     }

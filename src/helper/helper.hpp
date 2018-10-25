@@ -1,7 +1,7 @@
 #ifndef HELPER_HPP
 #define HELPER_HPP
 
-#include "memory.hpp"
+#include "../memory/memory.hpp"
 
 /**< Methods used for setting bits in register */
 void SetBit(uint8_t &reg, uint8_t flag);

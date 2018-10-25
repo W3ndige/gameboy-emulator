@@ -7,8 +7,10 @@ class GUI {
     public:
         GUI();
         bool Init();
-        SDL_Window *window;
         SDL_Renderer *renderer;
+
+    private:
+        SDL_Window *window;
 };
 
 #endif
