@@ -6,10 +6,12 @@
 
 class Gameboy {
     public:
-        Gameboy();
+        Gameboy(bool debugger);
+        void Debugger();
         void Emulate();
 
     private:
+        bool debugger;
         Memory memory;
         GPU gpu;
         CPU cpu;

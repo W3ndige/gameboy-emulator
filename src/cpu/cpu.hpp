@@ -1,6 +1,7 @@
 #ifndef CPU_HPP
 #define CPU_HPP
 
+#include <iostream>
 #include <exception>
 #include "../memory/memory.hpp"
 #include "../helper/helper.hpp"
@@ -26,6 +27,7 @@ struct Timer {
 class CPU {
     public:
         CPU(Memory *mem);
+        bool Init();
         void FetchAndDispatch();
         void ExecuteInstruction(uint8_t opcode);
         void ExecuteExtendedInstruction(uint8_t opcode);

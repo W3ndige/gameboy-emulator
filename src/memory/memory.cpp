@@ -4,22 +4,52 @@ Memory::Memory(): bootstrap(), memory() {
     booting = true;
 }
 
-void Memory::LoadBootstrap() {
-    FILE *bootstrap_file = fopen("roms/DMG_ROM.bin", "rb");
-    if (bootstrap_file == NULL) {
-        booting  = false;
-    }
-    fread(bootstrap, sizeof(uint8_t), 0x100, bootstrap_file);
-    fclose(bootstrap_file);
+bool Memory::IsBooting() {
+    return booting;
 }
 
-void Memory::LoadCartridge() {
-    FILE *game_file = fopen("roms/tetris.gb", "rb");
-    //if (bootstrap_file == NULL) {
-    //    throw 
-    //}
-    fread(memory, sizeof(uint8_t), 0x8000, game_file);
-    fclose(game_file);
+void Memory::ClearBooting() {
+    booting = false;
+}
+
+bool Memory::LoadBootstrap() {
+    try {
+        std::ifstream bootstrap_file ("roms/DMG_ROM.bin", std::ifstream::binary);
+        if (bootstrap_file.good()) {
+            bootstrap_file.read((char *)bootstrap, MAX_BOOTSTRAP_SIZE);
+        }
+        else {
+            booting = false;
+            throw "Error opening ROM. Skipping boot procedure.";
+        }
+        bootstrap_file.close();
+    }
+    catch (const char *e) {
+        std::cout << "Exception occured: " << e << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool Memory::LoadCartridge() {
+    try {
+        std::ifstream game_file ("roms/tetris.gb", std::ifstream::binary);
+        if (game_file.good()) {
+            game_file.read((char *)memory, 0x8000);
+        }
+        else {
+            booting = false;
+            throw "Error opening cartridge ROM. Unable to continue.";
+        }
+        game_file.close();
+    }
+    catch (const char *e) {
+        std::cout << "Exception occured: " << e << std::endl;
+        return false;
+    }
+    
+    return true;
 }
 
 void Memory::WriteByteMemory(uint16_t address, uint8_t data) {
@@ -75,8 +105,4 @@ int Memory::DumpMemory() {
 	fwrite(memory, sizeof(uint8_t), 0x10000, dump);
     fclose(dump);
     return 0;
-}
-
-void Memory::ClearBooting() {
-    booting = false;
 }

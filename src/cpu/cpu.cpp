@@ -5,7 +5,10 @@ CPU::CPU(Memory *mem) {
 
     /**< Initialize registers */
     program_counter = 0x00;
+}
 
+bool CPU::Init() {
+    program_counter = 0x00;
     timer.m_cycles = 0;
     timer.t_cycles = 0;
     halt = 0;
@@ -13,10 +16,58 @@ CPU::CPU(Memory *mem) {
 
     /**< Read the bootstrap ROM into bootstrap memory */
     memory->LoadBootstrap();
+    
+    /**< If booting failed or stopped, initialize register with
+     *   values that bootstrap sets */
+    if (!memory->IsBooting()) {
+        program_counter = 0x100;
 
-    /**< Read the game ROM into main memory */
-    memory->LoadCartridge();
+        af_register.pair = 0x01B0;
+        bc_register.pair = 0x0013;
+        de_register.pair = 0x00D8; 
+        hl_register.pair = 0x014D;
+        sp_register.pair = 0xFFFE;
 
+        /**< Place power up sequence values in memory */
+        memory->WriteByteMemory(0xFF05, 0x00);
+        memory->WriteByteMemory(0xFF06, 0x00);
+        memory->WriteByteMemory(0xFF07, 0x00);
+        memory->WriteByteMemory(0xFF10, 0x80);
+        memory->WriteByteMemory(0xFF11, 0xBF);
+        memory->WriteByteMemory(0xFF12, 0xF3);
+        memory->WriteByteMemory(0xFF14, 0xBF);
+        memory->WriteByteMemory(0xFF16, 0x3F);
+        memory->WriteByteMemory(0xFF17, 0x00);
+        memory->WriteByteMemory(0xFF19, 0xBF);
+        memory->WriteByteMemory(0xFF1A, 0x7F);
+        memory->WriteByteMemory(0xFF1B, 0xFF);
+        memory->WriteByteMemory(0xFF1C, 0x9F);
+        memory->WriteByteMemory(0xFF1E, 0xBF);
+        memory->WriteByteMemory(0xFF20, 0xFF);
+        memory->WriteByteMemory(0xFF21, 0x00);
+        memory->WriteByteMemory(0xFF22, 0x00);
+        memory->WriteByteMemory(0xFF23, 0xBF);
+        memory->WriteByteMemory(0xFF24, 0x77);
+        memory->WriteByteMemory(0xFF25, 0xF3);
+        memory->WriteByteMemory(0xFF26, 0xF1);
+        memory->WriteByteMemory(0xFF40, 0x91);
+        memory->WriteByteMemory(0xFF42, 0x00);
+        memory->WriteByteMemory(0xFF43, 0x00);
+        memory->WriteByteMemory(0xFF45, 0x00);
+        memory->WriteByteMemory(0xFF47, 0xFC);
+        memory->WriteByteMemory(0xFF48, 0xFF);
+        memory->WriteByteMemory(0xFF49, 0xFF);
+        memory->WriteByteMemory(0xFF4A, 0x00);
+        memory->WriteByteMemory(0xFF4B, 0x00);
+        memory->WriteByteMemory(0xFFFF, 0x00);
+        memory->WriteByteMemory(0x8AAA, 0xFF);
+        memory->WriteByteMemory(0x8AAB, 0xFF);
+        memory->WriteByteMemory(0x8AAC, 0xFF);
+        memory->WriteByteMemory(0x8AAD, 0xFF);
+    }
+
+    /**< Try reading cartridge ROM into main memory */
+    return memory->LoadCartridge();;
 }
 
 void CPU::FetchAndDispatch() {

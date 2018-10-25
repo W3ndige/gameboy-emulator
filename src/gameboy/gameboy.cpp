@@ -1,6 +1,19 @@
 #include "gameboy.hpp"
 
-Gameboy::Gameboy() : gpu(&memory), cpu(&memory) {}
+Gameboy::Gameboy(bool debugger) : gpu(&memory), cpu(&memory) {
+    this->debugger = debugger;
+    bool init = cpu.Init();
+    if (!init) {
+        throw "Could not initialze CPU.";
+    }
+}
+
+void Gameboy::Debugger() {
+    std::string input;
+    //printf("Welcome to Gameboy debugger\n");
+    //printf("> ");
+    //scanf("%s\n", input);
+}
 
 void Gameboy::Emulate() {
 
