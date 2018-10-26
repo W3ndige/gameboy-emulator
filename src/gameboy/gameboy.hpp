@@ -8,7 +8,8 @@
 #include "../cpu/cpu.hpp"
 
 struct DebuggerInfo {
-    bool debugger;
+    bool debugger_set;
+    bool step_set;
     bool breakpoint_set;
     int breakpoint;
 };

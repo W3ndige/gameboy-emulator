@@ -87,6 +87,8 @@ class CPU {
         // Extended instruction set
         void Swap(uint8_t &reg);
         void RL(uint8_t &reg);
+        void Bit(uint8_t &reg, uint8_t bit);
+
 
         // Misc instructions
         void DAA();
