@@ -2,9 +2,6 @@
 
 CPU::CPU(Memory *mem) {
     memory = mem;
-
-    /**< Initialize registers */
-    program_counter = 0x00;
 }
 
 bool CPU::Init() {
@@ -67,12 +64,13 @@ bool CPU::Init() {
     }
 
     /**< Try reading cartridge ROM into main memory */
-    return memory->LoadCartridge();;
+    return memory->LoadCartridge();
 }
 
 void CPU::FetchAndDispatch() {
     if (program_counter == 0x100) {
         memory->ClearBooting();
+        program_counter = 0;
     }
     uint8_t opcode = memory->ReadByteMemory(program_counter);
     program_counter++;
@@ -592,6 +590,10 @@ void CPU::ExecuteExtendedInstruction(uint8_t opcode) {
                         opcode, program_counter);
 
     }
+}
+
+void CPU::ArtificialJump(int offset) {
+    program_counter += offset;
 }
 
 unsigned int CPU::GetLastOpcodeTime() {

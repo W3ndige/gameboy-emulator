@@ -1,7 +1,6 @@
 #ifndef MEMORY_HPP
 #define MEMORY_HPP
 
-#include <stdio.h>
 #include <iostream>
 #include <fstream>
 #include <cstdint>
@@ -26,7 +25,7 @@ class Memory {
         void WriteWordMemory(uint16_t address, uint16_t data);
         uint8_t ReadByteMemory(uint16_t address);
         uint16_t ReadWordMemory(uint16_t address);
-        int DumpMemory();
+        void DumpMemory();
 
 
 };

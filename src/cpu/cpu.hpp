@@ -28,9 +28,12 @@ class CPU {
     public:
         CPU(Memory *mem);
         bool Init();
+
         void FetchAndDispatch();
         void ExecuteInstruction(uint8_t opcode);
         void ExecuteExtendedInstruction(uint8_t opcode);
+
+        void ArtificialJump(int offset);
         unsigned int GetLastOpcodeTime();
         int Breakpoint(uint16_t pc);
         void Diagnostics();

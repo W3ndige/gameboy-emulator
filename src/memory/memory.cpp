@@ -97,12 +97,18 @@ uint16_t Memory::ReadWordMemory(uint16_t address) {
 	return word;
 }
 
-int Memory::DumpMemory() {
-    FILE *dump = fopen("memory_dump.bin", "wb");
-    if (dump == NULL) {
-        return -1;
+void Memory::DumpMemory() {
+    try {
+        std::ofstream dump ("memory_dump.bin", std::ofstream::binary);
+        if (dump.good()) {
+            dump.write((char *)memory, 0x8000);
+        }
+        else {
+            throw "Could not dump memory.";
+        }
+        dump.close();
     }
-	fwrite(memory, sizeof(uint8_t), 0x10000, dump);
-    fclose(dump);
-    return 0;
+    catch (const char *e) {
+        std::cout << "Exception occured: " << e << std::endl;
+    }
 }

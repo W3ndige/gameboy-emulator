@@ -1,10 +1,6 @@
 #include "../libs/cxxopts.hpp"
 #include "gameboy/gameboy.hpp"
 
-void game_loop() {
-
-}
-
 int main(int argc, char **argv) {
 
     bool debugger = false;
