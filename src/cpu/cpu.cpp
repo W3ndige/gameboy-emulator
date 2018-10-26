@@ -542,8 +542,112 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
 
 void CPU::ExecuteExtendedInstruction(uint8_t opcode) {
     switch (opcode) {
+
+        // Rotate opcodes
+        case 0x00: RLC(bc_register.high); break;
+        case 0x01: RLC(bc_register.low); break;
+        case 0x02: RLC(de_register.high); break;
+        case 0x03: RLC(de_register.low); break;
+        case 0x04: RLC(hl_register.high); break;
+        case 0x05: RLC(hl_register.low); break;
+        case 0x06: 
+        {
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            RLC(n);
+            memory->WriteByteMemory(hl_register.pair, n);
+            timer.m_cycles += 1;
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0x07: RLC(af_register.high); break;
+
+        case 0x08: RRC(bc_register.high); break;
+        case 0x09: RRC(bc_register.low); break;
+        case 0x0A: RRC(de_register.high); break;
+        case 0x0B: RRC(de_register.low); break;
+        case 0x0C: RRC(hl_register.high); break;
+        case 0x0D: RRC(hl_register.low); break;
+        case 0x0E: 
+        {
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            RRC(n);
+            memory->WriteByteMemory(hl_register.pair, n);
+            timer.m_cycles += 1;
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0x0F: RRC(af_register.high); break;
+
+        case 0x10: RL(bc_register.high); break;
+        case 0x11: RL(bc_register.low); break;
+        case 0x12: RL(de_register.high); break;
+        case 0x13: RL(de_register.low); break;
+        case 0x14: RL(hl_register.high); break;
+        case 0x15: RL(hl_register.low); break;
+        case 0x16: 
+        {
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            RL(n);
+            memory->WriteByteMemory(hl_register.pair, n);
+            timer.m_cycles += 1;
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0x17: RL(af_register.high); break;
+
+        case 0x18: RR(bc_register.high); break;
+        case 0x19: RR(bc_register.low); break;
+        case 0x1A: RR(de_register.high); break;
+        case 0x1B: RR(de_register.low); break;
+        case 0x1C: RR(hl_register.high); break;
+        case 0x1D: RR(hl_register.low); break;
+        case 0x1E: 
+        {
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            RR(n);
+            memory->WriteByteMemory(hl_register.pair, n);
+            timer.m_cycles += 1;
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0x1F: RR(af_register.high); break;
+
+        // Shift opcodes
+        case 0x20: SLA(bc_register.high); break;
+        case 0x21: SLA(bc_register.low); break;
+        case 0x22: SLA(de_register.high); break;
+        case 0x23: SLA(de_register.low); break;
+        case 0x24: SLA(hl_register.high); break;
+        case 0x25: SLA(hl_register.low); break;
+        case 0x26: 
+        {
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            SLA(n);
+            memory->WriteByteMemory(hl_register.pair, n);
+            timer.m_cycles += 1;
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0x27: SLA(af_register.high); break;
+
+        case 0x28: SRA(bc_register.high); break;
+        case 0x29: SRA(bc_register.low); break;
+        case 0x2A: SRA(de_register.high); break;
+        case 0x2B: SRA(de_register.low); break;
+        case 0x2C: SRA(hl_register.high); break;
+        case 0x2D: SRA(hl_register.low); break;
+        case 0x2E: 
+        {
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            SRA(n);
+            memory->WriteByteMemory(hl_register.pair, n);
+            timer.m_cycles += 1;
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0x2F: SRA(af_register.high); break;
+
         // Swap opcodes
-        case 0x37: Swap(af_register.high); break;
         case 0x30: Swap(bc_register.high); break;
         case 0x31: Swap(bc_register.low); break;
         case 0x32: Swap(de_register.high); break;
@@ -558,6 +662,25 @@ void CPU::ExecuteExtendedInstruction(uint8_t opcode) {
             timer.t_cycles += 8;
             break;
         }
+        case 0x37: Swap(af_register.high); break;
+
+        // Shift SRL opcodes
+        case 0x38: SRL(bc_register.high); break;
+        case 0x39: SRL(bc_register.low); break;
+        case 0x3A: SRL(de_register.high); break;
+        case 0x3B: SRL(de_register.low); break;
+        case 0x3C: SRL(hl_register.high); break;
+        case 0x3D: SRL(hl_register.low); break;
+        case 0x3E: 
+        {
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            SRL(n);
+            memory->WriteByteMemory(hl_register.pair, n);
+            timer.m_cycles += 1;
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0x3F: SRL(af_register.high); break;
 
         // Bit opcodes
         case 0x40: Bit(bc_register.high, 0); break;
@@ -680,24 +803,245 @@ void CPU::ExecuteExtendedInstruction(uint8_t opcode) {
         }
         case 0x7f: Bit(af_register.high, 7); break;
 
-
-
-        // Rotate & shift opcodes
-        case 0x17: RL(af_register.high); break;
-        case 0x10: RL(bc_register.high); break;
-        case 0x11: RL(bc_register.low); break;
-        case 0x12: RL(de_register.high); break;
-        case 0x13: RL(de_register.low); break;
-        case 0x14: RL(hl_register.high); break;
-        case 0x15: RL(hl_register.low); break;
-        case 0x16: 
-        {
+        case 0x80: Res(bc_register.high, 0); break;
+        case 0x81: Res(bc_register.low, 0); break;
+        case 0x82: Res(de_register.high, 0); break;
+        case 0x83: Res(de_register.low, 0); break;
+        case 0x84: Res(hl_register.high, 0); break;
+        case 0x85: Res(hl_register.low, 0); break;
+        case 0x86:
+        {   
             uint8_t n = memory->ReadByteMemory(hl_register.pair);
-            RL(n);
-            timer.m_cycles += 1;
+            Res(n, 0);
             timer.t_cycles += 8;
             break;
         }
+        case 0x87: Res(af_register.high, 0); break;
+
+        case 0x88: Res(bc_register.high, 1); break;
+        case 0x89: Res(bc_register.low, 1); break;
+        case 0x8a: Res(de_register.high, 1); break;
+        case 0x8b: Res(de_register.low, 1); break;
+        case 0x8c: Res(hl_register.high, 1); break;
+        case 0x8d: Res(hl_register.low, 1); break;
+        case 0x8e:
+        {   
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            Res(n, 1);
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0x8f: Res(af_register.high, 1); break;
+
+        case 0x90: Res(bc_register.high, 2); break;
+        case 0x91: Res(bc_register.low, 2); break;
+        case 0x92: Res(de_register.high, 2); break;
+        case 0x93: Res(de_register.low, 2); break;
+        case 0x94: Res(hl_register.high, 2); break;
+        case 0x95: Res(hl_register.low, 2); break;
+        case 0x96:
+        {   
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            Res(n, 2);
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0x97: Res(af_register.high, 2); break;
+
+        case 0x98: Res(bc_register.high, 3); break;
+        case 0x99: Res(bc_register.low, 3); break;
+        case 0x9a: Res(de_register.high, 3); break;
+        case 0x9b: Res(de_register.low, 3); break;
+        case 0x9c: Res(hl_register.high, 3); break;
+        case 0x9d: Res(hl_register.low, 3); break;
+        case 0x9e:
+        {   
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            Res(n, 3);
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0x9f: Res(af_register.high, 4); break;
+
+        case 0xa0: Res(bc_register.high, 4); break;
+        case 0xa1: Res(bc_register.low, 4); break;
+        case 0xa2: Res(de_register.high, 4); break;
+        case 0xa3: Res(de_register.low, 4); break;
+        case 0xa4: Res(hl_register.high, 4); break;
+        case 0xa5: Res(hl_register.low, 4); break;
+        case 0xa6:
+        {   
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            Res(n, 4);
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0xa7: Res(af_register.high, 4); break;
+
+        case 0xa8: Res(bc_register.high, 5); break;
+        case 0xa9: Res(bc_register.low, 5); break;
+        case 0xaa: Res(de_register.high, 5); break;
+        case 0xab: Res(de_register.low, 5); break;
+        case 0xac: Res(hl_register.high, 5); break;
+        case 0xad: Res(hl_register.low, 5); break;
+        case 0xae:
+        {   
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            Res(n, 5);
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0xaf: Res(af_register.high, 6); break;
+
+        case 0xb0: Res(bc_register.high, 6); break;
+        case 0xb1: Res(bc_register.low, 6); break;
+        case 0xb2: Res(de_register.high, 6); break;
+        case 0xb3: Res(de_register.low, 6); break;
+        case 0xb4: Res(hl_register.high, 6); break;
+        case 0xb5: Res(hl_register.low, 6); break;
+        case 0xb6:
+        {   
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            Res(n, 6);
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0xb7: Res(af_register.high, 6); break;
+
+        case 0xb8: Res(bc_register.high, 7); break;
+        case 0xb9: Res(bc_register.low, 7); break;
+        case 0xba: Res(de_register.high, 7); break;
+        case 0xbb: Res(de_register.low, 7); break;
+        case 0xbc: Res(hl_register.high, 7); break;
+        case 0xbd: Res(hl_register.low, 7); break;
+        case 0xbe:
+        {   
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            Res(n, 7);
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0xbf: Res(af_register.high, 7); break;
+
+        case 0xc0: Set(bc_register.high, 0); break;
+        case 0xc1: Set(bc_register.low, 0); break;
+        case 0xc2: Set(de_register.high, 0); break;
+        case 0xc3: Set(de_register.low, 0); break;
+        case 0xc4: Set(hl_register.high, 0); break;
+        case 0xc5: Set(hl_register.low, 0); break;
+        case 0xc6:
+        {   
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            Set(n, 0);
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0xc7: Set(af_register.high, 0); break;
+
+        case 0xc8: Set(bc_register.high, 1); break;
+        case 0xc9: Set(bc_register.low, 1); break;
+        case 0xca: Set(de_register.high, 1); break;
+        case 0xcb: Set(de_register.low, 1); break;
+        case 0xcc: Set(hl_register.high, 1); break;
+        case 0xcd: Set(hl_register.low, 1); break;
+        case 0xce:
+        {   
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            Set(n, 1);
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0xcf: Set(af_register.high, 1); break;
+
+        case 0xd0: Set(bc_register.high, 2); break;
+        case 0xd1: Set(bc_register.low, 2); break;
+        case 0xd2: Set(de_register.high, 2); break;
+        case 0xd3: Set(de_register.low, 2); break;
+        case 0xd4: Set(hl_register.high, 2); break;
+        case 0xd5: Set(hl_register.low, 2); break;
+        case 0xd6:
+        {   
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            Set(n, 2);
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0xd7: Set(af_register.high, 2); break;
+
+        case 0xd8: Set(bc_register.high, 3); break;
+        case 0xd9: Set(bc_register.low, 3); break;
+        case 0xda: Set(de_register.high, 3); break;
+        case 0xdb: Set(de_register.low, 3); break;
+        case 0xdc: Set(hl_register.high, 3); break;
+        case 0xdd: Set(hl_register.low, 3); break;
+        case 0xde:
+        {   
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            Set(n, 3);
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0xdf: Set(af_register.high, 4); break;
+
+        case 0xe0: Set(bc_register.high, 4); break;
+        case 0xe1: Set(bc_register.low, 4); break;
+        case 0xe2: Set(de_register.high, 4); break;
+        case 0xe3: Set(de_register.low, 4); break;
+        case 0xe4: Set(hl_register.high, 4); break;
+        case 0xe5: Set(hl_register.low, 4); break;
+        case 0xe6:
+        {   
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            Set(n, 4);
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0xe7: Set(af_register.high, 4); break;
+
+        case 0xe8: Set(bc_register.high, 5); break;
+        case 0xe9: Set(bc_register.low, 5); break;
+        case 0xea: Set(de_register.high, 5); break;
+        case 0xeb: Set(de_register.low, 5); break;
+        case 0xec: Set(hl_register.high, 5); break;
+        case 0xed: Set(hl_register.low, 5); break;
+        case 0xee:
+        {   
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            Set(n, 5);
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0xef: Set(af_register.high, 6); break;
+
+        case 0xf0: Set(bc_register.high, 6); break;
+        case 0xf1: Set(bc_register.low, 6); break;
+        case 0xf2: Set(de_register.high, 6); break;
+        case 0xf3: Set(de_register.low, 6); break;
+        case 0xf4: Set(hl_register.high, 6); break;
+        case 0xf5: Set(hl_register.low, 6); break;
+        case 0xf6:
+        {   
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            Set(n, 6);
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0xf7: Set(af_register.high, 6); break;
+
+        case 0xf8: Set(bc_register.high, 7); break;
+        case 0xf9: Set(bc_register.low, 7); break;
+        case 0xfa: Set(de_register.high, 7); break;
+        case 0xfb: Set(de_register.low, 7); break;
+        case 0xfc: Set(hl_register.high, 7); break;
+        case 0xfd: Set(hl_register.low, 7); break;
+        case 0xfe:
+        {   
+            uint8_t n = memory->ReadByteMemory(hl_register.pair);
+            Set(n, 7);
+            timer.t_cycles += 8;
+            break;
+        }
+        case 0xff: Set(af_register.high, 7); break;
 
         default: printf("Unknown extended opcode: 0x%02x at PC: 0x%04x\n", 
                         opcode, program_counter);
@@ -1030,16 +1374,40 @@ void CPU::Dec16Bit(uint16_t &reg) {
 }
 
 // Extended instruction set
+void CPU::RLC(uint8_t &reg) {;
+	int msb_set = TestBit(reg, 7);
+	af_register.low = 0;
 
-void CPU::Swap(uint8_t &reg) {
-    
-    af_register.low = 0; /**< Reset flag register */
-    reg = (((reg & 0xF0) >> 4) | ((reg & 0x0F) << 4)); /**< Swap nibbles */
-    if (reg == 0) {
-        SetBit(af_register.high, ZERO_FLAG);
+	reg <<= 1;
+	if (msb_set) {
+		SetBit(af_register.low, CARRY_FLAG);
+		SetBit(reg, 0);
+	}
+
+	if (reg == 0) {
+        SetBit(af_register.low, ZERO_FLAG);
     }
-    timer.t_cycles += 2;
-    timer.m_cycles += 8;
+
+    timer.m_cycles += 2;
+    timer.t_cycles += 8;
+}
+
+void CPU::RRC(uint8_t &reg) {;
+	int msb_set = TestBit(reg, 7);
+	af_register.low = 0;
+
+	reg >>= 1;
+	if (msb_set) {
+		SetBit(af_register.low, CARRY_FLAG);
+		SetBit(reg, 0);
+	}
+
+	if (reg == 0) {
+        SetBit(af_register.low, ZERO_FLAG);
+    }
+
+    timer.m_cycles += 2;
+    timer.t_cycles += 8;
 }
 
 void CPU::RL(uint8_t &reg) {
@@ -1052,7 +1420,6 @@ void CPU::RL(uint8_t &reg) {
 
 	if (msb_set) {
 		SetBit(af_register.low, CARRY_FLAG);
-		//SetBit(reg, 0) ;
 	}
 
     if (carry_set) {
@@ -1064,7 +1431,99 @@ void CPU::RL(uint8_t &reg) {
     }
     timer.m_cycles += 1;
     timer.t_cycles += 8;
+}
 
+void CPU::RR(uint8_t &reg) {
+	int msb_set = TestBit(reg, 7);
+    int carry_set = TestBit(af_register.low, CARRY_FLAG);
+
+	af_register.low = 0;
+
+	reg >>= 1;
+
+	if (msb_set) {
+		SetBit(af_register.low, CARRY_FLAG);
+	}
+
+    if (carry_set) {
+        SetBit(reg, 0);
+    }
+
+	if (reg == 0) {
+        SetBit(af_register.low, ZERO_FLAG);
+    }
+    timer.m_cycles += 2;
+    timer.t_cycles += 8;
+}
+
+void CPU::SLA(uint8_t &reg) {
+	int msb_set = TestBit(reg, 7);
+	reg <<= 1;
+
+	af_register.low = 0;
+
+	if (msb_set) {
+        SetBit(af_register.low, CARRY_FLAG);
+    }
+	
+    if (reg == 0) {
+        SetBit(af_register.low, ZERO_FLAG);
+    }
+
+    timer.m_cycles += 2;
+    timer.t_cycles += 8;
+}
+
+void CPU::SRA(uint8_t &reg) {
+	int lsb_set = TestBit(reg, 0);
+    int msb_set = TestBit(reg, 7);
+
+	reg >>= 1;
+
+	af_register.low = 0;
+
+	if (msb_set) {
+        SetBit(reg, 7);
+    }
+
+	if (lsb_set) {
+        SetBit(af_register.low, CARRY_FLAG);
+    }
+
+    if (reg == 0) {
+        SetBit(af_register.low, ZERO_FLAG);
+    }
+    timer.m_cycles += 2;
+    timer.t_cycles += 8;
+}
+
+void CPU::Swap(uint8_t &reg) {
+    
+    af_register.low = 0; /**< Reset flag register */
+    reg = (((reg & 0xF0) >> 4) | ((reg & 0x0F) << 4)); /**< Swap nibbles */
+    if (reg == 0) {
+        SetBit(af_register.high, ZERO_FLAG);
+    }
+    timer.t_cycles += 2;
+    timer.m_cycles += 8;
+}
+
+void CPU::SRL(uint8_t &reg) {
+	int lsb_set = TestBit(reg, 0);
+
+	af_register.low = 0;
+
+	reg >>= 1;
+
+	if (lsb_set) {
+		SetBit(af_register.low, CARRY_FLAG);
+    }
+
+    if (reg == 0) {
+        SetBit(af_register.low, ZERO_FLAG);
+    }
+    timer.m_cycles += 2;
+    timer.t_cycles += 8;
 }
 
 void CPU::Bit(uint8_t &reg, uint8_t bit) {
@@ -1078,6 +1537,14 @@ void CPU::Bit(uint8_t &reg, uint8_t bit) {
     SetBit(af_register.low, HALF_CARRY_FLAG);
     timer.m_cycles += 2;
     timer.t_cycles += 8;
+}
+
+void CPU::Res(uint8_t &reg, uint8_t bit) {
+    ClearBit(reg, bit);
+}
+
+void CPU::Set(uint8_t &reg, uint8_t bit) {
+    SetBit(reg, bit);
 }
 
 // Misc instructions

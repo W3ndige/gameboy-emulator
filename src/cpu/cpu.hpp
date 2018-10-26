@@ -85,9 +85,17 @@ class CPU {
         void Dec16Bit(uint16_t &reg);
 
         // Extended instruction set
-        void Swap(uint8_t &reg);
+        void RLC(uint8_t &reg);
+        void RRC(uint8_t &reg);
         void RL(uint8_t &reg);
+        void RR(uint8_t &reg);
+        void SLA(uint8_t &reg);
+        void SRA(uint8_t &reg);
+        void Swap(uint8_t &reg);
+        void SRL(uint8_t &reg);
         void Bit(uint8_t &reg, uint8_t bit);
+        void Res(uint8_t &reg, uint8_t bit);
+        void Set(uint8_t &reg, uint8_t bit);
 
 
         // Misc instructions
