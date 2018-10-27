@@ -34,7 +34,8 @@ bool Memory::LoadBootstrap() {
 
 bool Memory::LoadCartridge() {
     try {
-        std::ifstream game_file ("roms/tetris.gb", std::ifstream::binary);
+        //std::ifstream game_file ("roms/tetris.gb", std::ifstream::binary);
+        std::ifstream game_file ("roms/cpu_instrs.gb", std::ifstream::binary);
         if (game_file.good()) {
             game_file.read((char *)memory, 0x8000);
         }
@@ -67,6 +68,9 @@ void Memory::WriteByteMemory(uint16_t address, uint8_t data) {
         memory[address] = data;
         WriteByteMemory(address - 0x2000, data);
     }
+    else if (address == 0xFF04) {
+        memory[address] = 0;
+    } 
     // Have to rethink that.
     // else if (address == 0xFF44) { 
     //     memory[address] = 0 ;
@@ -75,6 +79,10 @@ void Memory::WriteByteMemory(uint16_t address, uint8_t data) {
     else {
         memory[address] = data;
     }
+}
+
+void Memory::PrivilagedByteWrite(uint16_t address, uint8_t data) {
+    memory[address] = data;
 }
 
 void Memory::WriteWordMemory(uint16_t address, uint16_t data) {

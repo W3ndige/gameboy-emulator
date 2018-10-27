@@ -11,6 +11,10 @@ const int SUBSTRACT_FLAG = 6; // N
 const int HALF_CARRY_FLAG = 5; // H
 const int CARRY_FLAG = 4; // C
 
+const int TIMA  = 0xFF05;
+const int TMA   = 0xFF06;
+const int TMC   = 0xFF07; 
+
 union Register { 
     uint16_t pair;
     struct {
@@ -19,20 +23,29 @@ union Register {
     };
 };
 
-struct Timer {
-    unsigned int m_cycles; /**< Machine cycle, usually taking about 3 and 6 clock periods - t_cycles */
-    unsigned int t_cycles;  /**< Clock periods */
+struct Clocks {
+    int m_cycles; /**< Machine cycle, usually taking about 3 and 6 clock periods - t_cycles */
+    int t_cycles;  /**< Clock periods */
+    int divide_counter;
 };
 
 class CPU {
     public:
         CPU(Memory *mem);
+        /**< CPU type of instructions */
         bool Init();
-
         void FetchAndDispatch();
         void ExecuteInstruction(uint8_t opcode);
         void ExecuteExtendedInstruction(uint8_t opcode);
 
+        /**< Timer type of instructions */
+        bool IsClockEnabled();
+        uint8_t GetClockFrequency();
+        void SetClockFrequency();
+        void DividerRegister(int cycles);
+        void UpdateTimer(int cycles);
+
+        /**< Debugging type of instructions */
         void ArtificialJump(int offset);
         unsigned int GetLastOpcodeTime();
         int Breakpoint(uint16_t pc);
@@ -44,7 +57,7 @@ class CPU {
         uint16_t program_counter; /**< Program counter register */
         
         Memory *memory;
-        Timer timer;
+        Clocks clocks;
         int halt;
         int stop;
 
@@ -107,7 +120,7 @@ class CPU {
 
         // Calls
         void CALL(uint8_t flag, int condition, int use_condition);
-
+        void RST(uint8_t arg);
         void RET(uint8_t flag, int condition, int use_condition);
 
 };  

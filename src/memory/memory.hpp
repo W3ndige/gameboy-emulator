@@ -22,6 +22,7 @@ class Memory {
         bool LoadBootstrap(); /**< Load the bootstrap file and set the booting flag */
         bool LoadCartridge(); /**< Load cartridge ROM into memory */
         void WriteByteMemory(uint16_t address, uint8_t data);
+        void PrivilagedByteWrite(uint16_t address, uint8_t data);
         void WriteWordMemory(uint16_t address, uint16_t data);
         uint8_t ReadByteMemory(uint16_t address);
         uint16_t ReadWordMemory(uint16_t address);

@@ -70,8 +70,9 @@ void Gameboy::Emulate() {
 
     // TODO Stepping
 
-    unsigned int current_cycle = cpu.GetLastOpcodeTime();
+    int current_cycle = cpu.GetLastOpcodeTime();
     cpu.FetchAndDispatch();
-    unsigned int cycles = cpu.GetLastOpcodeTime() - current_cycle;
+    int cycles = cpu.GetLastOpcodeTime() - current_cycle;
+    cpu.UpdateTimer(cycles);
     gpu.UpdateGraphics(cycles);
 }
