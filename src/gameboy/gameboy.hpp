@@ -22,8 +22,8 @@ class Gameboy {
 
     private:
         Memory memory;
-        GPU gpu;
         CPU cpu;
+        GPU gpu;
         DebuggerInfo debugger_info;
 
         std::vector<std::string> DebuggerParseInput();

@@ -37,6 +37,7 @@ class CPU {
         void FetchAndDispatch();
         void ExecuteInstruction(uint8_t opcode);
         void ExecuteExtendedInstruction(uint8_t opcode);
+        uint16_t GetProgramCounter();
 
         /**< Timer type of instructions */
         bool IsClockEnabled();
@@ -44,6 +45,14 @@ class CPU {
         void SetClockFrequency();
         void DividerRegister(int cycles);
         void UpdateTimer(int cycles);
+
+        /**< Interrupts */
+        bool interupts;
+        bool pending_interupt_enabled;
+        bool pending_interupt_disabled;
+        void RequestInterupt(int id);
+        void DoInterupts();
+        void ServiceInterupt(int interupt);
 
         /**< Debugging type of instructions */
         void ArtificialJump(int offset);

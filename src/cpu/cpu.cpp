@@ -9,6 +9,9 @@ bool CPU::Init() {
     clocks.m_cycles = 0;
     clocks.t_cycles = 0;
     clocks.divide_counter = 0;
+    interupts = false;
+    pending_interupt_disabled = false;
+    pending_interupt_enabled = false;
     halt = 0;
     stop = 0;
 
@@ -71,7 +74,6 @@ bool CPU::Init() {
 void CPU::FetchAndDispatch() {
     if (program_counter == 0x100) {
         memory->ClearBooting();
-        program_counter = 0;
     }
     uint8_t opcode = memory->ReadByteMemory(program_counter);
     program_counter++;
@@ -1103,6 +1105,10 @@ void CPU::ExecuteExtendedInstruction(uint8_t opcode) {
     }
 }
 
+uint16_t CPU::GetProgramCounter() {
+    return program_counter;
+}
+
 bool CPU::IsClockEnabled() {
      return TestBit(memory->ReadByteMemory(TMC), 2) ? true : false;
 }
@@ -1144,12 +1150,51 @@ void CPU::UpdateTimer(int cycles) {
 
         if (memory->ReadByteMemory(TIMA) == 255) {
             memory->WriteByteMemory(TIMA, memory->ReadByteMemory(TMA));
-            // TODO Request Interrupt;
+            RequestInterupt(2);
         }
         else {
             memory->WriteByteMemory(TIMA, memory->ReadByteMemory(TIMA) + 1);
         }
     }
+}
+
+void CPU::RequestInterupt(int id) {
+   uint8_t req = memory->ReadByteMemory(0xFF0F) ;
+   SetBit(req, id) ;
+   memory->WriteByteMemory(0xFF0F, id) ; 
+}
+
+void CPU::DoInterupts() {
+    if (!interupts) {
+        return;
+    }
+    uint8_t req = memory->ReadByteMemory(0xFF0F);
+    uint8_t enabled = memory->ReadByteMemory(0xFFFF);
+    if (req > 0) {
+        for (int i = 0 ; i < 5; i++) {
+            if (TestBit(req, i)) {
+                if (TestBit(enabled,i)) {
+                    ServiceInterupt(i) ;
+                }
+            }
+        }
+    }
+}
+
+void CPU::ServiceInterupt(int id) {
+   interupts = false;
+   uint8_t req = memory->ReadByteMemory(0xFF0F);
+   ClearBit(req, id);
+   memory->WriteByteMemory(0xFF0F, req) ;
+
+   Push(program_counter);
+
+   switch (id) {
+     case 0: program_counter = 0x40; break;
+     case 1: program_counter = 0x48; break;
+     case 2: program_counter = 0x50; break;
+     case 4: program_counter = 0x60; break;
+   }
 }
 
 void CPU::ArtificialJump(int offset) {
@@ -1208,11 +1253,13 @@ void CPU::STOP() {
 }
 
 void CPU::DI() {
+    pending_interupt_disabled = true;
     clocks.m_cycles += 1;
     clocks.t_cycles += 4;
 }
 
 void CPU::EI() {
+    pending_interupt_enabled = true;
     clocks.m_cycles += 1;
     clocks.t_cycles += 4;
 }

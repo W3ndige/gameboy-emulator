@@ -1,7 +1,8 @@
 #include "gpu.hpp"
 
-GPU::GPU(Memory *mem): pixels() {
-    memory = mem;
+GPU::GPU(Memory *mem, CPU *cpu): pixels() {
+    this->memory = mem;
+    this->cpu = cpu;
     current_line = 0;
     current_mode = 0;
     scanline_counter = 0;
@@ -24,7 +25,7 @@ void GPU::UpdateGraphics(int cycles) {
 
         if (current_line == 144) {
             PrintPixels();
-            // TODO() Request Interrupt
+            cpu->RequestInterupt(0) ;
         }
         else if (current_line > 153) {
             memory->WriteByteMemory(0xFF44, 0);
@@ -86,7 +87,7 @@ void GPU::SetLCDStatus() {
 
     // TODO Finish function
     if (request_interrupt && (mode != current_mode)) {
-        // TODO Request Interrupt
+        cpu->RequestInterupt(1);
     }
 
     memory->WriteByteMemory(0xFF41,status) ;
@@ -176,8 +177,49 @@ void GPU::RenderTiles() {
 }
 
 void GPU::RenderSprites() {
+    /*
+    uint8_t control = memory->ReadByteMemory(0xFF40);
 
+    bool use8x16sprites = false;
+    if (TestBit(control, 2)) {
+        use8x16sprites = true;
+    }
 
+    for (int sprite = 0; sprite < 40; sprite++) {
+        uint8_t index = sprite * 4;
+        uint8_t y_pos = memory->ReadByteMemory(0xFFE00 + index) - 16;
+        uint8_t x_pos = memory->ReadByteMemory(0xFFE00 + index + 1) - 9;
+        uint8_t location = memory->ReadByteMemory(0xFFE00 + index + 2);
+        uint8_t attributes = memory->ReadByteMemory(0xFFE00 + index + 3);
+        
+        int x_flip = TestBit(attributes, 5);
+        int y_flip = TestBit(attributes, 6);
+
+        int y_size = 8;
+        if (use8x16sprites) {
+            y_size = 16;
+        }
+
+        if (current_line >= y_pos && current_line < (y_pos + y_size)) {
+            int line = current_line - y_pos;
+            if (y_flip) {
+                line -= y_size;
+                line *= -1;
+            }
+            line *= 2;
+            uint8_t data_address = (0x8000 + (location * 16) + line);
+            uint8_t data_1 = memory->ReadByteMemory(data_address);
+            uint8_t data_2 = memory->ReadByteMemory(data_address + 1);
+
+            for (int tile_pixel = 7; tile_pixel >= 0; tile_pixel--) {
+
+            }
+
+        }
+
+    }
+
+    */
 }
 
 void GPU::PrintPixels() {

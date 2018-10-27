@@ -2,7 +2,7 @@
 
 int debug = 0;
 
-Gameboy::Gameboy(bool debugger) : gpu(&memory), cpu(&memory) {
+Gameboy::Gameboy(bool debugger) : cpu(&memory), gpu(&memory, &cpu) {
     debugger_info.breakpoint_set = false;
     debugger_info.step_set = false;
     debugger_info.debugger_set = debugger;
@@ -72,7 +72,21 @@ void Gameboy::Emulate() {
 
     int current_cycle = cpu.GetLastOpcodeTime();
     cpu.FetchAndDispatch();
+
+    if (cpu.pending_interupt_enabled == true && 
+        memory.ReadByteMemory(cpu.GetProgramCounter() - 1) != 0xfb) {
+        cpu.interupts = true;
+        cpu.pending_interupt_enabled = false;
+    }
+
+    if (cpu.pending_interupt_disabled == true && 
+        memory.ReadByteMemory(cpu.GetProgramCounter() - 1) != 0xfb) {
+        cpu.interupts = false;
+        cpu.pending_interupt_disabled = false;
+    }
+
     int cycles = cpu.GetLastOpcodeTime() - current_cycle;
     cpu.UpdateTimer(cycles);
     gpu.UpdateGraphics(cycles);
+    cpu.DoInterupts();
 }

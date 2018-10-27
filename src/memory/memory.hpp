@@ -14,6 +14,7 @@ class Memory {
         bool booting;
         uint8_t bootstrap[MAX_BOOTSTRAP_SIZE]; /**< 256B of bootstrap memory */
         uint8_t memory[MAX_MEMORY_SIZE]; /**< 64KB of memory */
+        void DMATransfer(uint8_t data);
         
     public:
         Memory();

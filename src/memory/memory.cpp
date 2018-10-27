@@ -4,6 +4,13 @@ Memory::Memory(): bootstrap(), memory() {
     booting = true;
 }
 
+void Memory::DMATransfer(uint8_t data) {
+   uint16_t address = data << 8;
+   for (int i = 0 ; i < 0xA0; i++) { /**< Read sprite RAM between memory adddress 0xFE00-0xFE9F */
+     WriteByteMemory(0xFE00 + i, ReadByteMemory(address + i));
+   }
+}
+
 bool Memory::IsBooting() {
     return booting;
 }
@@ -34,8 +41,8 @@ bool Memory::LoadBootstrap() {
 
 bool Memory::LoadCartridge() {
     try {
-        //std::ifstream game_file ("roms/tetris.gb", std::ifstream::binary);
-        std::ifstream game_file ("roms/cpu_instrs.gb", std::ifstream::binary);
+        std::ifstream game_file ("roms/tetris.gb", std::ifstream::binary);
+        //std::ifstream game_file ("roms/cpu_instrs.gb", std::ifstream::binary);
         if (game_file.good()) {
             game_file.read((char *)memory, 0x8000);
         }
@@ -55,27 +62,31 @@ bool Memory::LoadCartridge() {
 
 void Memory::WriteByteMemory(uint16_t address, uint8_t data) {
 
-    //  Read Only Memory
+    /**<  Read Only Memory */
     if (address < 0x8000) {
         return;
     }
-    // Restricted memory
+    /**< Restricted memory */
     else if (address >= 0xFEA0 && address <= 0xFEFF) {
         return;
     }
-    // ECHO memory
+    /**< ECHO memory */
     else if (address >= 0xE000 && address <= 0xFDFF) {
         memory[address] = data;
         WriteByteMemory(address - 0x2000, data);
     }
+    /**< If game wants to write to divider register, reset. */
     else if (address == 0xFF04) {
         memory[address] = 0;
     } 
     // Have to rethink that.
     // else if (address == 0xFF44) { 
     //     memory[address] = 0 ;
-    // } 
-    // Write to memory
+    // }
+    else if (address == 0xFF46) {
+        DMATransfer(data);
+    } 
+    /**< Write to memory */
     else {
         memory[address] = data;
     }
