@@ -68,7 +68,10 @@ void Gameboy::Emulate() {
         }
     }
 
-    // TODO Stepping
+    if (debugger_info.step_set) {
+        Debugger();
+        cpu.Diagnostics();
+    }
 
     int current_cycle = cpu.GetLastOpcodeTime();
     cpu.FetchAndDispatch();

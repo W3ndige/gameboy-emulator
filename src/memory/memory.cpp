@@ -2,21 +2,40 @@
 
 Memory::Memory(): bootstrap(), memory() {
     booting = true;
+    joypad_state = 0xFF;
+    /**< TEMPORARY */
+    memory[0xFF00] = 0x0F;
 }
 
 void Memory::DMATransfer(uint8_t data) {
-   uint16_t address = data << 8;
-   for (int i = 0 ; i < 0xA0; i++) { /**< Read sprite RAM between memory adddress 0xFE00-0xFE9F */
-     WriteByteMemory(0xFE00 + i, ReadByteMemory(address + i));
+    uint16_t address = data << 8;
+
+    /**< Read sprite RAM between memory adddress 0xFE00-0xFE9F */
+    for (int i = 0 ; i < 0xA0; i++) {
+        WriteByteMemory(0xFE00 + i, ReadByteMemory(address + i));
+    }
+}
+
+uint8_t Memory::GetJoypadState() {
+    uint8_t res = memory[0xFF00];
+    res ^= 0xFF;
+
+    if (!TestBit(res, 4)) {
+        uint8_t top_joypad = joypad_state >> 4;
+        top_joypad |= 0xF0;
+        res &= top_joypad;
+    }
+    else if (!TestBit(res, 5)) {
+        uint8_t bottom_joypad = joypad_state & 0xF;
+        bottom_joypad |= 0xF0;
+        res &= bottom_joypad;
    }
+   return res;
+
 }
 
 bool Memory::IsBooting() {
     return booting;
-}
-
-void Memory::ClearBooting() {
-    booting = false;
 }
 
 bool Memory::LoadBootstrap() {
@@ -42,7 +61,7 @@ bool Memory::LoadBootstrap() {
 bool Memory::LoadCartridge() {
     try {
         std::ifstream game_file ("roms/tetris.gb", std::ifstream::binary);
-        //std::ifstream game_file ("roms/cpu_instrs.gb", std::ifstream::binary);
+        //std::ifstream game_file ("roms/individual/01-special.gb", std::ifstream::binary);
         if (game_file.good()) {
             game_file.read((char *)memory, 0x8000);
         }
@@ -61,6 +80,13 @@ bool Memory::LoadCartridge() {
 }
 
 void Memory::WriteByteMemory(uint16_t address, uint8_t data) {
+    if (address == 0xFF02 && data == 0x81) {
+        std::cout << char(ReadByteMemory(0xFF01));
+    }
+
+    if (address == 0xFF50) {
+        booting = false;
+    }
 
     /**<  Read Only Memory */
     if (address < 0x8000) {
@@ -80,12 +106,12 @@ void Memory::WriteByteMemory(uint16_t address, uint8_t data) {
         memory[address] = 0;
     } 
     // Have to rethink that.
-    // else if (address == 0xFF44) { 
-    //     memory[address] = 0 ;
-    // }
+    else if (address == 0xFF44) { 
+        memory[address] = 0;
+    }
     else if (address == 0xFF46) {
         DMATransfer(data);
-    } 
+    }
     /**< Write to memory */
     else {
         memory[address] = data;
@@ -105,6 +131,10 @@ uint8_t Memory::ReadByteMemory(uint16_t address) {
     if (booting == true && address <= 0x00FF) {
         return bootstrap[address];
     }
+    // Joypad 
+    if (address == 0xFF00) {
+        return GetJoypadState() ;
+    }
 
     return memory[address];
 }
@@ -120,7 +150,7 @@ void Memory::DumpMemory() {
     try {
         std::ofstream dump ("memory_dump.bin", std::ofstream::binary);
         if (dump.good()) {
-            dump.write((char *)memory, 0x8000);
+            dump.write((char *)memory, 0x10000);
         }
         else {
             throw "Could not dump memory.";

@@ -72,9 +72,7 @@ bool CPU::Init() {
 }
 
 void CPU::FetchAndDispatch() {
-    if (program_counter == 0x100) {
-        memory->ClearBooting();
-    }
+    //printf("0x%04x\n", program_counter);
     uint8_t opcode = memory->ReadByteMemory(program_counter);
     program_counter++;
     ExecuteInstruction(opcode);
@@ -203,9 +201,9 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0xe2: LD8_mem_r1(0xFF00 + bc_register.low, af_register.high); break;
 
         case 0x3a: LD8_r1_mem(af_register.high, hl_register.pair); hl_register.pair--; break;
-        case 0X32: LD8_mem_r1(hl_register.pair, af_register.high); hl_register.pair--; break;
+        case 0x32: LD8_mem_r1(hl_register.pair, af_register.high); hl_register.pair--; break;
         case 0x2a: LD8_r1_mem(af_register.high, hl_register.pair); hl_register.pair++; break;
-        case 0X22: LD8_mem_r1(hl_register.pair, af_register.high); hl_register.pair++; break;
+        case 0x22: LD8_mem_r1(hl_register.pair, af_register.high); hl_register.pair++; break;
 
         case 0xe0: LD8_mem_r1(0xFF00 + memory->ReadByteMemory(program_counter), 
                     af_register.high); program_counter++; clocks.t_cycles += 8; break;
@@ -350,15 +348,6 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
             clocks.t_cycles += 4;
             break;
         }
-        /* NO OPCODE?
-        case 0xe6:
-        {
-            uint8_t n = memory->ReadByteMemory(program_counter);
-            program_counter++;
-            And8Bit(n);
-            clocks.t_cycles += 4;
-            break;
-        }*/
 
         case 0xa7: And8Bit(af_register.high); break;
         case 0xa0: And8Bit(bc_register.high); break;
@@ -370,7 +359,7 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0xa6:
         {
             uint8_t n = memory->ReadByteMemory(hl_register.pair);
-            And8Bit(n); 
+            And8Bit(n);
             clocks.t_cycles += 4;
             break;
         }
@@ -462,7 +451,8 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0x34:
         {
             uint8_t n = memory->ReadByteMemory(hl_register.pair);
-            Inc8Bit(n); 
+            Inc8Bit(n);
+            memory->WriteByteMemory(hl_register.pair, n);
             clocks.t_cycles += 8;
             break;
         }
@@ -477,7 +467,8 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0x35:
         {
             uint8_t n = memory->ReadByteMemory(hl_register.pair);
-            Dec8Bit(n); 
+            Dec8Bit(n);
+            memory->WriteByteMemory(hl_register.pair, n);
             clocks.t_cycles += 8;
             break;
         }
@@ -1159,9 +1150,9 @@ void CPU::UpdateTimer(int cycles) {
 }
 
 void CPU::RequestInterupt(int id) {
-   uint8_t req = memory->ReadByteMemory(0xFF0F) ;
-   SetBit(req, id) ;
-   memory->WriteByteMemory(0xFF0F, id) ; 
+    uint8_t req = memory->ReadByteMemory(0xFF0F);
+    SetBit(req, id);
+    memory->PrivilagedByteWrite(0xFF0F, req); 
 }
 
 void CPU::DoInterupts() {
@@ -1171,9 +1162,10 @@ void CPU::DoInterupts() {
     uint8_t req = memory->ReadByteMemory(0xFF0F);
     uint8_t enabled = memory->ReadByteMemory(0xFFFF);
     if (req > 0) {
+
         for (int i = 0 ; i < 5; i++) {
             if (TestBit(req, i)) {
-                if (TestBit(enabled,i)) {
+                if (TestBit(enabled, i)) {
                     ServiceInterupt(i) ;
                 }
             }
@@ -1215,14 +1207,10 @@ int CPU::Breakpoint(uint16_t pc) {
 void CPU::Diagnostics() {
     printf("PC\t0x%04x\n", program_counter);
     printf("SP\t0x%04x\n", sp_register.pair);
-    printf("A\t0x%02x\n", af_register.high);
-    printf("F\t0x%02x\n", af_register.low);
-    printf("B\t0x%02x\n", bc_register.high);
-    printf("C\t0x%02x\n", bc_register.low);
-    printf("D\t0x%02x\n", de_register.high);
-    printf("E\t0x%02x\n", de_register.low);
-    printf("H\t0x%02x\n", hl_register.high);
-    printf("L\t0x%02x\n", hl_register.low);
+    printf("AF\t0x%04x\n", af_register.pair);
+    printf("BC\t0x%04x\n", bc_register.pair);
+    printf("DE\t0x%04x\n", de_register.pair);
+    printf("HL\t0x%04x\n", hl_register.pair);
     PrintFlags();
     memory->DumpMemory();
 }
@@ -1267,8 +1255,8 @@ void CPU::EI() {
 /**< 8 Bit Loads */
 
 void CPU::LD8_r_nn(uint8_t &reg) {
-    uint8_t nn = memory->ReadByteMemory(program_counter);
-    reg = nn;
+    uint8_t n = memory->ReadByteMemory(program_counter);
+    reg = n;
     program_counter++;
     clocks.m_cycles += 2;
     clocks.t_cycles += 8;
@@ -1342,13 +1330,12 @@ void CPU::Add8Bit(uint8_t reg, int add_carry) {
         SetBit(af_register.low, HALF_CARRY_FLAG);
     }
 
-	if ((before + reg) > 0xFF) {
+	if ((before + reg + TestBit(af_register.low, CARRY_FLAG)) > 0xFF) {
         SetBit(af_register.low, CARRY_FLAG);
     }
 
     clocks.t_cycles += 1;
     clocks.m_cycles += 4;
-
 }
 
 void CPU::Sub8Bit(uint8_t &reg, int sub_carry) {
@@ -1368,7 +1355,7 @@ void CPU::Sub8Bit(uint8_t &reg, int sub_carry) {
 
     SetBit(af_register.low, SUBSTRACT_FLAG);
 
-	if (before < reg) {
+	if (before < (reg + TestBit(af_register.low, CARRY_FLAG))) {
         SetBit(af_register.low, CARRY_FLAG);
     }
 
@@ -1385,38 +1372,34 @@ void CPU::Sub8Bit(uint8_t &reg, int sub_carry) {
 
 void CPU::And8Bit(uint8_t &reg) {
     af_register.high &= reg;
+
+    af_register.low = 0;
     if (af_register.high == 0) {
         SetBit(af_register.low, ZERO_FLAG);
     }
 
-    ClearBit(af_register.low, SUBSTRACT_FLAG);
     SetBit(af_register.low, HALF_CARRY_FLAG);
-    ClearBit(af_register.low, CARRY_FLAG);
     clocks.m_cycles += 1;
     clocks.t_cycles += 4;
 }
 
 void CPU::Or8Bit(uint8_t &reg) {
     af_register.high |= reg;
+    af_register.low = 0;
     if (af_register.high == 0) {
         SetBit(af_register.low, ZERO_FLAG);
     }
 
-    ClearBit(af_register.low, SUBSTRACT_FLAG);
-    ClearBit(af_register.low, HALF_CARRY_FLAG);
-    ClearBit(af_register.low, CARRY_FLAG);
     clocks.m_cycles += 1;
     clocks.t_cycles += 4;
 }
 
 void CPU::Xor8Bit(uint8_t &reg) {
     af_register.high ^= reg;
+    af_register.low = 0;
     if (af_register.high == 0) {
         SetBit(af_register.low, ZERO_FLAG);
     }
-    ClearBit(af_register.low, SUBSTRACT_FLAG);
-    ClearBit(af_register.low, HALF_CARRY_FLAG);
-    ClearBit(af_register.low, CARRY_FLAG);
     clocks.m_cycles += 1;
     clocks.t_cycles += 4;
 
@@ -1495,7 +1478,10 @@ void CPU::Dec8Bit(uint8_t &reg) {
 // 16 bit ALU
 
 void CPU::Add16Bit(uint16_t &reg) {
+
+    uint16_t before = reg;
     hl_register.pair += reg;
+    ClearBit(af_register.low, SUBSTRACT_FLAG);
 
     // Rethink flags;
     clocks.m_cycles += 1;
@@ -1742,13 +1728,13 @@ void CPU::DAA() {
 
 void CPU::JUMP(uint8_t flag, int condition, int use_condition) {
     int16_t nn = (int16_t)memory->ReadWordMemory(program_counter);
+    program_counter += 2;
     if (!use_condition) {
         program_counter = nn;
     }
     else if (TestBit(af_register.low, flag) == condition) {
         program_counter = nn;
     }
-    program_counter++;
     clocks.t_cycles += 3;
     clocks.m_cycles += 12;
 

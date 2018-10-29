@@ -20,7 +20,7 @@ void GPU::UpdateGraphics(int cycles) {
     if (scanline_counter <= 0) {
         current_line = memory->ReadByteMemory(0xFF44);
         current_line++;
-        memory->WriteByteMemory(0xFF44, current_line);
+        memory->PrivilagedByteWrite(0xFF44, current_line);
         scanline_counter = 456;
 
         if (current_line == 144) {
@@ -28,7 +28,7 @@ void GPU::UpdateGraphics(int cycles) {
             cpu->RequestInterupt(0) ;
         }
         else if (current_line > 153) {
-            memory->WriteByteMemory(0xFF44, 0);
+            memory->PrivilagedByteWrite(0xFF44, 0);
         }
         else if (current_line < 144) {
             DrawScanLine();
@@ -45,7 +45,7 @@ void GPU::SetLCDStatus() {
     uint8_t status = memory->ReadByteMemory(0xFF41);
     if (IsLCDEnabled() == false) {
         scanline_counter = 456; 
-        memory->WriteByteMemory(0xFF44, 0x0);
+        memory->PrivilagedByteWrite(0xFF44, 0x0);
         status &= 252;
         SetBit(status, 0x0);
         memory->WriteByteMemory(0xFF41, status);
@@ -85,9 +85,18 @@ void GPU::SetLCDStatus() {
         }
     }
 
-    // TODO Finish function
     if (request_interrupt && (mode != current_mode)) {
         cpu->RequestInterupt(1);
+    }
+
+    if (current_line == memory->ReadByteMemory(0xFF45)) {
+        SetBit(status, 2);
+        if (TestBit(status, 6)) {
+            cpu->RequestInterupt(1);
+        }
+    }
+    else {
+     ClearBit(status, 2) ;
     }
 
     memory->WriteByteMemory(0xFF41,status) ;
@@ -143,7 +152,6 @@ void GPU::RenderTiles() {
     }
 
     uint8_t y_pos = scroll_y + current_line;
-
 
     uint16_t tile_row = (((uint8_t)(y_pos / 8)) * 32);
     for (int pixel = 0; pixel < 160; pixel++) {
