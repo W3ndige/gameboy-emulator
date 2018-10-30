@@ -86,6 +86,7 @@ void Memory::WriteByteMemory(uint16_t address, uint8_t data) {
 
     if (address == 0xFF50) {
         booting = false;
+        return;
     }
 
     /**<  Read Only Memory */
