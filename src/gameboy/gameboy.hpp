@@ -1,32 +1,24 @@
 #ifndef GAMEBOY_HPP
 #define GAMEBOY_HPP
 
-#include <vector>
-#include <sstream>
-#include <iterator>
+#include "debugger.hpp"
 #include "../gpu/gpu.hpp"
 #include "../cpu/cpu.hpp"
 
-struct DebuggerInfo {
-    bool debugger_set;
-    bool step_set;
-    bool breakpoint_set;
-    int breakpoint;
-};
-
 class Gameboy {
     public:
-        Gameboy(bool debugger);
-        void Debugger();
+        Gameboy(bool debug);
         void Emulate();
 
     private:
         Memory memory;
         CPU cpu;
         GPU gpu;
-        DebuggerInfo debugger_info;
+        
+        bool debugging;
+        friend class Debugger;
+        Debugger debugger;
 
-        std::vector<std::string> DebuggerParseInput();
 };
 
 #endif

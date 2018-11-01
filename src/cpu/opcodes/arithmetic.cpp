@@ -1,7 +1,6 @@
 #include "../cpu.hpp"
 
-//  8 bit ALU
-
+/**<  8 bit ALU */
 void CPU::Add8Bit(uint8_t reg, int add_carry) {
     uint8_t before = af_register.high;
 
@@ -170,25 +169,54 @@ void CPU::Dec8Bit(uint8_t &reg) {
     clocks.t_cycles += 4;
 }
 
-// 16 bit ALU
-
+/**< 16 bit ALU */
 void CPU::Add16Bit(uint16_t &reg) {
 
     uint16_t before = reg;
-    hl_register.pair += reg;
+    hl_register.pair += reg + TestBit(af_register.low, CARRY_FLAG);
 
     ClearBit(af_register.low, SUBSTRACT_FLAG);
 
-    // Rethink flags;
+    if (before + TestBit(af_register.low, CARRY_FLAG) > 0xFFFF) {
+        SetBit(af_register.low, CARRY_FLAG);
+    }
+    else {
+        ClearBit(af_register.low, CARRY_FLAG);
+    }
+
+    if (((before & 0xFF00) & 0xF) + ((TestBit(af_register.low, CARRY_FLAG) >> 8) & 0xF)) {
+        SetBit(af_register.low, HALF_CARRY_FLAG);
+    }
+    else {
+        ClearBit(af_register.low, HALF_CARRY_FLAG);
+    }
+
     clocks.m_cycles += 1;
     clocks.t_cycles += 8;
 }
 
 void CPU::AddSP16Bit() {
-    sp_register.pair += memory->ReadByteMemory(program_counter);
+    uint16_t before = sp_register.pair;
+
+    sp_register.pair += memory->ReadByteMemory(program_counter) + TestBit(af_register.low, CARRY_FLAG);
     program_counter++;
 
-    // Rethink flags;
+    ClearBit(af_register.low, SUBSTRACT_FLAG);
+
+    if (before + TestBit(af_register.low, CARRY_FLAG) > 0xFFFF) {
+        SetBit(af_register.low, CARRY_FLAG);
+    }
+    else {
+        ClearBit(af_register.low, CARRY_FLAG);
+    }
+
+    if (((before & 0xFF00) & 0xF) + ((TestBit(af_register.low, CARRY_FLAG) >> 8) & 0xF)) {
+        SetBit(af_register.low, HALF_CARRY_FLAG);
+    }
+    else {
+        ClearBit(af_register.low, HALF_CARRY_FLAG);
+    }
+
     clocks.m_cycles += 2;
     clocks.t_cycles += 16;
 }

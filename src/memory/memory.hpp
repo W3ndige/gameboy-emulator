@@ -10,11 +10,19 @@
 const int MAX_BOOTSTRAP_SIZE = 0x100;
 const int MAX_MEMORY_SIZE = 0x10000;
 
+struct CartidgeHeader {
+    char title[16]; /**< Maximum 16 characters */
+    uint8_t cartridge_type; /**< Specifies which MBC is used in the cartridge */
+    uint8_t rom_size; /**< Specifies size of the ROM */
+    uint8_t ram_size; /**< Specifies size of the RAM, if any */
+};
+
 class Memory {
     private:
         bool booting;
         uint8_t bootstrap[MAX_BOOTSTRAP_SIZE]; /**< 256B of bootstrap memory */
         uint8_t memory[MAX_MEMORY_SIZE]; /**< 64KB of memory */
+        CartidgeHeader cartridge_header; /**< Contains information about the cartridge header */
         uint8_t joypad_state;
 
     private:

@@ -64,6 +64,7 @@ bool Memory::LoadCartridge() {
         //std::ifstream game_file ("roms/individual/01-special.gb", std::ifstream::binary);
         if (game_file.good()) {
             game_file.read((char *)memory, 0x8000);
+            // TODO Get header information.
         }
         else {
             booting = false;
@@ -80,15 +81,6 @@ bool Memory::LoadCartridge() {
 }
 
 void Memory::WriteByteMemory(uint16_t address, uint8_t data) {
-    if (address == 0xFF02 && data == 0x81) {
-        std::cout << char(ReadByteMemory(0xFF01));
-    }
-
-    if (address == 0xFF50) {
-        booting = false;
-        return;
-    }
-
     /**<  Read Only Memory */
     if (address < 0x8000) {
         return;
@@ -113,6 +105,15 @@ void Memory::WriteByteMemory(uint16_t address, uint8_t data) {
     else if (address == 0xFF46) {
         DMATransfer(data);
     }
+    /**< Set booting to false if program wants to write to this memory */
+    else if (address == 0xFF50) {
+        booting = false;
+        return;
+    }
+    /**< Serial data used for Blargg test output */
+    else if (address == 0xFF02 && data == 0x81) {
+        std::cout << char(ReadByteMemory(0xFF01));
+    }
     /**< Write to memory */
     else {
         memory[address] = data;
@@ -120,6 +121,7 @@ void Memory::WriteByteMemory(uint16_t address, uint8_t data) {
 }
 
 void Memory::PrivilagedByteWrite(uint16_t address, uint8_t data) {
+    /**< Some system functions have to write beyond limits */
     memory[address] = data;
 }
 
@@ -129,11 +131,13 @@ void Memory::WriteWordMemory(uint16_t address, uint16_t data) {
 }
 
 uint8_t Memory::ReadByteMemory(uint16_t address) {
+    /**< If booting we want to read from bootstrap memory */
     if (booting == true && address <= 0x00FF) {
         return bootstrap[address];
     }
-    // Joypad 
-    if (address == 0xFF00) {
+
+    /**< Get the state of the joypad */ 
+    else if (address == 0xFF00) {
         return GetJoypadState() ;
     }
 
@@ -141,6 +145,7 @@ uint8_t Memory::ReadByteMemory(uint16_t address) {
 }
 
 uint16_t Memory::ReadWordMemory(uint16_t address) {
+    /**< Read word in little endian format */
     uint16_t word = ReadByteMemory(address + 1);
 	word = word << 8;
 	word |= ReadByteMemory(address) ;
