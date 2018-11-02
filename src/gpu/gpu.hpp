@@ -12,7 +12,7 @@ class GPU {
         void UpdateGraphics(int cycles);
 
     private:
-        uint8_t pixels[160][144];
+        uint8_t pixels[160][144][3];
         int scanline_counter;
 
         uint8_t current_mode;
@@ -26,6 +26,7 @@ class GPU {
         void DrawScanLine();
         void RenderTiles();
         void RenderSprites();
+        int GetColor(uint8_t color_id);
         void PrintPixels();
 };
 

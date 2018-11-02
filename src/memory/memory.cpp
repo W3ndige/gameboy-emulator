@@ -3,8 +3,6 @@
 Memory::Memory(): bootstrap(), memory() {
     booting = true;
     joypad_state = 0xFF;
-    /**< TEMPORARY */
-    memory[0xFF00] = 0x0F;
 }
 
 void Memory::DMATransfer(uint8_t data) {
@@ -60,11 +58,11 @@ bool Memory::LoadBootstrap() {
 
 bool Memory::LoadCartridge() {
     try {
-        std::ifstream game_file ("roms/tetris.gb", std::ifstream::binary);
-        //std::ifstream game_file ("roms/individual/01-special.gb", std::ifstream::binary);
+        std::ifstream game_file ("roms/flappyboy.gb", std::ifstream::binary);
+        //std::ifstream game_file ("roms/individual/11-op a,(hl).gb", std::ifstream::binary);
         if (game_file.good()) {
             game_file.read((char *)memory, 0x8000);
-            // TODO Get header information.
+            LoadCartridgeHeader();
         }
         else {
             booting = false;
@@ -78,6 +76,78 @@ bool Memory::LoadCartridge() {
     }
     
     return true;
+}
+
+void Memory::LoadCartridgeHeader() {
+    std::string tmp_title;
+    for (size_t i = 0; i < 15; i++) {
+        tmp_title += char(memory[0x104 + i]);
+    }
+    cartridge_header.title = tmp_title;
+    cartridge_header.cartridge_type = memory[0x147];
+    cartridge_header.rom_size = memory[0x148];
+    cartridge_header.ram_size = memory[0x149];
+}
+
+void Memory::PrintCartidgeHeader() {
+    printf("TITLE\t%s\n", cartridge_header.title.c_str());
+    printf("CARTRIDGE TYPE\t");
+    switch (cartridge_header.cartridge_type) {
+        case 0x00: puts("ROM ONLY"); break;
+        case 0x01: puts("MBC1"); break;
+        case 0x02: puts("MBC1+RAM"); break;
+        case 0x03: puts("MBC1+RAM+BATTERY"); break;
+        case 0x05: puts("MBC2"); break;
+        case 0x06: puts("MBC2+BATTERY"); break;
+        case 0x08: puts("ROM+RAM"); break;
+        case 0x09: puts("ROM+RAM+BATTERY"); break;
+        case 0x0B: puts("MMM01"); break;
+        case 0x0C: puts("MMM01+RAM"); break;
+        case 0x0D: puts("MMM01+RAM+BATTERY"); break;
+        case 0x0F: puts("MBC3+TIMER+BATTERY"); break;
+        case 0x10: puts("MBC3+TIMER+RAM+BATTERY"); break;
+        case 0x11: puts("MBC3"); break;
+        case 0x12: puts("MBC3+RAM)"); break;
+        case 0x13: puts("MBC3+RAM+BATTERY"); break;
+        case 0x19: puts("MBC5"); break;
+        case 0x1A: puts("MBC5+RAM"); break;
+        case 0x1B: puts("MBC5+RAM+BATTERY"); break;
+        case 0x1C: puts("MBC5+RUMBLE"); break;
+        case 0x1D: puts("MBC5+RUMBLE+RAM"); break;
+        case 0x1E: puts("MBC5+RUMBLE+RAM+BATTERY"); break;
+        case 0x20: puts("MBC6"); break;
+        case 0x22: puts("MBC7+SENSOR+RUMBLE+RAM+BATTERY"); break;
+        case 0xFC: puts("POCKET CAMERA"); break;
+        case 0xFD: puts("BANDAI TAMA5"); break;
+        case 0xFE: puts("HuC3"); break;
+        case 0xFF: puts("HuC1+RAM+BATTERY"); break;
+    }
+
+    printf("ROM SIZE\t");
+    switch (cartridge_header.rom_size) {
+        case 0x00: puts("32KByte (no ROM banking)"); break;
+        case 0x01: puts("64KByte (4 banks)"); break;
+        case 0x02: puts("128KByte (8 banks)"); break;
+        case 0x03: puts("256KByte (16 banks)"); break;
+        case 0x04: puts("512KByte (32 banks)"); break;
+        case 0x05: puts("1MByte (64 banks)"); break;
+        case 0x06: puts("2MByte (128 banks)"); break;
+        case 0x07: puts("4MByte (256 banks)"); break;
+        case 0x08: puts("8MByte (512 banks)"); break;
+        case 0x52: puts("1.1MByte (72 banks)"); break;
+        case 0x53: puts("1.2MByte (80 banks)"); break;
+        case 0x54: puts("1.5MByte (96 banks)"); break;
+    }
+
+    printf("RAM SIZE\t");
+    switch (cartridge_header.ram_size) {
+        case 0x00: puts("None"); break;
+        case 0x01: puts("2 KBytes"); break;
+        case 0x02: puts("8 Kbytes"); break;
+        case 0x03: puts("32 KBytes"); break;
+        case 0x04: puts("128 KBytes"); break;
+        case 0x05: puts("64 KBytes"); break;
+    }
 }
 
 void Memory::WriteByteMemory(uint16_t address, uint8_t data) {

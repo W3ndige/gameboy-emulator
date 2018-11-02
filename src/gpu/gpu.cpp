@@ -179,8 +179,26 @@ void GPU::RenderTiles() {
         uint8_t req_bit = 7 - (x_pos % 8);
         uint8_t bit_1 = TestBit(byte_1, req_bit);
         uint8_t bit_2 = TestBit(byte_2, req_bit);
+        uint8_t color_id = (bit_1 << 1) | bit_2;
+        int color = GetColor(color_id);
+        int red, blue, green;
 
-        pixels[pixel][current_line] = (bit_1 << 1) | bit_2;
+        if (color == 0) {
+            red = blue = green = 0xff;
+        }
+        else if (color == 1) {
+             red = 0xcc, blue = 0xcc, green = 0xcc;
+        }
+        else if (color == 2) {
+            red = 0x77, blue = 0x77, green = 0x77;
+        }
+        else {
+            red = blue = green = 0;
+        }
+
+        pixels[pixel][current_line][0] = red;
+        pixels[pixel][current_line][1] = blue;
+        pixels[pixel][current_line][2] = green;
     }
 }
 
@@ -230,26 +248,23 @@ void GPU::RenderSprites() {
     */
 }
 
+int GPU::GetColor(uint8_t color_id) {
+    uint8_t data = memory->ReadByteMemory(0xff47);
+    int hi = 2 * color_id + 1, lo = 2 * color_id;
+    int bit_1 = (data >> hi) & 1;
+    int bit_0 = (data >> lo) & 1;
+    return (bit_1 << 1) | bit_0;    
+}
+
 void GPU::PrintPixels() {
     /**< Drawing lines first */
     for (int i = 0; i < 144; i++) {
         for (int j = 0; j < 160; j++) {
-            switch (pixels[j][i]) {
-                case 0:
-                    SDL_SetRenderDrawColor(gui.renderer, 0xff, 0xff, 0xff, 0xff);
-                    SDL_RenderDrawPoint(gui.renderer, j, i);
-                    break;
-                case 1:
-                    // TODO
-                    break;
-                case 2:
-                    SDL_SetRenderDrawColor(gui.renderer, 0x00, 0x00, 0x00, 0xff);
-                    SDL_RenderDrawPoint(gui.renderer, j, i);
-                    break;
-                case 3:
-                    // TODO
-                    break;                    
-            }
+            int red = pixels[j][i][0];
+            int blue = pixels[j][i][1];
+            int green = pixels[j][i][2];
+            SDL_SetRenderDrawColor(gui.renderer, red, blue, green, 0xFF);
+            SDL_RenderDrawPoint(gui.renderer, j, i);
         }
     }
     SDL_RenderPresent(gui.renderer);

@@ -3,9 +3,10 @@
 Gameboy::Gameboy(bool debug) : cpu(&memory), gpu(&memory, &cpu), debugger(*this) {
     bool init = cpu.Init();
     if (!init) {
-        throw "Could not initialze CPU.";
+        throw "Could not initialize CPU.";
     }
     debugging = debug;
+    memory.PrintCartidgeHeader();
 }
 
 void Gameboy::Emulate() {

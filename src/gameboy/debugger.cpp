@@ -11,14 +11,24 @@ void Debugger::Debug() {
         GetInput();
     }
 
-    /**< Check for breakpoints */
-    if (state.breakpoint_set) {
-        if (gameboy.cpu.Breakpoint(state.breakpoint)) {
-            state.breakpoint_set = false;
-            state.debugging = true;
+    /**< Do instructions step by step */
+    if (state.step_set) {
+        if (!state.stepper_count) {
+            state.step_set = false;
             gameboy.cpu.Diagnostics();
             GetInput();
         }
+        else {
+            state.stepper_count--;
+        }
+    }
+
+    /**< Check for breakpoints */
+    if (state.breakpoint_set && gameboy.cpu.Breakpoint(state.breakpoint)) {
+        state.breakpoint_set = false;
+        state.debugging = true;
+        gameboy.cpu.Diagnostics();
+        GetInput();
     }
 }
 
@@ -34,7 +44,7 @@ void Debugger::GetInput() {
 
     switch (input.cmd) {
         case Command::Run: state.debugging = false; break;
-        case Command::Step: /* TODO FINISH */ break;
+        case Command::Step: StepCommand(input); break;
         case Command::Memory: MemoryCommand(input); break; 
         case Command::Break: BreakpointCommand(input); break;
         case Command::Exit: /* TODO FINISH */; break;
@@ -67,6 +77,17 @@ Command Debugger::ParseCommand(std::string cmd) {
     else if (cmd == "break" || cmd == "b") return Command::Break;
     else if (cmd == "quit" || cmd == "q" || cmd == "exit" || cmd == "e") return Command::Exit;
     return Command::Unknown;
+}
+
+void Debugger::StepCommand(DebuggerCommand input) {
+    if (input.args.size() == 0) {
+        state.step_set = true;
+        state.stepper_count = 1;
+    }
+    else if (input.args.size() == 1) {
+        state.step_set = true;
+        state.stepper_count = std::stoul(input.args[0], nullptr, 10);
+    }
 }
 
 void Debugger::MemoryCommand(DebuggerCommand input) {

@@ -12,6 +12,7 @@ class CPU;
 struct DebuggerState {
     bool debugging;
     bool step_set;
+    unsigned int stepper_count;
     bool breakpoint_set;
     uint16_t breakpoint;
 };
@@ -44,6 +45,7 @@ class Debugger {
         void GetInput();
         DebuggerCommand ParseInput(std::string input);
         Command ParseCommand(std::string cmd);
+        void StepCommand(DebuggerCommand input);
         void MemoryCommand(DebuggerCommand input);
         void BreakpointCommand(DebuggerCommand input);
 
