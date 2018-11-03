@@ -1,12 +1,43 @@
 #include "gpu.hpp"
 
-GPU::GPU(Memory *mem, CPU *cpu): pixels() {
+GPU::GPU(Memory *mem, CPU *cpu) {
     this->memory = mem;
     this->cpu = cpu;
     current_line = 0;
     current_mode = 0;
     scanline_counter = 0;
-    gui.Init();
+    pixels = new uint32_t[160 * 144];
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
+        SDL_Quit();
+        //return false;
+    }
+
+    window = SDL_CreateWindow("Gameboy", SDL_WINDOWPOS_CENTERED, 100,
+                                          320, 288, SDL_WINDOW_SHOWN);
+    if (window == nullptr) {
+        printf( "SDL Window could not initialize! SDL_Error: %s\n", SDL_GetError() );
+        SDL_Quit();
+        //return false;
+    }
+
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (renderer == nullptr) {
+        printf( "SDL Renderer could not initialize! SDL_Error: %s\n", SDL_GetError() );
+        SDL_Quit();
+        //return false;
+    }
+    SDL_RenderSetScale(renderer, 2, 2);
+    texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, 160, 144);
+
+}
+
+GPU::~GPU() {
+    delete[] pixels;
+    SDL_DestroyTexture(texture);
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 }
 
 void GPU::UpdateGraphics(int cycles) {
@@ -114,17 +145,6 @@ void GPU::DrawScanLine() {
 	}
 }
 
-/*
-Bit 7 - LCD Display Enable (0=Off, 1=On)
-Bit 6 - Window Tile Map Display Select (0=9800-9BFF, 1=9C00-9FFF)
-Bit 5 - Window Display Enable (0=Off, 1=On)
-Bit 4 - BG & Window Tile Data Select (0=8800-97FF, 1=8000-8FFF)
-Bit 3 - BG Tile Map Display Select (0=9800-9BFF, 1=9C00-9FFF)
-Bit 2 - OBJ (Sprite) Size (0=8x8, 1=8x16)
-Bit 1 - OBJ (Sprite) Display Enable (0=Off, 1=On)
-Bit 0 - BG Display (for CGB see below) (0=Off, 1=On)
-*/
-
 void GPU::RenderTiles() {
     uint8_t control = memory->ReadByteMemory(0xFF40);
 
@@ -196,9 +216,7 @@ void GPU::RenderTiles() {
             red = blue = green = 0;
         }
 
-        pixels[pixel][current_line][0] = red;
-        pixels[pixel][current_line][1] = blue;
-        pixels[pixel][current_line][2] = green;
+        pixels[pixel + (current_line * 160)] = (0xFF << 24) | (red << 16) | (green << 8) | (blue);
     }
 }
 
@@ -257,15 +275,9 @@ int GPU::GetColor(uint8_t color_id) {
 }
 
 void GPU::PrintPixels() {
-    /**< Drawing lines first */
-    for (int i = 0; i < 144; i++) {
-        for (int j = 0; j < 160; j++) {
-            int red = pixels[j][i][0];
-            int blue = pixels[j][i][1];
-            int green = pixels[j][i][2];
-            SDL_SetRenderDrawColor(gui.renderer, red, blue, green, 0xFF);
-            SDL_RenderDrawPoint(gui.renderer, j, i);
-        }
-    }
-    SDL_RenderPresent(gui.renderer);
+    SDL_UpdateTexture(texture, NULL, pixels, 160 * sizeof(Uint32));
+    SDL_RenderClear(renderer);
+    const SDL_Rect dest = {.x = 0, .y = 0, .w = 160, .h = 144};
+    SDL_RenderCopy(renderer, texture, NULL, &dest);
+    SDL_RenderPresent(renderer);
 }

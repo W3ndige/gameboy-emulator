@@ -35,3 +35,18 @@ void Gameboy::Emulate() {
     gpu.UpdateGraphics(cycles);
     cpu.DoInterupts();
 }
+
+void Gameboy::Loop() {
+    bool running = true;
+
+    SDL_Event event;
+    while (running) {
+        if (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                running = false;
+            }
+        }
+        Emulate();
+    }
+
+}

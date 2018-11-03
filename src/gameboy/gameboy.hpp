@@ -8,7 +8,7 @@
 class Gameboy {
     public:
         Gameboy(bool debug);
-        void Emulate();
+        void Loop();
 
     private:
         Memory memory;
@@ -18,6 +18,8 @@ class Gameboy {
         bool debugging;
         friend class Debugger;
         Debugger debugger;
+
+        void Emulate();
 
 };
 
