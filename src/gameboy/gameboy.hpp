@@ -20,6 +20,8 @@ class Gameboy {
         Debugger debugger;
 
         void Emulate();
+        void SetKeyPressed(int key);
+        void SetKeyReleased(int key);
 
 };
 

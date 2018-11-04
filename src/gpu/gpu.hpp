@@ -11,6 +11,7 @@ class GPU {
     public:
         GPU(Memory *mem, CPU *cpu);
         ~GPU();
+        bool Init();
         void UpdateGraphics(int cycles);
 
     private:

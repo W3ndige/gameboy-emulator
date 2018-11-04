@@ -1,6 +1,6 @@
 #include "memory.hpp"
 
-Memory::Memory(): bootstrap(), memory() {
+Memory::Memory(): memory() {
     booting = true;
     joypad_state = 0xFF;
 }
@@ -36,26 +36,6 @@ bool Memory::IsBooting() {
     return booting;
 }
 
-bool Memory::LoadBootstrap() {
-    try {
-        std::ifstream bootstrap_file ("roms/DMG_ROM.bin", std::ifstream::binary);
-        if (bootstrap_file.good()) {
-            bootstrap_file.read((char *)bootstrap, MAX_BOOTSTRAP_SIZE);
-        }
-        else {
-            booting = false;
-            throw "Error opening ROM. Skipping boot procedure.";
-        }
-        bootstrap_file.close();
-    }
-    catch (const char *e) {
-        std::cout << "Exception occured: " << e << std::endl;
-        return false;
-    }
-
-    return true;
-}
-
 bool Memory::LoadCartridge() {
     try {
         std::ifstream game_file ("roms/flappyboy.gb", std::ifstream::binary);
@@ -81,7 +61,7 @@ bool Memory::LoadCartridge() {
 void Memory::LoadCartridgeHeader() {
     std::string tmp_title;
     for (size_t i = 0; i < 15; i++) {
-        tmp_title += char(memory[0x104 + i]);
+        tmp_title += char(memory[0x134 + i]);
     }
     cartridge_header.title = tmp_title;
     cartridge_header.cartridge_type = memory[0x147];
@@ -211,6 +191,10 @@ uint8_t Memory::ReadByteMemory(uint16_t address) {
         return GetJoypadState() ;
     }
 
+    return memory[address];
+}
+
+uint8_t Memory::PrivilagedReadByteMemory(uint16_t address) {
     return memory[address];
 }
 

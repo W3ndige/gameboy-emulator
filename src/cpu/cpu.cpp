@@ -14,9 +14,6 @@ bool CPU::Init() {
     pending_interupt_enabled = false;
     halt = 0;
     stop = 0;
-
-    /**< Read the bootstrap ROM into bootstrap memory */
-    memory->LoadBootstrap();
     
     /**< If booting failed or stopped, initialize register with
      *   values that bootstrap sets */

@@ -7,29 +7,6 @@ GPU::GPU(Memory *mem, CPU *cpu) {
     current_mode = 0;
     scanline_counter = 0;
     pixels = new uint32_t[160 * 144];
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
-        SDL_Quit();
-        //return false;
-    }
-
-    window = SDL_CreateWindow("Gameboy", SDL_WINDOWPOS_CENTERED, 100,
-                                          320, 288, SDL_WINDOW_SHOWN);
-    if (window == nullptr) {
-        printf( "SDL Window could not initialize! SDL_Error: %s\n", SDL_GetError() );
-        SDL_Quit();
-        //return false;
-    }
-
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if (renderer == nullptr) {
-        printf( "SDL Renderer could not initialize! SDL_Error: %s\n", SDL_GetError() );
-        SDL_Quit();
-        //return false;
-    }
-    SDL_RenderSetScale(renderer, 2, 2);
-    texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, 160, 144);
-
 }
 
 GPU::~GPU() {
@@ -38,6 +15,32 @@ GPU::~GPU() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+}
+
+bool GPU::Init() {
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
+        SDL_Quit();
+        return false;
+    }
+
+    window = SDL_CreateWindow("Gameboy", SDL_WINDOWPOS_CENTERED, 100,
+                                          320, 288, SDL_WINDOW_SHOWN);
+    if (window == nullptr) {
+        printf( "SDL Window could not initialize! SDL_Error: %s\n", SDL_GetError() );
+        SDL_Quit();
+        return false;
+    }
+
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (renderer == nullptr) {
+        printf( "SDL Renderer could not initialize! SDL_Error: %s\n", SDL_GetError() );
+        SDL_Quit();
+        return false;
+    }
+    SDL_RenderSetScale(renderer, 2, 2);
+    texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, 160, 144);
+    return true;
 }
 
 void GPU::UpdateGraphics(int cycles) {
