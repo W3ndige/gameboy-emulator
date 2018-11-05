@@ -268,16 +268,13 @@ void GPU::RenderSprites() {
                 uint8_t bit_1 = TestBit(data_1, colour_bit);
                 uint8_t bit_2 = TestBit(data_2, colour_bit);
                 uint8_t color_id = (bit_2 << 1) | bit_1;
-                uint16_t colour_address = TestBit(attributes, 4) ? 0xff49 : 0xff48;
+                //uint16_t colour_address = TestBit(attributes, 4) ? 0xff48 : 0xff49;
+                uint16_t colour_address = 0xff47;
                 int color = GetColor(color_id, colour_address);
                 int red, blue, green;
                 
                 if (color == 0) {
                     continue;
-                }
-
-                if (color == 0) {
-                    red = blue = green = 0xff;
                 } else if (color == 1) {
                     red = 0xcc, blue = 0xcc, green = 0xcc;
                 } else if (color == 2) {

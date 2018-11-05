@@ -478,7 +478,8 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0xd2: JUMP(CARRY_FLAG, 0, 1); break;
         case 0xda: JUMP(CARRY_FLAG, 1, 1); break;
 
-        case 0xe9: program_counter += hl_register.pair; clocks.m_cycles += 1;
+        // TO future me: this instruction was failing me, += insted of =
+        case 0xe9: program_counter = hl_register.pair; clocks.m_cycles += 1;
                     clocks.t_cycles += 4; break;
 
         case 0x18: JUMP_IMM(0, 0, 0); break;
