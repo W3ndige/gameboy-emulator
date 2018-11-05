@@ -58,9 +58,8 @@ class Memory {
         Memory();
 
         bool IsBooting(); /**< Return true if in bootstrap */
-        bool LoadCartridge(); /**< Load cartridge ROM into memory */
+        bool LoadCartridge(std::string rom_file); /**< Load cartridge ROM into memory */
         void LoadCartridgeHeader(); /**< Load data from cartridge into header struct */
-        void PrintCartidgeHeader();
 
         void WriteByteMemory(uint16_t address, uint8_t data);
         void PrivilagedByteWrite(uint16_t address, uint8_t data);

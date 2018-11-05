@@ -21,6 +21,8 @@ enum class Command {
     Run,
     Step,
     Memory,
+    Stack,
+    Info,
     Break,
     Exit,
     Unknown
@@ -47,6 +49,8 @@ class Debugger {
         Command ParseCommand(std::string cmd);
         void StepCommand(DebuggerCommand input);
         void MemoryCommand(DebuggerCommand input);
+        void StackCommand(DebuggerCommand input);
+        void InfoCommand();
         void BreakpointCommand(DebuggerCommand input);
 
 };

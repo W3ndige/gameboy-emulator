@@ -272,6 +272,15 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
             clocks.t_cycles += 4;
             break;
         }
+        case 0xde:
+        {
+            uint8_t n = memory->ReadByteMemory(program_counter);
+            program_counter++;
+            Sub8Bit(n, 1);
+            clocks.m_cycles += 2;
+            clocks.t_cycles += 8;
+            break;
+        }
 
         case 0xa7: And8Bit(af_register.high); break;
         case 0xa0: And8Bit(bc_register.high); break;

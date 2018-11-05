@@ -6,7 +6,7 @@ GPU::GPU(Memory *mem, CPU *cpu) {
     current_line = 0;
     current_mode = 0;
     scanline_counter = 0;
-    pixels = new uint32_t[160 * 144];
+    pixels = new uint32_t[(SCREEN_HEIGH / 2) * (SCREEN_WIDTH / 2)];
 }
 
 GPU::~GPU() {
@@ -23,9 +23,10 @@ bool GPU::Init() {
         SDL_Quit();
         return false;
     }
-
-    window = SDL_CreateWindow("Gameboy", SDL_WINDOWPOS_CENTERED, 100,
-                                          320, 288, SDL_WINDOW_SHOWN);
+    
+    std::string title = "Gameboy " + memory->cartridge_header.title;
+    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, 100,
+                                          SCREEN_HEIGH, SCREEN_WIDTH, SDL_WINDOW_SHOWN);
     if (window == nullptr) {
         printf( "SDL Window could not initialize! SDL_Error: %s\n", SDL_GetError() );
         SDL_Quit();
@@ -203,19 +204,16 @@ void GPU::RenderTiles() {
         uint8_t bit_1 = TestBit(byte_1, req_bit);
         uint8_t bit_2 = TestBit(byte_2, req_bit);
         uint8_t color_id = (bit_1 << 1) | bit_2;
-        int color = GetColor(color_id);
+        int color = GetColor(color_id, 0xff47);
         int red, blue, green;
 
         if (color == 0) {
             red = blue = green = 0xff;
-        }
-        else if (color == 1) {
+        } else if (color == 1) {
              red = 0xcc, blue = 0xcc, green = 0xcc;
-        }
-        else if (color == 2) {
+        } else if (color == 2) {
             red = 0x77, blue = 0x77, green = 0x77;
-        }
-        else {
+        } else {
             red = blue = green = 0;
         }
 
@@ -224,20 +222,19 @@ void GPU::RenderTiles() {
 }
 
 void GPU::RenderSprites() {
-    /*
     uint8_t control = memory->ReadByteMemory(0xFF40);
-
     bool use8x16sprites = false;
+
     if (TestBit(control, 2)) {
         use8x16sprites = true;
     }
 
     for (int sprite = 0; sprite < 40; sprite++) {
         uint8_t index = sprite * 4;
-        uint8_t y_pos = memory->ReadByteMemory(0xFFE00 + index) - 16;
-        uint8_t x_pos = memory->ReadByteMemory(0xFFE00 + index + 1) - 9;
-        uint8_t location = memory->ReadByteMemory(0xFFE00 + index + 2);
-        uint8_t attributes = memory->ReadByteMemory(0xFFE00 + index + 3);
+        uint8_t y_pos = memory->ReadByteMemory(0xFE00 + index) - 16;
+        uint8_t x_pos = memory->ReadByteMemory(0xFE00 + index + 1) - 8;
+        uint8_t location = memory->ReadByteMemory(0xFE00 + index + 2);
+        uint8_t attributes = memory->ReadByteMemory(0xFE00 + index + 3);
         
         int x_flip = TestBit(attributes, 5);
         int y_flip = TestBit(attributes, 6);
@@ -249,31 +246,64 @@ void GPU::RenderSprites() {
 
         if (current_line >= y_pos && current_line < (y_pos + y_size)) {
             int line = current_line - y_pos;
+
             if (y_flip) {
                 line -= y_size;
                 line *= -1;
             }
+
             line *= 2;
-            uint8_t data_address = (0x8000 + (location * 16) + line);
+            uint16_t data_address = (0x8000 + (location * 16) + line);
+
             uint8_t data_1 = memory->ReadByteMemory(data_address);
             uint8_t data_2 = memory->ReadByteMemory(data_address + 1);
 
             for (int tile_pixel = 7; tile_pixel >= 0; tile_pixel--) {
+                int colour_bit = tile_pixel;
+                if (x_flip) {
+                    colour_bit -= 7;
+                    colour_bit *= -1;
+                }
+                
+                uint8_t bit_1 = TestBit(data_1, colour_bit);
+                uint8_t bit_2 = TestBit(data_2, colour_bit);
+                uint8_t color_id = (bit_2 << 1) | bit_1;
+                uint16_t colour_address = TestBit(attributes, 4) ? 0xff49 : 0xff48;
+                int color = GetColor(color_id, colour_address);
+                int red, blue, green;
+                
+                if (color == 0) {
+                    continue;
+                }
 
+                if (color == 0) {
+                    red = blue = green = 0xff;
+                } else if (color == 1) {
+                    red = 0xcc, blue = 0xcc, green = 0xcc;
+                } else if (color == 2) {
+                    red = 0x77, blue = 0x77, green = 0x77;
+                } else {
+                    red = blue = green = 0;
+                }
+
+                if (TestBit(attributes, 7)) {
+                    continue;
+                }
+                
+                int pixel = x_pos + (0 - tile_pixel + 7);
+
+                pixels[pixel + (current_line * 160)] = (0xFF << 24) | (red << 16) | (green << 8) | (blue);
             }
-
         }
-
     }
-
-    */
 }
 
-int GPU::GetColor(uint8_t color_id) {
-    uint8_t data = memory->ReadByteMemory(0xff47);
-    int hi = 2 * color_id + 1, lo = 2 * color_id;
-    int bit_1 = (data >> hi) & 1;
-    int bit_0 = (data >> lo) & 1;
+int GPU::GetColor(uint8_t color_id, uint16_t address) {
+    uint8_t data = memory->ReadByteMemory(address);
+    int hi = 2 * color_id + 1;
+    int lo = 2 * color_id;
+    int bit_1 = TestBit(data, hi);
+    int bit_0 = TestBit(data, lo);
     return (bit_1 << 1) | bit_0;    
 }
 

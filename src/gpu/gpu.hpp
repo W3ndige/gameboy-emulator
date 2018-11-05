@@ -7,6 +7,9 @@
 #include "../helper/helper.hpp"
 #include "../cpu/cpu.hpp"
 
+const int SCREEN_HEIGH = 320;
+const int SCREEN_WIDTH = 288;
+
 class GPU {
     public:
         GPU(Memory *mem, CPU *cpu);
@@ -31,7 +34,7 @@ class GPU {
         void DrawScanLine();
         void RenderTiles();
         void RenderSprites();
-        int GetColor(uint8_t color_id);
+        int GetColor(uint8_t color_id, uint16_t addrress);
         void PrintPixels();
 };
 

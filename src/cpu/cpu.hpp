@@ -33,11 +33,12 @@ class CPU {
     public:
         CPU(Memory *mem);
         /**< CPU type of instructions */
-        bool Init();
+        bool Init(std::string rom_file);
         void FetchAndDispatch();
         void ExecuteInstruction(uint8_t opcode);
         void ExecuteExtendedInstruction(uint8_t opcode);
-        uint16_t GetProgramCounter();
+        uint16_t GetProgramCounter() const;
+        uint16_t GetStackPointer() const;
 
         /**< Timer type of instructions */
         bool IsClockEnabled();

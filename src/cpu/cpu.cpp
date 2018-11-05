@@ -4,7 +4,7 @@ CPU::CPU(Memory *mem) {
     memory = mem;
 }
 
-bool CPU::Init() {
+bool CPU::Init(std::string rom_file) {
     program_counter = 0x00;
     clocks.m_cycles = 0;
     clocks.t_cycles = 0;
@@ -65,7 +65,7 @@ bool CPU::Init() {
     }
 
     /**< Try reading cartridge ROM into main memory */
-    return memory->LoadCartridge();
+    return memory->LoadCartridge(rom_file);
 }
 
 void CPU::FetchAndDispatch() {
@@ -75,9 +75,14 @@ void CPU::FetchAndDispatch() {
     ExecuteInstruction(opcode);
 }
 
-uint16_t CPU::GetProgramCounter() {
+uint16_t CPU::GetProgramCounter() const {
     return program_counter;
 }
+
+uint16_t CPU::GetStackPointer() const {
+    return sp_register.pair;
+}
+
 
 bool CPU::IsClockEnabled() {
      return TestBit(memory->ReadByteMemory(TMC), 2) ? true : false;
