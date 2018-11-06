@@ -50,5 +50,16 @@ void CPU::Pop(uint16_t &reg) {
     reg = memory->ReadWordMemory(sp_register.pair);
     sp_register.pair += 2;
     clocks.m_cycles += 1;
-    clocks.t_cycles += 12;
+    clocks.t_cycles += 16;
+}
+
+/**< When performing a POP AF instruction, bits 0 - 3 are ignored/masked out */
+void CPU::PopAF() {
+    af_register.pair = memory->ReadWordMemory(sp_register.pair);
+    for (size_t i = 0; i < 4; i++) {
+        ClearBit(af_register.low, i);
+    }
+    sp_register.pair += 2;
+    clocks.m_cycles += 1;
+    clocks.t_cycles += 16; 
 }

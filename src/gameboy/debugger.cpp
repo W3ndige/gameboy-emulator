@@ -13,13 +13,14 @@ void Debugger::Debug() {
 
     /**< Do instructions step by step */
     if (state.step_set) {
+        if (state.stepper_count) {
+            state.stepper_count--;
+        }
         if (!state.stepper_count) {
+            state.debugging = true;
             state.step_set = false;
             gameboy.cpu.Diagnostics();
             GetInput();
-        }
-        else {
-            state.stepper_count--;
         }
     }
 
@@ -84,6 +85,7 @@ Command Debugger::ParseCommand(std::string cmd) {
 }
 
 void Debugger::StepCommand(DebuggerCommand input) {
+    state.debugging = false;
     if (input.args.size() == 0) {
         state.step_set = true;
         state.stepper_count = 1;

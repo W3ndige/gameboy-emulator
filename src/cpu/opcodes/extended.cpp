@@ -2,13 +2,13 @@
 
 // Extended instruction set
 void CPU::RLC(uint8_t &reg) {;
-	int msb_set = TestBit(reg, 7);
+	int lsb_set = TestBit(reg, 0);
 	af_register.low = 0;
 
 	reg <<= 1;
-	if (msb_set) {
+	if (lsb_set) {
 		SetBit(af_register.low, CARRY_FLAG);
-		SetBit(reg, 0);
+		SetBit(reg, 7);
 	}
 
 	if (reg == 0) {
@@ -20,13 +20,13 @@ void CPU::RLC(uint8_t &reg) {;
 }
 
 void CPU::RRC(uint8_t &reg) {;
-	int msb_set = TestBit(reg, 7);
+	int lsb_set = TestBit(reg, 0);
 	af_register.low = 0;
 
 	reg >>= 1;
-	if (msb_set) {
+	if (lsb_set) {
 		SetBit(af_register.low, CARRY_FLAG);
-		SetBit(reg, 0);
+		SetBit(reg, 7);
 	}
 
 	if (reg == 0) {
@@ -154,13 +154,11 @@ void CPU::SRL(uint8_t &reg) {
 }
 
 void CPU::Bit(uint8_t &reg, uint8_t bit) {
-    if (TestBit(reg, bit)) {
-        ClearBit(af_register.low, ZERO_FLAG);
-    }
-    else {
+    af_register.low = 0;
+    if (!TestBit(reg, bit)) {
         SetBit(af_register.low, ZERO_FLAG);
     }
-    ClearBit(af_register.low, SUBSTRACT_FLAG);
+
     SetBit(af_register.low, HALF_CARRY_FLAG);
     clocks.m_cycles += 2;
     clocks.t_cycles += 8;

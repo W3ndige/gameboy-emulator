@@ -24,30 +24,29 @@ void Gameboy::Loop() {
             else if (event.type == SDL_KEYDOWN) {
                 int key = -1;
                 switch (event.key.keysym.sym) {
-                    case SDLK_a: key = 4; break;
-                    case SDLK_s: key = 5; break;
-                    case SDLK_RETURN: key = 7; break;
-                    case SDLK_SPACE: key = 6; break;
-                    case SDLK_RIGHT: key = 0; break;
-                    case SDLK_LEFT: key = 1; break;
-                    case SDLK_UP: key = 2; break;
-                    case SDLK_DOWN: key = 3; break;
+                    case SDLK_a: key = 4;       break;
+                    case SDLK_s: key = 5;       break;
+                    case SDLK_RETURN: key = 7;  break;
+                    case SDLK_SPACE: key = 6;   break;
+                    case SDLK_RIGHT: key = 0;   break;
+                    case SDLK_LEFT: key = 1;    break;
+                    case SDLK_UP: key = 2;      break;
+                    case SDLK_DOWN: key = 3;    break;
 		        }
                 if (key != -1) {
                     SetKeyPressed(key);
                 }
-            }
-            else if (event.type == SDL_KEYUP) {
+            } else if (event.type == SDL_KEYUP) {
                 int key = -1;
                 switch (event.key.keysym.sym) {
-                    case SDLK_a: key = 4; break;
-                    case SDLK_s: key = 5; break;
-                    case SDLK_RETURN: key = 7; break;
-                    case SDLK_SPACE: key = 6; break;
-                    case SDLK_RIGHT: key = 0; break;
-                    case SDLK_LEFT: key = 1; break;
-                    case SDLK_UP: key = 2; break;
-                    case SDLK_DOWN: key = 3; break;
+                    case SDLK_a: key = 4;       break;
+                    case SDLK_s: key = 5;       break;
+                    case SDLK_RETURN: key = 7;  break;
+                    case SDLK_SPACE: key = 6;   break;
+                    case SDLK_RIGHT: key = 0;   break;
+                    case SDLK_LEFT: key = 1;    break;
+                    case SDLK_UP: key = 2;      break;
+                    case SDLK_DOWN: key = 3;    break;
 		        }
                 if (key != -1) {
                     SetKeyReleased(key);

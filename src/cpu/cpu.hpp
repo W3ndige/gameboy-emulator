@@ -6,10 +6,10 @@
 #include "../memory/memory.hpp"
 #include "../helper/helper.hpp"
 
-const int ZERO_FLAG = 7;  // Z
-const int SUBSTRACT_FLAG = 6; // N
-const int HALF_CARRY_FLAG = 5; // H
-const int CARRY_FLAG = 4; // C
+const int ZERO_FLAG         = 7;  // Z
+const int SUBSTRACT_FLAG    = 6; // N
+const int HALF_CARRY_FLAG   = 5; // H
+const int CARRY_FLAG        = 4; // C
 
 const int TIMA  = 0xFF05;
 const int TMA   = 0xFF06;
@@ -90,6 +90,7 @@ class CPU {
         void LD16_r_nn(uint16_t &reg);
         void Push(uint16_t &reg);
         void Pop(uint16_t &reg);
+        void PopAF();
 
         // 8 bit ALU
         void Add8Bit(uint8_t reg, int add_carry);

@@ -33,42 +33,30 @@ void CPU::EI() {
 // Misc instructions
 
 void CPU::DAA() {
-	if (TestBit(af_register.low, SUBSTRACT_FLAG)) {
-		if ((af_register.high & 0x0F) > 0x09 || af_register.low & 0x20) {
-			af_register.high -= 0x06;
-			if ((af_register.high & 0xF0) == 0xF0) {
-                af_register.low |= 0x10;
-            } else {
-                af_register.low &=~0x10;
-            }
-		}
-
-		if ((af_register.high & 0xF0) > 0x90 || af_register.low & 0x10) {
-            af_register.high -= 0x60;
-        }
-	}
-	else {
-		if ((af_register.high & 0x0F) > 9 || af_register.low & 0x20) {
+	if (!TestBit(af_register.low, SUBSTRACT_FLAG)) {
+        if (TestBit(af_register.low, HALF_CARRY_FLAG) || (af_register.high & 0xf) > 0x9) {
             af_register.high += 0x06;
-			if ((af_register.high & 0xF0) == 0) {
-                af_register.low |= 0x10;
-            }
-            else {
-                af_register.low &= ~0x10;
-            }
         }
-
-		if ((af_register.high & 0xF0) > 0x90 || af_register.low & 0x10) {
+        if (TestBit(af_register.low, CARRY_FLAG) || af_register.high > 0x9f) {
             af_register.high += 0x60;
         }
-	}
-
-	if (af_register.high == 0) {
-        af_register.low |= 0x80;
+    } else {
+        if (TestBit(af_register.low, HALF_CARRY_FLAG)) {
+            af_register.high = (af_register.high - 0x6) & 0xFF;
+        }
+        if (TestBit(af_register.low, CARRY_FLAG)) {
+            af_register.high -= 0x60;
+        }
     } 
-    else {
-        af_register.low &= ~0x80;
-    }
+    af_register.low &= ~(HALF_CARRY_FLAG | ZERO_FLAG);
+
+    if ((af_register.high & 0x100) == 0x100)
+        af_register.low |= CARRY_FLAG;
+
+    af_register.high &= 0xFF;
+
+    if (af_register.high == 0)
+        SetBit(af_register.low, ZERO_FLAG);
 }
 
 // Jumps
