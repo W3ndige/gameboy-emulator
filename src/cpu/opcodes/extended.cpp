@@ -1,14 +1,16 @@
 #include "../cpu.hpp"
 
+// Right shift - lsb, left shift msb
+
 // Extended instruction set
 void CPU::RLC(uint8_t &reg) {;
-	int lsb_set = TestBit(reg, 0);
+	int msb_set = TestBit(reg, 7);
 	af_register.low = 0;
 
 	reg <<= 1;
-	if (lsb_set) {
+	if (msb_set) {
 		SetBit(af_register.low, CARRY_FLAG);
-		SetBit(reg, 7);
+		SetBit(reg, 0);
 	}
 
 	if (reg == 0) {
@@ -19,7 +21,7 @@ void CPU::RLC(uint8_t &reg) {;
     clocks.t_cycles += 8;
 }
 
-void CPU::RRC(uint8_t &reg) {;
+void CPU::RRC(uint8_t &reg) {
 	int lsb_set = TestBit(reg, 0);
 	af_register.low = 0;
 
@@ -61,19 +63,19 @@ void CPU::RL(uint8_t &reg) {
 }
 
 void CPU::RR(uint8_t &reg) {
-	int msb_set = TestBit(reg, 7);
+	int lsb_set = TestBit(reg, 0);
     int carry_set = TestBit(af_register.low, CARRY_FLAG);
 
 	af_register.low = 0;
 
 	reg >>= 1;
 
-	if (msb_set) {
+	if (lsb_set) {
 		SetBit(af_register.low, CARRY_FLAG);
 	}
 
     if (carry_set) {
-        SetBit(reg, 0);
+        SetBit(reg, 7);
     }
 
 	if (reg == 0) {

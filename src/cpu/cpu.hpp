@@ -94,7 +94,7 @@ class CPU {
 
         // 8 bit ALU
         void Add8Bit(uint8_t reg, int add_carry);
-        void Sub8Bit(uint8_t &reg, int sub_cay);
+        void Sub8Bit(uint8_t reg, int sub_cay);
         void And8Bit(uint8_t &reg);
         void Or8Bit(uint8_t &reg);
         void Xor8Bit(uint8_t &reg);

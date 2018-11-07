@@ -4,12 +4,14 @@
 int main(int argc, char **argv) {
 
     bool debugger = false;
+    //bool headless = false;
     std::string rom_file;
 
     try {
         cxxopts::Options options("Gameboy Emulator", "Simple emulator for Gameboy.");
         options.add_options()
         ("d,debugger", "Run with debugger enabled.", cxxopts::value<bool>(debugger));
+        //("h,headless", "Run in headless state.", cxxopts::value<bool>(headless));
         auto result = options.parse(argc, argv);
         rom_file = argv[1];
 

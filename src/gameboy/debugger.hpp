@@ -42,8 +42,10 @@ class Debugger {
 
     private:
         Gameboy &gameboy;
+
         DebuggerState state;
         DebuggerCommand last_command;
+        void PrintHelp();
         void GetInput();
         DebuggerCommand ParseInput(std::string input);
         Command ParseCommand(std::string cmd);

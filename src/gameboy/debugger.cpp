@@ -1,6 +1,7 @@
 #include "debugger.hpp"
 #include "gameboy.hpp"
 
+
 Debugger::Debugger(Gameboy &gameboy_state) : gameboy(gameboy_state) {
     state.breakpoint_set = false;
     state.step_set = false;
@@ -31,6 +32,13 @@ void Debugger::Debug() {
         gameboy.cpu.Diagnostics();
         GetInput();
     }
+}
+
+void Debugger::PrintHelp() {
+
+    printf("");
+
+
 }
 
 void Debugger::GetInput() {
