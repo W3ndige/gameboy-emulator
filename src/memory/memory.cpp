@@ -43,7 +43,6 @@ bool Memory::IsBooting() {
 bool Memory::LoadCartridge(std::string rom_file) {
     try {
         std::ifstream game_file (rom_file, std::ifstream::binary);
-        //std::ifstream game_file ("roms/individual/11-op a,(hl).gb", std::ifstream::binary);
         if (game_file.good()) {
             game_file.read((char *)memory, 0x8000);
             LoadCartridgeHeader();
