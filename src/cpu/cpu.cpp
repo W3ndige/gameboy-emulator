@@ -4,7 +4,7 @@ CPU::CPU(Memory *mem) {
     memory = mem;
 }
 
-bool CPU::Init(std::string rom_file) {
+bool CPU::Init(std::string rom_file, bool exit_on_inifite) {
     program_counter = 0x00;
     clocks.m_cycles = 0;
     clocks.t_cycles = 0;
@@ -14,6 +14,7 @@ bool CPU::Init(std::string rom_file) {
     pending_interupt_enabled = false;
     halt = 0;
     stop = 0;
+    exit_on_inifite_loop = exit_on_inifite;
     
     /**< If booting failed or stopped, initialize register with
      *   values that bootstrap sets */

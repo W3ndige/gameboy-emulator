@@ -57,6 +57,7 @@ class Memory {
        
         Memory();
 
+        void DisableBooting();
         bool IsBooting(); /**< Return true if in bootstrap */
         bool LoadCartridge(std::string rom_file); /**< Load cartridge ROM into memory */
         void LoadCartridgeHeader(); /**< Load data from cartridge into header struct */

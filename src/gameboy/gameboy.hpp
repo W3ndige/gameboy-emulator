@@ -7,7 +7,7 @@
 
 class Gameboy {
     public:
-        Gameboy(bool debug, std::string rom_file);
+        Gameboy(bool debug, bool without_boot, bool exit_on_inifite, std::string rom_file);
         void Loop();
 
     private:

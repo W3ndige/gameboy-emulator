@@ -9,7 +9,7 @@ RESET="\e[0m"
 run_test_rom() {
     printf "%-30s" "$(basename "$1")"
 
-    local OUTPUT=$(./bin/emulator "$1")
+    local OUTPUT=$(./bin/emulator -q -e "$1")
     echo $OUTPUT | grep 'Failed' &> /dev/null
 
     if [ $? == 0 ]; then

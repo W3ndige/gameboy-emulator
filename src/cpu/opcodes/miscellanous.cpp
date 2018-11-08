@@ -77,6 +77,9 @@ void CPU::JUMP(uint8_t flag, int condition, int use_condition) {
 
 void CPU::JUMP_IMM(uint8_t flag, int condition, int use_condition) {
     int8_t n = (int8_t)memory->ReadByteMemory(program_counter);
+    if (exit_on_inifite_loop && n == -2) {
+        exit(0);
+    }
     if (!use_condition) {
         program_counter += n;
     }

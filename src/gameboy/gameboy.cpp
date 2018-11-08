@@ -1,7 +1,10 @@
 #include "gameboy.hpp"
 
-Gameboy::Gameboy(bool debug, std::string rom_file) : cpu(&memory), gpu(&memory, &cpu), debugger(*this) {
-    bool cpu_init = cpu.Init(rom_file);
+Gameboy::Gameboy(bool debug, bool without_boot, bool exit_on_inifite, std::string rom_file) : cpu(&memory), gpu(&memory, &cpu), debugger(*this) {
+    if (without_boot) {
+        memory.DisableBooting();
+    }
+    bool cpu_init = cpu.Init(rom_file, exit_on_inifite);
     bool gpu_init = gpu.Init();
     if (!cpu_init) {
         throw "Could not initialize CPU.";

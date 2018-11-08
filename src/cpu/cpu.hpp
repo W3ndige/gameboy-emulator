@@ -33,7 +33,7 @@ class CPU {
     public:
         CPU(Memory *mem);
         /**< CPU type of instructions */
-        bool Init(std::string rom_file);
+        bool Init(std::string rom_file, bool exit_on_inifite);
         void FetchAndDispatch();
         void ExecuteInstruction(uint8_t opcode);
         void ExecuteExtendedInstruction(uint8_t opcode);
@@ -68,6 +68,7 @@ class CPU {
         
         Memory *memory;
         Clocks clocks;
+        bool exit_on_inifite_loop;
         int halt;
         int stop;
 

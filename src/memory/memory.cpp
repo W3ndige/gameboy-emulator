@@ -32,6 +32,10 @@ uint8_t Memory::GetJoypadState() {
 
 }
 
+void Memory::DisableBooting() {
+    booting = false;
+}
+
 bool Memory::IsBooting() {
     return booting;
 }
