@@ -42,14 +42,13 @@ void Debugger::PrintHelp() {
 }
 
 void Debugger::GetInput() {
-    std::string tmp;
-    std::cout << "> ";
-    char c;
-    while (std::cin.get(c) && c != '\n') {
-        tmp += c;
+    char *line = readline("> ");
+    if(*line) {
+        add_history(line);
     }
 
-    DebuggerCommand input = ParseInput(tmp);
+    DebuggerCommand input = ParseInput(std::string(line));
+    free(line);
 
     switch (input.cmd) {
         case Command::Run: state.debugging = false; break;
@@ -58,7 +57,7 @@ void Debugger::GetInput() {
         case Command::Stack: StackCommand(input); break;
         case Command::Info: InfoCommand(); break;
         case Command::Break: BreakpointCommand(input); break;
-        case Command::Exit: /* TODO FINISH */; break;
+        case Command::Exit: gameboy.debugging = false; break;
         case Command::Unknown: std::cout << "Unknown command" << std::endl; break;
     }
 }

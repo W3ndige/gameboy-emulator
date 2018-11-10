@@ -10,7 +10,7 @@ struct OpcodeInfo {
     uint16_t jump_offset;
 };
 
-struct OpcodeInfo opcode_names[256] = {
+struct OpcodeInfo opcode_disassembly[256] = {
     {"NOP",         0x00},
     {"LD BC,nn",    0x02},
     {"LD (BC),A",   0x00},       

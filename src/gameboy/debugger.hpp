@@ -1,10 +1,14 @@
 #ifndef DEBUGGER_HPP
 #define DEBUGGER_HPP
 
+#include <stdio.h>
 #include <vector>
+#include <string>
 #include <sstream>
 #include <iterator>
 #include <algorithm>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 class Gameboy;
 class CPU;

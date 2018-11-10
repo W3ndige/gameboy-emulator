@@ -4,7 +4,7 @@ OBJS = $(SRCS:.cpp=.o)
 
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -Wextra -O3
-LIBS = -lSDL2
+LIBS = -lSDL2 -lreadline
 OBJ_NAME = bin/emulator
 
 all: $(OBJS)
