@@ -83,9 +83,9 @@ class CPU {
 
         // 8 bit loads
         void LD8_r_nn(uint8_t &reg);
-        void LD8_r1_r2(uint8_t &reg1, uint8_t &reg2);
+        void LD8_r1_r2(uint8_t &reg1, uint8_t reg2);
         void LD8_r1_mem(uint8_t &reg1, uint16_t address);
-        void LD8_mem_r1(uint16_t address, uint8_t reg1);
+        void LD8_mem_r1(uint16_t address, uint8_t reg);
 
         // 16 bit loads
         void LD16_r_nn(uint16_t &reg);
@@ -96,9 +96,9 @@ class CPU {
         // 8 bit ALU
         void Add8Bit(uint8_t reg, int add_carry);
         void Sub8Bit(uint8_t reg, int sub_cay);
-        void And8Bit(uint8_t &reg);
-        void Or8Bit(uint8_t &reg);
-        void Xor8Bit(uint8_t &reg);
+        void And8Bit(uint8_t reg);
+        void Or8Bit(uint8_t reg);
+        void Xor8Bit(uint8_t reg);
         void Cmp8Bit(uint8_t &reg);
         void Inc8Bit(uint8_t &reg);
         void Dec8Bit(uint8_t &reg);

@@ -10,7 +10,7 @@ void CPU::LD8_r_nn(uint8_t &reg) {
     clocks.t_cycles += 8;
 }
 
-void CPU::LD8_r1_r2(uint8_t &reg1, uint8_t &reg2) {
+void CPU::LD8_r1_r2(uint8_t &reg1, uint8_t reg2) {
     reg1 = reg2;
     clocks.m_cycles += 1;
     clocks.t_cycles += 4;
@@ -22,8 +22,8 @@ void CPU::LD8_r1_mem(uint8_t &reg1, uint16_t address) {
     clocks.t_cycles += 8;
 }
 
-void CPU::LD8_mem_r1(uint16_t address, uint8_t reg1) {
-    memory->WriteByteMemory(address, reg1);
+void CPU::LD8_mem_r1(uint16_t address, uint8_t reg) {
+    memory->WriteByteMemory(address, reg);
     clocks.m_cycles += 1;
     clocks.t_cycles += 8;
 }

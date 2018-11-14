@@ -156,11 +156,13 @@ void CPU::SRL(uint8_t &reg) {
 }
 
 void CPU::Bit(uint8_t &reg, uint8_t bit) {
-    af_register.low = 0;
-    if (!TestBit(reg, bit)) {
+    if (TestBit(reg, bit)) {
+        ClearBit(af_register.low, ZERO_FLAG);
+    } else {
         SetBit(af_register.low, ZERO_FLAG);
     }
 
+    ClearBit(af_register.low, SUBSTRACT_FLAG);
     SetBit(af_register.low, HALF_CARRY_FLAG);
     clocks.m_cycles += 2;
     clocks.t_cycles += 8;
@@ -168,8 +170,12 @@ void CPU::Bit(uint8_t &reg, uint8_t bit) {
 
 void CPU::Res(uint8_t &reg, uint8_t bit) {
     ClearBit(reg, bit);
+    clocks.m_cycles += 2;
+    clocks.t_cycles += 8;
 }
 
 void CPU::Set(uint8_t &reg, uint8_t bit) {
     SetBit(reg, bit);
+    clocks.m_cycles += 2;
+    clocks.t_cycles += 8;
 }

@@ -4,6 +4,9 @@
 void CPU::Add8Bit(uint8_t reg, int add_carry) {
     uint8_t before = af_register.high;
     if (add_carry) {
+        /**< If carry is considered and
+         * carry flag is set, increment value
+         * to add */
         if (TestBit(af_register.low, CARRY_FLAG)) {
             reg++;
         }
@@ -33,7 +36,12 @@ void CPU::Sub8Bit(uint8_t reg, int sub_carry) {
     uint8_t before = af_register.high;
 
     if (sub_carry) {
-        reg += TestBit(af_register.low, CARRY_FLAG);
+        /**< If carry is considered and
+         * carry flag is set, increment value
+         * to substract */
+        if (TestBit(af_register.low, CARRY_FLAG)) {
+            reg++;
+        }
     }
  
     af_register.high -= reg;
@@ -49,8 +57,7 @@ void CPU::Sub8Bit(uint8_t reg, int sub_carry) {
         SetBit(af_register.low, CARRY_FLAG);
     }
 
-	int16_t htest = (before & 0xF);
-	htest -= (reg & 0xF);
+	int16_t htest = (before & 0xF) - (reg & 0xF);
 
 	if (htest < 0) {
         SetBit(af_register.low, HALF_CARRY_FLAG);
@@ -60,7 +67,7 @@ void CPU::Sub8Bit(uint8_t reg, int sub_carry) {
     clocks.t_cycles += 4;
 }
 
-void CPU::And8Bit(uint8_t &reg) {
+void CPU::And8Bit(uint8_t reg) {
     af_register.high &= reg;
 
     af_register.low = 0;
@@ -73,7 +80,7 @@ void CPU::And8Bit(uint8_t &reg) {
     clocks.t_cycles += 4;
 }
 
-void CPU::Or8Bit(uint8_t &reg) {
+void CPU::Or8Bit(uint8_t reg) {
     af_register.high |= reg;
     af_register.low = 0;
     if (af_register.high == 0) {
@@ -84,7 +91,7 @@ void CPU::Or8Bit(uint8_t &reg) {
     clocks.t_cycles += 4;
 }
 
-void CPU::Xor8Bit(uint8_t &reg) {
+void CPU::Xor8Bit(uint8_t reg) {
     af_register.high ^= reg;
     af_register.low = 0;
     if (af_register.high == 0) {
