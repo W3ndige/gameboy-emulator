@@ -190,20 +190,20 @@ int CPU::Breakpoint(uint16_t pc) {
 }
 
 void CPU::Diagnostics() {
-    printf("PC\t0x%04x\n", program_counter);
-    printf("SP\t0x%04x\n", sp_register.pair);
-    printf("AF\t0x%04x\n", af_register.pair);
-    printf("BC\t0x%04x\n", bc_register.pair);
-    printf("DE\t0x%04x\n", de_register.pair);
-    printf("HL\t0x%04x\n", hl_register.pair);
+    printf("\033[31;1mPC\033[0m\t0x%04x\n", program_counter);
+    printf("\033[31;1mSP\033[0m\t0x%04x\n", sp_register.pair);
+    printf("\033[31;1mAF\033[0m\t0x%04x\n", af_register.pair);
+    printf("\033[31;1mBC\033[0m\t0x%04x\n", bc_register.pair);
+    printf("\033[31;1mDE\033[0m\t0x%04x\n", de_register.pair);
+    printf("\033[31;1mHL\033[0m\t0x%04x\n", hl_register.pair);
     PrintFlags();
     memory->DumpMemory();
 }
 
 void CPU::PrintFlags() {
-    printf("ZERO FLAG: %d\n", TestBit(af_register.low, 7));
-    printf("SUBSTRACT FLAG: %d\n", TestBit(af_register.low, 6));
-    printf("HALF CARRY FLAG: %d\n", TestBit(af_register.low, 5));
-    printf("CARRY FLAG: %d\n", TestBit(af_register.low, 4));
+    printf("\033[31;1mZERO FLAG\033[0m\t%d\n",          TestBit(af_register.low, 7));
+    printf("\033[31;1mSUBSTRACT FLAG\033[0m\t%d\n",     TestBit(af_register.low, 6));
+    printf("\033[31;1mHALF CARRY FLAG\033[0m\t%d\n",    TestBit(af_register.low, 5));
+    printf("\033[31;1mCARRY FLAG\033[0m\t%d\n",         TestBit(af_register.low, 4));
 
 }

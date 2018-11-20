@@ -102,7 +102,7 @@ void CPU::Xor8Bit(uint8_t reg) {
 
 }
 
-void CPU::Cmp8Bit(uint8_t &reg) {
+void CPU::Cmp8Bit(uint8_t reg) {
     uint8_t res = af_register.high - reg;
     af_register.low = 0;
 
@@ -172,7 +172,7 @@ void CPU::Dec8Bit(uint8_t &reg) {
 }
 
 /**< 16 bit ALU */
-void CPU::Add16Bit(uint16_t &reg) {
+void CPU::Add16Bit(uint16_t reg) {
 
     uint16_t before = hl_register.pair;
     hl_register.pair += reg;
@@ -183,7 +183,7 @@ void CPU::Add16Bit(uint16_t &reg) {
         ClearBit(af_register.low, CARRY_FLAG);
     }
 
-    if (( (before & 0xff00) & 0xF) + ((reg >> 8) & 0xFF)) {
+    if (((before & 0xFF00) & 0xF) + ((reg >> 8) & 0xF)) {
         SetBit(af_register.low, HALF_CARRY_FLAG);
     } else {
         ClearBit(af_register.low, HALF_CARRY_FLAG);

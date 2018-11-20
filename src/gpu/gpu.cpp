@@ -201,9 +201,7 @@ void GPU::RenderTiles() {
         uint8_t byte_2 = memory->ReadByteMemory(tile_location + line + 1);
 
         uint8_t req_bit = 7 - (x_pos % 8);
-        uint8_t bit_1 = TestBit(byte_1, req_bit);
-        uint8_t bit_2 = TestBit(byte_2, req_bit);
-        uint8_t color_id = (bit_1 << 1) | bit_2;
+        uint8_t color_id = (TestBit(byte_1, req_bit) << 1) |  TestBit(byte_2, req_bit);
         int color = GetColor(color_id, 0xff47);
         int red, blue, green;
 

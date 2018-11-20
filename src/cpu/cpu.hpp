@@ -63,7 +63,7 @@ class CPU {
 
     private:
         Register af_register, bc_register, de_register, hl_register; /**< General purpose register */
-        Register sp_register; /**< Stack pointer register, no need for low/high access */
+        Register sp_register; /**< Stack pointer register */
         uint16_t program_counter; /**< Program counter register */
         
         Memory *memory;
@@ -99,12 +99,12 @@ class CPU {
         void And8Bit(uint8_t reg);
         void Or8Bit(uint8_t reg);
         void Xor8Bit(uint8_t reg);
-        void Cmp8Bit(uint8_t &reg);
+        void Cmp8Bit(uint8_t reg);
         void Inc8Bit(uint8_t &reg);
         void Dec8Bit(uint8_t &reg);
 
         // 16 bit ALU
-        void Add16Bit(uint16_t &reg);
+        void Add16Bit(uint16_t reg);
         void AddSP16Bit();
         void Inc16Bit(uint16_t &reg);
         void Dec16Bit(uint16_t &reg);
@@ -121,7 +121,6 @@ class CPU {
         void Bit(uint8_t &reg, uint8_t bit);
         void Res(uint8_t &reg, uint8_t bit);
         void Set(uint8_t &reg, uint8_t bit);
-
 
         // Misc instructions
         void DAA();

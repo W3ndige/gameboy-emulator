@@ -128,8 +128,8 @@ void CPU::SRA(uint8_t &reg) {
 
 void CPU::Swap(uint8_t &reg) {
     
-    af_register.low = 0; /**< Reset flag register */
-    reg = (((reg & 0xF0) >> 4) | ((reg & 0x0F) << 4)); /**< Swap nibbles */
+    af_register.low = 0;
+    reg = (((reg & 0xF0) >> 4) | ((reg & 0x0F) << 4));
     if (reg == 0) {
         SetBit(af_register.high, ZERO_FLAG);
     }

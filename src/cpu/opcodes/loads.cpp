@@ -3,8 +3,7 @@
 /**< 8 Bit Loads */
 
 void CPU::LD8_r_nn(uint8_t &reg) {
-    uint8_t n = memory->ReadByteMemory(program_counter);
-    reg = n;
+    reg = memory->ReadByteMemory(program_counter);;
     program_counter++;
     clocks.m_cycles += 2;
     clocks.t_cycles += 8;
@@ -53,7 +52,8 @@ void CPU::Pop(uint16_t &reg) {
     clocks.t_cycles += 16;
 }
 
-/**< When performing a POP AF instruction, bits 0 - 3 are ignored/masked out */
+/**< When performing a POP AF instruction, 
+ *  bits 0 - 3 are ignored/masked out */
 void CPU::PopAF() {
     af_register.pair = memory->ReadWordMemory(sp_register.pair);
     for (size_t i = 0; i < 4; i++) {

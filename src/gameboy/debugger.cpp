@@ -42,7 +42,7 @@ void Debugger::PrintHelp() {
 }
 
 void Debugger::GetInput() {
-    char *line = readline("> ");
+    char *line = readline("\033[1m>\033[0m ");
     if(*line) {
         add_history(line);
     }
