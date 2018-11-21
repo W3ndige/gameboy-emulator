@@ -131,6 +131,8 @@ void CPU::Swap(uint8_t &reg) {
     af_register.low = 0;
     reg = (((reg & 0xF0) >> 4) | ((reg & 0x0F) << 4));
     if (reg == 0) {
+        /**< ??? */
+        SetBit(af_register.low, ZERO_FLAG);
         SetBit(af_register.high, ZERO_FLAG);
     }
     clocks.t_cycles += 2;

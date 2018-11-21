@@ -22,8 +22,8 @@ class GPU {
         SDL_Renderer *renderer;
         SDL_Window *window;
         SDL_Texture *texture;
+        
         int scanline_counter;
-
         uint8_t current_mode;
         uint8_t current_line;
         Memory *memory;

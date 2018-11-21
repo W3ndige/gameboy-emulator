@@ -90,14 +90,16 @@ void Memory::WriteByteMemory(uint16_t address, uint8_t data) {
     else if (address == 0xFF04) {
         memory[address] = 0;
     } 
-    // Have to rethink that.
+    /**< If game wants to write to current
+     *   scanline register, reset. */
     else if (address == 0xFF44) { 
         memory[address] = 0;
     }
     else if (address == 0xFF46) {
         DMATransfer(data);
     }
-    /**< Set booting to false if program wants to write to this memory */
+    /**< Set booting to false if program 
+     *   wants to write to this memory */
     else if (address == 0xFF50) {
         booting = false;
         return;

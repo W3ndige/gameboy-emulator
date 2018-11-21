@@ -15,7 +15,7 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0x1e: LD8_r_nn(de_register.low);   break;
         case 0x26: LD8_r_nn(hl_register.high);  break;
         case 0x2e: LD8_r_nn(hl_register.low);   break;
-        case 0x3e: LD8_r_nn(af_register.high); break;
+        case 0x3e: LD8_r_nn(af_register.high);  break;
 
         /**< Load register to register */
         case 0x7F: LD8_r1_r2(af_register.high, af_register.high);   break;
@@ -128,17 +128,28 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0xf2: LD8_r1_mem(af_register.high, 0xFF00 + bc_register.low); break;
         case 0xe2: LD8_mem_r1(0xFF00 + bc_register.low, af_register.high); break;
 
-        case 0x3a: LD8_r1_mem(af_register.high, hl_register.pair); hl_register.pair--; break;
-        case 0x32: LD8_mem_r1(hl_register.pair, af_register.high); hl_register.pair--; break;
-        case 0x2a: LD8_r1_mem(af_register.high, hl_register.pair); hl_register.pair++; break;
-        case 0x22: LD8_mem_r1(hl_register.pair, af_register.high); hl_register.pair++; break;
+        case 0x3a: LD8_r1_mem(af_register.high, hl_register.pair); Dec16Bit(hl_register.pair); break;
+        case 0x32: LD8_mem_r1(hl_register.pair, af_register.high); Dec16Bit(hl_register.pair); break;
+        case 0x2a: LD8_r1_mem(af_register.high, hl_register.pair); Inc16Bit(hl_register.pair); break;
+        case 0x22: LD8_mem_r1(hl_register.pair, af_register.high); Inc16Bit(hl_register.pair); break;
 
-        case 0xe0: LD8_mem_r1(0xFF00 + memory->ReadByteMemory(program_counter), 
-                    af_register.high); program_counter++; clocks.t_cycles += 8; break;
+        case 0xe0: 
+        {
+            uint16_t address = 0xFF00 + memory->ReadByteMemory(program_counter);
+            program_counter++;
+            LD8_mem_r1(address, af_register.high);
+            clocks.t_cycles += 8;
+            break;
+        }
 
-        case 0xf0: LD8_r1_mem(af_register.high, 
-                    0xFF00 + memory->ReadByteMemory(program_counter)); program_counter++; 
-                    clocks.t_cycles += 8; break;
+        case 0xf0:
+        {
+            uint16_t address = 0xFF00 + memory->ReadByteMemory(program_counter);
+            program_counter++;
+            LD8_r1_mem(af_register.high, address);
+            clocks.t_cycles += 8;
+            break;
+        }
 
        /**< Load 16 bit immediate value */
         case 0x01: LD16_r_nn(bc_register.pair); break;
@@ -162,8 +173,9 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
 			else {
                 ClearBit(af_register.low, CARRY_FLAG);
             }
-            
-            if ((sp_register.pair & 0xF) + (n & 0xF) > 0xF) {
+
+            // Do we add sp_register.pair + n or only n?
+            if ((sp_register.pair & 0xF) + ((sp_register.pair + n) & 0xF) > 0xF) {
                 SetBit(af_register.low, HALF_CARRY_FLAG);
             }
             else {
@@ -195,40 +207,40 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0xe1: Pop(hl_register.pair); break;
 
         // 8 bit alu
-        case 0x80: Add8Bit(bc_register.high, 0);    break;
-        case 0x81: Add8Bit(bc_register.low, 0);     break;
-        case 0x82: Add8Bit(de_register.high, 0);    break;
-        case 0x83: Add8Bit(de_register.low, 0);     break;
-        case 0x84: Add8Bit(hl_register.high, 0);    break;
-        case 0x85: Add8Bit(hl_register.low, 0);     break;
+        case 0x80: Add8Bit(bc_register.high);    break;
+        case 0x81: Add8Bit(bc_register.low);     break;
+        case 0x82: Add8Bit(de_register.high);    break;
+        case 0x83: Add8Bit(de_register.low);     break;
+        case 0x84: Add8Bit(hl_register.high);    break;
+        case 0x85: Add8Bit(hl_register.low);     break;
         case 0x86:
         {
             uint8_t n = memory->ReadByteMemory(hl_register.pair);
-            Add8Bit(n, 0); 
+            Add8Bit(n); 
             clocks.t_cycles += 4;
             break;
         }
-        case 0x87: Add8Bit(af_register.high, 0); break;
+        case 0x87: Add8Bit(af_register.high); break;
         case 0xc6:
         {
             uint8_t n = memory->ReadByteMemory(program_counter);
             program_counter++;
-            Add8Bit(n, 0);
+            Add8Bit(n);
             clocks.t_cycles += 4;
             break;
         }
 
-        case 0x8f: Add8Bit(af_register.high, 1);    break;
-        case 0x88: Add8Bit(bc_register.high, 1);    break;
-        case 0x89: Add8Bit(bc_register.low, 1);     break;
-        case 0x8a: Add8Bit(de_register.high, 1);    break;
-        case 0x8b: Add8Bit(de_register.low, 1);     break;
-        case 0x8c: Add8Bit(hl_register.high, 1);    break;
-        case 0x8d: Add8Bit(hl_register.low, 1);     break;
+        case 0x8f: Adc8Bit(af_register.high);    break;
+        case 0x88: Adc8Bit(bc_register.high);    break;
+        case 0x89: Adc8Bit(bc_register.low);     break;
+        case 0x8a: Adc8Bit(de_register.high);    break;
+        case 0x8b: Adc8Bit(de_register.low);     break;
+        case 0x8c: Adc8Bit(hl_register.high);    break;
+        case 0x8d: Adc8Bit(hl_register.low);     break;
         case 0x8e:
         {
             uint8_t n = memory->ReadByteMemory(hl_register.pair);
-            Add8Bit(n, 1); 
+            Adc8Bit(n); 
             clocks.t_cycles += 4;
             break;
         }
@@ -236,55 +248,56 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         {
             uint8_t n = memory->ReadByteMemory(program_counter);
             program_counter++;
-            Add8Bit(n, 1);
+            Adc8Bit(n);
             clocks.t_cycles += 4;
             break;
         }
 
-        case 0x90: Sub8Bit(bc_register.high, 0);    break;
-        case 0x91: Sub8Bit(bc_register.low, 0);     break;
-        case 0x92: Sub8Bit(de_register.high, 0);    break;
-        case 0x93: Sub8Bit(de_register.low, 0);     break;
-        case 0x94: Sub8Bit(hl_register.high, 0);    break;
-        case 0x95: Sub8Bit(hl_register.low, 0);     break;
+        case 0x90: Sub8Bit(bc_register.high);    break;
+        case 0x91: Sub8Bit(bc_register.low);     break;
+        case 0x92: Sub8Bit(de_register.high);    break;
+        case 0x93: Sub8Bit(de_register.low);     break;
+        case 0x94: Sub8Bit(hl_register.high);    break;
+        case 0x95: Sub8Bit(hl_register.low);     break;
         case 0x96:
         {
             uint8_t n = memory->ReadByteMemory(hl_register.pair);
-            Sub8Bit(n, 0); 
+            Sub8Bit(n); 
             clocks.t_cycles += 4;
             break;
         }
-        case 0x97: Sub8Bit(af_register.high, 0); break;
+        case 0x97: Sub8Bit(af_register.high); break;
 
 
         case 0xd6:
         {
             uint8_t n = memory->ReadByteMemory(program_counter);
             program_counter++;
-            Sub8Bit(n, 0);
+            Sub8Bit(n);
             clocks.t_cycles += 4;
             break;
         }
 
-        case 0x9f: Sub8Bit(af_register.high, 1);    break;
-        case 0x98: Sub8Bit(bc_register.high, 1);    break;
-        case 0x99: Sub8Bit(bc_register.low, 1);     break;
-        case 0x9a: Sub8Bit(de_register.high, 1);    break;
-        case 0x9b: Sub8Bit(de_register.low, 1);     break;
-        case 0x9c: Sub8Bit(hl_register.high, 1);    break;
-        case 0x9d: Sub8Bit(hl_register.low, 1);     break;
+        case 0x9f: Subc8Bit(af_register.high);    break;
+        case 0x98: Subc8Bit(bc_register.high);    break;
+        case 0x99: Subc8Bit(bc_register.low);     break;
+        case 0x9a: Subc8Bit(de_register.high);    break;
+        case 0x9b: Subc8Bit(de_register.low);     break;
+        case 0x9c: Subc8Bit(hl_register.high);    break;
+        case 0x9d: Subc8Bit(hl_register.low);     break;
         case 0x9e:
         {
             uint8_t n = memory->ReadByteMemory(hl_register.pair);
-            Sub8Bit(n, 1); 
+            Subc8Bit(n); 
             clocks.t_cycles += 4;
             break;
         }
+
         case 0xde:
         {
             uint8_t n = memory->ReadByteMemory(program_counter);
             program_counter++;
-            Sub8Bit(n, 1);
+            Subc8Bit(n);
             clocks.m_cycles += 2;
             clocks.t_cycles += 8;
             break;
@@ -304,6 +317,7 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
             clocks.t_cycles += 4;
             break;
         }
+        
         case 0xe6:
         {
             uint8_t n = memory->ReadByteMemory(program_counter);
@@ -487,8 +501,13 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         case 0xda: JUMP(CARRY_FLAG, 1, 1);  break;
 
         // To future me: this instruction was failing, += insted of =
-        case 0xe9: program_counter = hl_register.pair; clocks.m_cycles += 1;
-                    clocks.t_cycles += 4; break;
+        case 0xe9:
+        {
+            program_counter = hl_register.pair;
+            clocks.m_cycles += 1;
+            clocks.t_cycles += 4; 
+            break; 
+        }
 
         case 0x18: JUMP_IMM(0, 0, 0); break;
         case 0x20: JUMP_IMM(ZERO_FLAG, 0, 1);   break;
@@ -730,7 +749,7 @@ void CPU::ExecuteExtendedInstruction(uint8_t opcode) {
             clocks.t_cycles += 8;
             break;
         }
-        case 0x5f: Bit(af_register.high, 4); break;
+        case 0x5f: Bit(af_register.high, 3); break;
 
         case 0x60: Bit(bc_register.high, 4);    break;
         case 0x61: Bit(bc_register.low, 4);     break;
@@ -760,7 +779,7 @@ void CPU::ExecuteExtendedInstruction(uint8_t opcode) {
             clocks.t_cycles += 8;
             break;
         }
-        case 0x6f: Bit(af_register.high, 6); break;
+        case 0x6f: Bit(af_register.high, 5); break;
 
         case 0x70: Bit(bc_register.high, 6);    break;
         case 0x71: Bit(bc_register.low, 6);     break;
@@ -854,7 +873,7 @@ void CPU::ExecuteExtendedInstruction(uint8_t opcode) {
             clocks.t_cycles += 8;
             break;
         }
-        case 0x9f: Res(af_register.high, 4); break;
+        case 0x9f: Res(af_register.high, 3); break;
 
         case 0xa0: Res(bc_register.high, 4);    break;
         case 0xa1: Res(bc_register.low, 4);     break;
@@ -886,7 +905,7 @@ void CPU::ExecuteExtendedInstruction(uint8_t opcode) {
             clocks.t_cycles += 8;
             break;
         }
-        case 0xaf: Res(af_register.high, 6); break;
+        case 0xaf: Res(af_register.high, 5); break;
 
         case 0xb0: Res(bc_register.high, 6);    break;
         case 0xb1: Res(bc_register.low, 6);     break;
@@ -982,7 +1001,7 @@ void CPU::ExecuteExtendedInstruction(uint8_t opcode) {
             clocks.t_cycles += 8;
             break;
         }
-        case 0xdf: Set(af_register.high, 4); break;
+        case 0xdf: Set(af_register.high, 3); break;
 
         case 0xe0: Set(bc_register.high, 4);    break;
         case 0xe1: Set(bc_register.low, 4);     break;
@@ -1014,7 +1033,7 @@ void CPU::ExecuteExtendedInstruction(uint8_t opcode) {
             clocks.t_cycles += 8;
             break;
         }
-        case 0xef: Set(af_register.high, 6); break;
+        case 0xef: Set(af_register.high, 5); break;
 
         case 0xf0: Set(bc_register.high, 6);    break;
         case 0xf1: Set(bc_register.low, 6);     break;

@@ -62,9 +62,16 @@ class CPU {
         void Diagnostics();
 
     private:
-        Register af_register, bc_register, de_register, hl_register; /**< General purpose register */
-        Register sp_register; /**< Stack pointer register */
-        uint16_t program_counter; /**< Program counter register */
+        /**< General purpose register */
+        Register af_register, bc_register, 
+                 de_register, hl_register;
+
+        /**< Stack pointer register */         
+        Register sp_register;
+
+        /**< Program counter register */
+        uint16_t program_counter;
+        
         
         Memory *memory;
         Clocks clocks;
@@ -84,7 +91,7 @@ class CPU {
         // 8 bit loads
         void LD8_r_nn(uint8_t &reg);
         void LD8_r1_r2(uint8_t &reg1, uint8_t reg2);
-        void LD8_r1_mem(uint8_t &reg1, uint16_t address);
+        void LD8_r1_mem(uint8_t &reg, uint16_t address);
         void LD8_mem_r1(uint16_t address, uint8_t reg);
 
         // 16 bit loads
@@ -94,8 +101,10 @@ class CPU {
         void PopAF();
 
         // 8 bit ALU
-        void Add8Bit(uint8_t reg, int add_carry);
-        void Sub8Bit(uint8_t reg, int sub_cay);
+        void Add8Bit(uint8_t reg);
+        void Adc8Bit(uint8_t reg);
+        void Sub8Bit(uint8_t reg);
+        void Subc8Bit(uint8_t reg);
         void And8Bit(uint8_t reg);
         void Or8Bit(uint8_t reg);
         void Xor8Bit(uint8_t reg);

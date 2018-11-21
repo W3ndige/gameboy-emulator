@@ -1,15 +1,33 @@
 #include "../cpu.hpp"
 
 /**<  8 bit ALU */
-void CPU::Add8Bit(uint8_t reg, int add_carry) {
+void CPU::Add8Bit(uint8_t reg) {
     uint8_t before = af_register.high;
-    if (add_carry) {
-        /**< If carry is considered and
-         * carry flag is set, increment value
-         * to add */
-        if (TestBit(af_register.low, CARRY_FLAG)) {
-            reg++;
-        }
+
+    af_register.high += reg;
+
+    af_register.low = 0;
+    if (af_register.high == 0) {
+        SetBit(af_register.low, ZERO_FLAG);
+    }
+
+    if ((before + reg) > 0xFF) {
+        SetBit(af_register.low, CARRY_FLAG);
+    }
+
+	uint16_t htest = (before & 0xF) + (reg & 0xF);
+	if (htest > 0xF) {
+        SetBit(af_register.low, HALF_CARRY_FLAG);
+    }
+
+    clocks.t_cycles += 1;
+    clocks.m_cycles += 4;
+}
+
+void CPU::Adc8Bit(uint8_t reg) {
+    uint8_t before = af_register.high;
+    if (TestBit(af_register.low, CARRY_FLAG)) {
+        reg++;
     }
 
     af_register.high += reg;
@@ -32,16 +50,38 @@ void CPU::Add8Bit(uint8_t reg, int add_carry) {
     clocks.m_cycles += 4;
 }
 
-void CPU::Sub8Bit(uint8_t reg, int sub_carry) {
+
+void CPU::Sub8Bit(uint8_t reg) {
     uint8_t before = af_register.high;
 
-    if (sub_carry) {
-        /**< If carry is considered and
-         * carry flag is set, increment value
-         * to substract */
-        if (TestBit(af_register.low, CARRY_FLAG)) {
-            reg++;
-        }
+    af_register.high -= reg;
+
+    af_register.low = 0;
+    if (af_register.high == 0) {
+        SetBit(af_register.low, ZERO_FLAG);
+    }
+
+    SetBit(af_register.low, SUBSTRACT_FLAG);
+
+	if (before < reg) {
+        SetBit(af_register.low, CARRY_FLAG);
+    }
+
+	int16_t htest = (before & 0xF) - (reg & 0xF);
+
+	if (htest < 0) {
+        SetBit(af_register.low, HALF_CARRY_FLAG);
+    }
+
+    clocks.m_cycles += 1;
+    clocks.t_cycles += 4;
+}
+
+void CPU::Subc8Bit(uint8_t reg) {
+    uint8_t before = af_register.high;
+
+    if (TestBit(af_register.low, CARRY_FLAG)) {
+        reg++;
     }
  
     af_register.high -= reg;
@@ -177,7 +217,9 @@ void CPU::Add16Bit(uint16_t reg) {
     uint16_t before = hl_register.pair;
     hl_register.pair += reg;
 
-    if (before + reg > 0xFFFF) {
+    ClearBit(af_register.low, SUBSTRACT_FLAG);
+
+    if ((before + reg) > 0xFFFF) {
         SetBit(af_register.low, CARRY_FLAG);
     } else {
         ClearBit(af_register.low, CARRY_FLAG);

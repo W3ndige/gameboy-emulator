@@ -1,6 +1,8 @@
 #include "gameboy.hpp"
 
-Gameboy::Gameboy(bool debug, bool without_boot, bool exit_on_inifite, std::string rom_file) : cpu(&memory), gpu(&memory, &cpu), debugger(*this) {
+Gameboy::Gameboy(bool debug, bool without_boot, bool exit_on_inifite, std::string rom_file) 
+                : cpu(&memory), gpu(&memory, &cpu), debugger(*this) {
+                    
     if (without_boot) {
         memory.DisableBooting();
     }
@@ -90,16 +92,19 @@ void Gameboy::Emulate() {
 
 void Gameboy::SetKeyPressed(int key) {
     bool prev_unset = false;
-    bool button = true;
     bool req_interrupt = false; 
 
-    if (TestBit(memory.joypad_state, key)) {
+    if (TestBit(memory.joypad_state, key) == false) {
         prev_unset = true;
     }
 
     ClearBit(memory.joypad_state, key);
 
-    if (key < 3) {
+    bool button;
+    if (key > 3) {
+        button = true;
+    }
+    else {
         button = false;
     }
 
@@ -107,6 +112,10 @@ void Gameboy::SetKeyPressed(int key) {
     if (button && !TestBit(key_req, 5)) {
         req_interrupt = true;
     }
+    else if (!button && !TestBit(key_req, 4)) {
+        req_interrupt = true;
+    }
+
     if (req_interrupt && !prev_unset) {
         cpu.RequestInterupt(4);
     }

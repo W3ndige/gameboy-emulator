@@ -70,8 +70,8 @@ bool CPU::Init(std::string rom_file, bool exit_on_inifite) {
 }
 
 void CPU::FetchAndDispatch() {
-    //printf("0x%04x\n", program_counter);
     uint8_t opcode = memory->ReadByteMemory(program_counter);
+    //printf("0x%04x\t0x%02x\n", program_counter, opcode);;
     program_counter++;
     ExecuteInstruction(opcode);
 }
