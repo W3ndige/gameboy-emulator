@@ -1,6 +1,6 @@
 #include "../cpu.hpp"
 
-// Right shift - lsb, left shift msb
+// Right shift - LSB, left shift MSB
 
 // Extended instruction set
 void CPU::RLC(uint8_t &reg) {;
@@ -133,7 +133,7 @@ void CPU::Swap(uint8_t &reg) {
     if (reg == 0) {
         /**< ??? */
         SetBit(af_register.low, ZERO_FLAG);
-        SetBit(af_register.high, ZERO_FLAG);
+        //SetBit(af_register.high, ZERO_FLAG);
     }
     clocks.t_cycles += 2;
     clocks.m_cycles += 8;

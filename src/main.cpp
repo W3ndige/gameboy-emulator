@@ -20,6 +20,10 @@ int main(int argc, char **argv) {
         ("e,extract", "Extract and disassemble game data", cxxopts::value<bool>(extract));
         //("h,headless", "Run in headless state.", cxxopts::value<bool>(headless));
         auto result = options.parse(argc, argv);
+        if (argc < 2) {
+            printf("No ROM image specified.\n");
+            return -1;
+        }
         rom_file = argv[1];
     }
 

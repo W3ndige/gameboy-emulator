@@ -1,6 +1,8 @@
 #include "gpu.hpp"
 
-GPU::GPU(Memory *mem, CPU *cpu) {
+GPU::GPU(Memory *mem, CPU *cpu) : window(nullptr, SDL_DestroyWindow),
+                                  renderer(nullptr, SDL_DestroyRenderer),
+                                  texture(nullptr, SDL_DestroyTexture) {
     this->memory = mem;
     this->cpu = cpu;
     current_line = 0;
@@ -11,9 +13,6 @@ GPU::GPU(Memory *mem, CPU *cpu) {
 
 GPU::~GPU() {
     delete[] pixels;
-    SDL_DestroyTexture(texture);
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
     SDL_Quit();
 }
 
@@ -25,22 +24,22 @@ bool GPU::Init() {
     }
     
     std::string title = "Gameboy " + memory->cartridge_header.title;
-    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, 100,
-                                          SCREEN_HEIGH, SCREEN_WIDTH, SDL_WINDOW_SHOWN);
+    window.reset(SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, 100,
+                                          SCREEN_HEIGH, SCREEN_WIDTH, SDL_WINDOW_SHOWN));
     if (window == nullptr) {
         printf( "SDL Window could not initialize! SDL_Error: %s\n", SDL_GetError() );
         SDL_Quit();
         return false;
     }
 
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    renderer.reset(SDL_CreateRenderer(window.get(), -1, SDL_RENDERER_ACCELERATED));
     if (renderer == nullptr) {
         printf( "SDL Renderer could not initialize! SDL_Error: %s\n", SDL_GetError() );
         SDL_Quit();
         return false;
     }
-    SDL_RenderSetScale(renderer, 2, 2);
-    texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, 160, 144);
+    SDL_RenderSetScale(renderer.get(), 2, 2);
+    texture.reset(SDL_CreateTexture(renderer.get(), SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, 160, 144));
     return true;
 }
 
@@ -303,9 +302,9 @@ int GPU::GetColor(uint8_t color_id, uint16_t address) {
 }
 
 void GPU::PrintPixels() {
-    SDL_UpdateTexture(texture, NULL, pixels, 160 * sizeof(Uint32));
-    SDL_RenderClear(renderer);
+    SDL_UpdateTexture(texture.get(), NULL, pixels, 160 * sizeof(Uint32));
+    SDL_RenderClear(renderer.get());
     const SDL_Rect dest = {.x = 0, .y = 0, .w = 160, .h = 144};
-    SDL_RenderCopy(renderer, texture, NULL, &dest);
-    SDL_RenderPresent(renderer);
+    SDL_RenderCopy(renderer.get(), texture.get(), NULL, &dest);
+    SDL_RenderPresent(renderer.get());
 }

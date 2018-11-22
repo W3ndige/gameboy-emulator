@@ -1,6 +1,7 @@
 #ifndef GPU_HPP
 #define GPU_HPP
 
+#include <memory>
 #include <SDL2/SDL.h>
 
 #include "../memory/memory.hpp"
@@ -19,9 +20,13 @@ class GPU {
 
     private:
         uint32_t *pixels;
-        SDL_Renderer *renderer;
-        SDL_Window *window;
-        SDL_Texture *texture;
+        std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> window;
+        std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> renderer;
+        std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> texture;
+
+        //SDL_Renderer *renderer;
+        //SDL_Window *window;
+        //SDL_Texture *texture;
         
         int scanline_counter;
         uint8_t current_mode;

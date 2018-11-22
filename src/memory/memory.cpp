@@ -9,7 +9,7 @@ void Memory::DMATransfer(uint8_t data) {
     uint16_t address = data << 8;
 
     /**< Read sprite RAM between memory adddress 0xFE00-0xFE9F */
-    for (int i = 0 ; i < 0xA0; i++) {
+    for (size_t i = 0 ; i < 0xA0; i++) {
         WriteByteMemory(0xFE00 + i, ReadByteMemory(address + i));
     }
 }
@@ -22,8 +22,7 @@ uint8_t Memory::GetJoypadState() {
         uint8_t top_joypad = joypad_state >> 4;
         top_joypad |= 0xF0;
         res &= top_joypad;
-    }
-    else if (!TestBit(res, 5)) {
+    } else if (!TestBit(res, 5)) {
         uint8_t bottom_joypad = joypad_state & 0xF;
         bottom_joypad |= 0xF0;
         res &= bottom_joypad;

@@ -247,7 +247,6 @@ void CPU::AddSP16Bit() {
         SetBit(af_register.low, CARRY_FLAG);
     }
 
-
     af_register.low = 0;
     if (((before & 0xFF00) & 0xF) + ((nn >> 8) & 0xF)) {
         SetBit(af_register.low, HALF_CARRY_FLAG);
