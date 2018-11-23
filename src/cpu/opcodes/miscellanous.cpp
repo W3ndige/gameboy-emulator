@@ -125,3 +125,73 @@ void CPU::RET(uint8_t flag, int condition, int use_condition) {
     clocks.m_cycles += 8;
 }
 
+/**< Unique arithmetic functions */
+
+void CPU::RLCA() {;
+	int msb_set = TestBit(af_register.high, 7);
+	af_register.low = 0;
+
+	af_register.high <<= 1;
+	if (msb_set) {
+		SetBit(af_register.low, CARRY_FLAG);
+		SetBit(af_register.high, 0);
+	}
+
+    clocks.m_cycles += 2;
+    clocks.t_cycles += 8;
+}
+
+void CPU::RLA() {
+	int msb_set = TestBit(af_register.high, 7);
+    int carry_set = TestBit(af_register.low, CARRY_FLAG);
+
+	af_register.low = 0;
+
+	af_register.high <<= 1;
+
+	if (msb_set) {
+		SetBit(af_register.low, CARRY_FLAG);
+	}
+
+    if (carry_set) {
+        SetBit(af_register.high, 0);
+    }
+
+    clocks.m_cycles += 1;
+    clocks.t_cycles += 8;
+
+}
+
+void CPU::RRA() {
+	int lsb_set = TestBit(af_register.high, 0);
+    int carry_set = TestBit(af_register.low, CARRY_FLAG);
+
+	af_register.low = 0;
+
+	af_register.high >>= 1;
+
+	if (lsb_set) {
+		SetBit(af_register.low, CARRY_FLAG);
+	}
+
+    if (carry_set) {
+        SetBit(af_register.high, 7);
+    }
+
+    clocks.m_cycles += 2;
+    clocks.t_cycles += 8;
+}
+
+void CPU::RRCA() {
+	int lsb_set = TestBit(af_register.high, 0);
+	af_register.low = 0;
+
+	af_register.high >>= 1;
+	if (lsb_set) {
+		SetBit(af_register.low, CARRY_FLAG);
+		SetBit(af_register.high, 7);
+	}
+
+    clocks.m_cycles += 2;
+    clocks.t_cycles += 8;
+}

@@ -160,22 +160,20 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
 
         case 0xF8:
         {
-            int8_t n = memory->ReadByteMemory(program_counter);
+            int8_t n = (int8_t)memory->ReadByteMemory(program_counter);
             program_counter++;
+            hl_register.pair = sp_register.pair + n;
+
             ClearBit(af_register.low, ZERO_FLAG);
             ClearBit(af_register.low, SUBSTRACT_FLAG);
-            uint16_t value = (sp_register.pair + n) & 0xFFFF;
-            hl_register.pair = value;
-
-            if ((sp_register.pair + n) > 0xFFFF) {
+            if (((sp_register.pair & 0xFF) + (n & 0xFF)) > 0xFF) {
                 SetBit(af_register.low, CARRY_FLAG);
             }
 			else {
                 ClearBit(af_register.low, CARRY_FLAG);
             }
 
-            // Do we add sp_register.pair + n or only n?
-            if ((sp_register.pair & 0xF) + ((sp_register.pair + n) & 0xF) > 0xF) {
+            if (((sp_register.pair & 0xF) + (n & 0xF)) > 0xF) {
                 SetBit(af_register.low, HALF_CARRY_FLAG);
             }
             else {
@@ -488,10 +486,10 @@ void CPU::ExecuteInstruction(uint8_t opcode) {
         }
 
         // Rotates and shifts
-        case 0x07: RLC(af_register.high);   break;
-        case 0x17: RL(af_register.high); clocks.t_cycles -= 4; break;
-        case 0x1F: RR(af_register.high);    break;
-        case 0x0f: RRC(af_register.high);   break;
+        case 0x07: RLCA();   break;
+        case 0x17: RLA(); break;
+        case 0x1F: RRA();    break;
+        case 0x0f: RRCA();   break;
 
         // Jumps
         case 0xc3: JUMP(0, 0, 0); break;

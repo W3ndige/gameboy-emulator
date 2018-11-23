@@ -133,6 +133,10 @@ class CPU {
 
         // Misc instructions
         void DAA();
+        void RLCA();
+        void RLA();
+        void RRCA();
+        void RRA();
 
         // Jumps
         void JUMP(uint8_t flag, int condition, int use_condition);

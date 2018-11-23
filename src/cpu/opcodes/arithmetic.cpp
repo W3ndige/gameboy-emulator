@@ -15,8 +15,7 @@ void CPU::Add8Bit(uint8_t reg) {
         SetBit(af_register.low, CARRY_FLAG);
     }
 
-	uint16_t htest = (before & 0xF) + (reg & 0xF);
-	if (htest > 0xF) {
+	if ((before & 0xF) + (reg & 0xF) > 0xF) {
         SetBit(af_register.low, HALF_CARRY_FLAG);
     }
 
@@ -26,24 +25,21 @@ void CPU::Add8Bit(uint8_t reg) {
 
 void CPU::Adc8Bit(uint8_t reg) {
     uint8_t before = af_register.high;
-    if (TestBit(af_register.low, CARRY_FLAG)) {
-        reg++;
-    }
-
-    af_register.high += reg;
+    uint8_t carry = TestBit(af_register.low, CARRY_FLAG);
 
     af_register.low = 0;
-    if (af_register.high == 0) {
-        SetBit(af_register.low, ZERO_FLAG);
-    }
-
-    if ((before + reg) > 0xFF) {
+    if ((before & 0xFF) + (reg & 0xFF) + carry > 0xFF) {
         SetBit(af_register.low, CARRY_FLAG);
     }
 
-	uint16_t htest = (before & 0xF) + (reg & 0xF);
-	if (htest > 0xF) {
+	if ((before & 0xF) + (reg & 0xF) + carry > 0xF) {
         SetBit(af_register.low, HALF_CARRY_FLAG);
+    }
+
+    af_register.high = af_register.high + reg + carry;
+
+    if (af_register.high == 0) {
+        SetBit(af_register.low, ZERO_FLAG);
     }
 
     clocks.t_cycles += 1;
@@ -67,9 +63,7 @@ void CPU::Sub8Bit(uint8_t reg) {
         SetBit(af_register.low, CARRY_FLAG);
     }
 
-	int16_t htest = (before & 0xF) - (reg & 0xF);
-
-	if (htest < 0) {
+	if ((before & 0xF) - (reg & 0xF) < 0) {
         SetBit(af_register.low, HALF_CARRY_FLAG);
     }
 
@@ -79,28 +73,22 @@ void CPU::Sub8Bit(uint8_t reg) {
 
 void CPU::Subc8Bit(uint8_t reg) {
     uint8_t before = af_register.high;
-
-    if (TestBit(af_register.low, CARRY_FLAG)) {
-        reg++;
-    }
- 
-    af_register.high -= reg;
+    uint8_t carry = TestBit(af_register.low, CARRY_FLAG);
 
     af_register.low = 0;
-    if (af_register.high == 0) {
-        SetBit(af_register.low, ZERO_FLAG);
-    }
-
     SetBit(af_register.low, SUBSTRACT_FLAG);
-
-	if (before < reg) {
+	if ((before & 0xFF) < (reg & 0xFF) + carry) {
         SetBit(af_register.low, CARRY_FLAG);
     }
 
-	int16_t htest = (before & 0xF) - (reg & 0xF);
-
-	if (htest < 0) {
+	if ((before & 0xF) < (reg & 0xF) + carry) {
         SetBit(af_register.low, HALF_CARRY_FLAG);
+    }
+
+    af_register.high = af_register.high - reg - carry;
+
+    if (af_register.high == 0) {
+        SetBit(af_register.low, ZERO_FLAG);
     }
 
     clocks.m_cycles += 1;
@@ -219,13 +207,13 @@ void CPU::Add16Bit(uint16_t reg) {
 
     ClearBit(af_register.low, SUBSTRACT_FLAG);
 
-    if ((before + reg) > 0xFFFF) {
+    if ((before + reg) > 0xffff) {
         SetBit(af_register.low, CARRY_FLAG);
     } else {
         ClearBit(af_register.low, CARRY_FLAG);
     }
 
-    if (((before & 0xFF00) & 0xF) + ((reg >> 8) & 0xF)) {
+    if ((before & 0xfff) + (reg & 0xfff) > 0xfff) {
         SetBit(af_register.low, HALF_CARRY_FLAG);
     } else {
         ClearBit(af_register.low, HALF_CARRY_FLAG);
@@ -237,18 +225,16 @@ void CPU::Add16Bit(uint16_t reg) {
 
 void CPU::AddSP16Bit() {
     uint16_t before = sp_register.pair;
-
-    uint16_t nn = memory->ReadByteMemory(program_counter);
+    int8_t n = static_cast<int8_t>(memory->ReadByteMemory(program_counter));
     program_counter++;
-    sp_register.pair += nn;
 
+    sp_register.pair += n;
     af_register.low = 0;
-    if ((before + nn) > 0xFFFF) {
+    if ((before + n) > 0xffff) {
         SetBit(af_register.low, CARRY_FLAG);
     }
 
-    af_register.low = 0;
-    if (((before & 0xFF00) & 0xF) + ((nn >> 8) & 0xF)) {
+    if ((before & 0xfff) + (n & 0xfff) > 0xfff) {
         SetBit(af_register.low, HALF_CARRY_FLAG);
     }
 

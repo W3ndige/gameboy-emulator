@@ -24,10 +24,6 @@ class GPU {
         std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> renderer;
         std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> texture;
 
-        //SDL_Renderer *renderer;
-        //SDL_Window *window;
-        //SDL_Texture *texture;
-        
         int scanline_counter;
         uint8_t current_mode;
         uint8_t current_line;
