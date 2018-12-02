@@ -28,7 +28,7 @@ void CPU::Adc8Bit(uint8_t reg) {
     uint8_t carry = TestBit(af_register.low, CARRY_FLAG);
 
     af_register.low = 0;
-    if ((before & 0xFF) + (reg & 0xFF) + carry > 0xFF) {
+    if ((before + reg + carry) > 0xFF) {
         SetBit(af_register.low, CARRY_FLAG);
     }
 
@@ -144,10 +144,7 @@ void CPU::Cmp8Bit(uint8_t reg) {
         SetBit(af_register.low, CARRY_FLAG);
     }
 
-	int8_t htest = af_register.high & 0xF;
-	htest -= (reg & 0xF);
-
-	if (htest < 0) {
+	if ((af_register.high & 0xF) - (reg & 0xF) < 0) {
         SetBit(af_register.low, HALF_CARRY_FLAG);
     }
 
@@ -189,7 +186,7 @@ void CPU::Dec8Bit(uint8_t &reg) {
 
     SetBit(af_register.low, SUBSTRACT_FLAG);
 
-    if ((before & 0x0F) == 0) {
+    if ((before & 0xF) == 0) {
         SetBit(af_register.low, HALF_CARRY_FLAG);
     } else {
         ClearBit(af_register.low, HALF_CARRY_FLAG);

@@ -265,8 +265,7 @@ void GPU::RenderSprites() {
                 uint8_t bit_1 = TestBit(data_1, colour_bit);
                 uint8_t bit_2 = TestBit(data_2, colour_bit);
                 uint8_t color_id = (bit_2 << 1) | bit_1;
-                //uint16_t colour_address = TestBit(attributes, 4) ? 0xff48 : 0xff49;
-                uint16_t colour_address = 0xff47;
+                uint16_t colour_address = TestBit(attributes, 4) ? 0xff48 : 0xff49;
                 int color = GetColor(color_id, colour_address);
                 int red, blue, green;
                 
@@ -280,11 +279,12 @@ void GPU::RenderSprites() {
                     red = blue = green = 0;
                 }
 
-                if (TestBit(attributes, 7)) {
-                    continue;
-                }
-                
                 int pixel = x_pos + (0 - tile_pixel + 7);
+                if (TestBit(attributes, 7)) {
+                    if (pixels[pixel + (current_line * 160)] != 0xffffffff) {
+                        continue;
+                    }
+                }
 
                 pixels[pixel + (current_line * 160)] = (0xFF << 24) | (red << 16) | (green << 8) | (blue);
             }
