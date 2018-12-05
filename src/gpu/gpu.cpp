@@ -3,12 +3,13 @@
 GPU::GPU(Memory *mem, CPU *cpu) : window(nullptr, SDL_DestroyWindow),
                                   renderer(nullptr, SDL_DestroyRenderer),
                                   texture(nullptr, SDL_DestroyTexture) {
-    this->memory = mem;
-    this->cpu = cpu;
-    current_line = 0;
-    current_mode = 0;
+    this->memory     = mem;
+    this->cpu        = cpu;
+    current_line     = 0;
+    current_mode     = 0;
     scanline_counter = 0;
-    pixels = new uint32_t[(SCREEN_HEIGH / 2) * (SCREEN_WIDTH / 2)];
+    pixels           = new uint32_t[(SCREEN_HEIGH / 2) * 
+                                    (SCREEN_WIDTH / 2)];
 }
 
 GPU::~GPU() {
@@ -25,7 +26,7 @@ bool GPU::Init() {
     
     std::string title = "Gameboy " + memory->cartridge_header.title;
     window.reset(SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, 100,
-                                          SCREEN_HEIGH, SCREEN_WIDTH, SDL_WINDOW_SHOWN));
+                                  SCREEN_HEIGH, SCREEN_WIDTH, SDL_WINDOW_SHOWN));
     if (window == nullptr) {
         printf( "SDL Window could not initialize! SDL_Error: %s\n", SDL_GetError() );
         SDL_Quit();
@@ -265,7 +266,7 @@ void GPU::RenderSprites() {
                 uint8_t bit_1 = TestBit(data_1, colour_bit);
                 uint8_t bit_2 = TestBit(data_2, colour_bit);
                 uint8_t color_id = (bit_2 << 1) | bit_1;
-                uint16_t colour_address = TestBit(attributes, 4) ? 0xff48 : 0xff49;
+                uint16_t colour_address = TestBit(attributes, 4) ? 0xff49 : 0xff48;
                 int color = GetColor(color_id, colour_address);
                 int red, blue, green;
                 

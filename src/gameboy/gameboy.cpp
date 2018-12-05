@@ -20,8 +20,18 @@ Gameboy::Gameboy(bool debug, bool without_boot, bool exit_on_inifite, std::strin
 void Gameboy::Loop() {
     bool running = true;
 
+    std::chrono::time_point<std::chrono::high_resolution_clock> current, previous;
+    previous = std::chrono::high_resolution_clock::now();
+
     SDL_Event event;
     while (running) {
+        current = std::chrono::high_resolution_clock::now();
+        auto elapsed = std::chrono::duration_cast
+                       <std::chrono::duration<float, std::milli>> 
+                       (current - previous);
+
+        previous = current;
+        
         if (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 running = false;
@@ -59,35 +69,44 @@ void Gameboy::Loop() {
             }
         }
         Emulate();
+		if (elapsed.count() < DELAY_TIME) {
+		    std::this_thread::sleep_for(std::chrono::duration<float, std::milli>
+                                       (DELAY_TIME - elapsed.count()));
+		}
     }
 
 }
 
 void Gameboy::Emulate() {
 
-    if (debugging) {
-        debugger.Debug();
-    }
-    
-    int current_cycle = cpu.GetLastOpcodeTime();
-    cpu.FetchAndDispatch();
+    int cycles = 0;
+    while (cycles < MAX_CYCLES) {
+        if (debugging) {
+            debugger.Debug();
+        }
+        
+        int timer = cpu.GetTimer();
+        cpu.FetchAndDispatch();
 
-    if (cpu.pending_interupt_enabled == true && 
-        memory.ReadByteMemory(cpu.GetProgramCounter() - 1) != 0xfb) {
-        cpu.interupts = true;
-        cpu.pending_interupt_enabled = false;
-    }
+        if (cpu.pending_interupt_enabled == true && 
+            memory.ReadByteMemory(cpu.GetProgramCounter() - 1) != 0xfb) {
+            cpu.interupts = true;
+            cpu.pending_interupt_enabled = false;
+        }
 
-    if (cpu.pending_interupt_disabled == true && 
-        memory.ReadByteMemory(cpu.GetProgramCounter() - 1) != 0xfb) {
-        cpu.interupts = false;
-        cpu.pending_interupt_disabled = false;
-    }
+        if (cpu.pending_interupt_disabled == true && 
+            memory.ReadByteMemory(cpu.GetProgramCounter() - 1) != 0xfb) {
+            cpu.interupts = false;
+            cpu.pending_interupt_disabled = false;
+        }
 
-    int cycles = cpu.GetLastOpcodeTime() - current_cycle;
-    cpu.UpdateTimer(cycles);
-    gpu.UpdateGraphics(cycles);
-    cpu.DoInterupts();
+        int current_cycles = cpu.GetTimer() - timer;
+        cpu.UpdateTimer(current_cycles);
+        gpu.UpdateGraphics(current_cycles);
+        cpu.DoInterupts();
+
+        cycles += current_cycles;
+    }
 }
 
 void Gameboy::SetKeyPressed(int key) {

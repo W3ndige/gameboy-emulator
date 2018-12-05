@@ -57,7 +57,7 @@ class CPU {
 
         /**< Debugging type of instructions */
         void ArtificialJump(int offset);
-        unsigned int GetLastOpcodeTime();
+        unsigned int GetTimer();
         int Breakpoint(uint16_t pc);
         void Diagnostics();
 

@@ -51,7 +51,7 @@ void CPU::DAA() {
     af_register.low &= ~(HALF_CARRY_FLAG | ZERO_FLAG);
 
     if ((af_register.high & 0x100) == 0x100)
-        af_register.low |= CARRY_FLAG;
+        SetBit(af_register.low, CARRY_FLAG);
 
     af_register.high &= 0xFF;
 

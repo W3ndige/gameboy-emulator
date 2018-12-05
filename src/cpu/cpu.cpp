@@ -178,7 +178,7 @@ void CPU::ArtificialJump(int offset) {
     program_counter += offset;
 }
 
-unsigned int CPU::GetLastOpcodeTime() {
+unsigned int CPU::GetTimer() {
     return clocks.t_cycles;
 }
 
