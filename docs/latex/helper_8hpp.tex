@@ -1,0 +1,91 @@
+\hypertarget{helper_8hpp}{}\section{src/helper/helper.hpp File Reference}
+\label{helper_8hpp}\index{src/helper/helper.\+hpp@{src/helper/helper.\+hpp}}
+
+
+Helper functions used accross the project.  
+
+
+{\ttfamily \#include \char`\"{}../memory/memory.\+hpp\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{helper_8hpp_a5929b4c284cd600c1347fdf3002ce27d}{Set\+Bit}} (uint8\+\_\+t \&reg, uint8\+\_\+t flag)
+\begin{DoxyCompactList}\small\item\em Set the flag-\/th bit of object. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{helper_8hpp_ab7d7adc1c5d05a6d4d967ed0183eb9d8}{Test\+Bit}} (uint8\+\_\+t data, uint8\+\_\+t flag)
+\begin{DoxyCompactList}\small\item\em Test the flag-\/th bit of object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{helper_8hpp_ae90bba1914f962fe10bb37a2c7e3b7b7}{Clear\+Bit}} (uint8\+\_\+t \&reg, uint8\+\_\+t flag)
+\begin{DoxyCompactList}\small\item\em Clear the flag-\/th bit of object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Helper functions used accross the project. 
+
+\begin{DoxyAuthor}{Author}
+w3ndige (\href{mailto:w3ndige@protonmail.com}{\tt w3ndige@protonmail.\+com}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2018-\/12-\/06
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2018 
+\end{DoxyCopyright}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{helper_8hpp_ae90bba1914f962fe10bb37a2c7e3b7b7}\label{helper_8hpp_ae90bba1914f962fe10bb37a2c7e3b7b7}} 
+\index{helper.\+hpp@{helper.\+hpp}!Clear\+Bit@{Clear\+Bit}}
+\index{Clear\+Bit@{Clear\+Bit}!helper.\+hpp@{helper.\+hpp}}
+\subsubsection{\texorpdfstring{Clear\+Bit()}{ClearBit()}}
+{\footnotesize\ttfamily void Clear\+Bit (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \&}]{reg,  }\item[{uint8\+\_\+t}]{flag }\end{DoxyParamCaption})}
+
+
+
+Clear the flag-\/th bit of object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & Value to set the clear. \\
+\hline
+{\em flag} & Number of bit to clear. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{helper_8hpp_a5929b4c284cd600c1347fdf3002ce27d}\label{helper_8hpp_a5929b4c284cd600c1347fdf3002ce27d}} 
+\index{helper.\+hpp@{helper.\+hpp}!Set\+Bit@{Set\+Bit}}
+\index{Set\+Bit@{Set\+Bit}!helper.\+hpp@{helper.\+hpp}}
+\subsubsection{\texorpdfstring{Set\+Bit()}{SetBit()}}
+{\footnotesize\ttfamily void Set\+Bit (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \&}]{reg,  }\item[{uint8\+\_\+t}]{flag }\end{DoxyParamCaption})}
+
+
+
+Set the flag-\/th bit of object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & Value to set the bit. \\
+\hline
+{\em flag} & Number of bit to set. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{helper_8hpp_ab7d7adc1c5d05a6d4d967ed0183eb9d8}\label{helper_8hpp_ab7d7adc1c5d05a6d4d967ed0183eb9d8}} 
+\index{helper.\+hpp@{helper.\+hpp}!Test\+Bit@{Test\+Bit}}
+\index{Test\+Bit@{Test\+Bit}!helper.\+hpp@{helper.\+hpp}}
+\subsubsection{\texorpdfstring{Test\+Bit()}{TestBit()}}
+{\footnotesize\ttfamily int Test\+Bit (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{data,  }\item[{uint8\+\_\+t}]{flag }\end{DoxyParamCaption})}
+
+
+
+Test the flag-\/th bit of object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Value from which we test a bit. \\
+\hline
+{\em flag} & N\+Umber of bit to test \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Is a bit set or not. 
+\end{DoxyReturn}

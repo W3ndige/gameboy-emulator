@@ -1,0 +1,83 @@
+.TH "GPU" 3 "Thu Dec 6 2018" "Gameboy Emulator" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+GPU \- Class containing logic of \fBGPU\fP\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <gpu\&.hpp>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBGPU\fP (\fBMemory\fP *mem, \fBCPU\fP *cpu)"
+.br
+.RI "Construct a new \fBGPU\fP object\&. "
+.ti -1c
+.RI "\fB~GPU\fP ()"
+.br
+.RI "Destroy the \fBGPU\fP object\&. "
+.ti -1c
+.RI "bool \fBInit\fP ()"
+.br
+.RI "Initialize the values in \fBGPU\fP\&. "
+.ti -1c
+.RI "void \fBUpdateGraphics\fP (int cycles)"
+.br
+.RI "Update the \fBGPU\fP during every cycle of emulator\&. "
+.ti -1c
+.RI "void \fBRenderGraphics\fP ()"
+.br
+.RI "Render graphics to screen with SDL2\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Class containing logic of \fBGPU\fP\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "GPU::GPU (\fBMemory\fP * mem, \fBCPU\fP * cpu)"
+
+.PP
+Construct a new \fBGPU\fP object\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImem\fP Pointer to \fBMemory\fP object\&. 
+.br
+\fIcpu\fP Pointer to \fBCPU\fP object\&. 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "bool GPU::Init ()"
+
+.PP
+Initialize the values in \fBGPU\fP\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+true Initialization succeed\&. 
+.PP
+false Initialization failed\&. 
+.RE
+.PP
+
+.SS "void GPU::UpdateGraphics (int cycles)"
+
+.PP
+Update the \fBGPU\fP during every cycle of emulator\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcycles\fP Value of cycles that were used by last instruction in \fBCPU\fP\&. 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Gameboy Emulator from the source code\&.

@@ -59,7 +59,7 @@ void GPU::UpdateGraphics(int cycles) {
         scanline_counter = 456;
 
         if (current_line == 144) {
-            PrintPixels();
+            RenderGraphics();
             cpu->RequestInterupt(0) ;
         }
         else if (current_line > 153) {
@@ -71,7 +71,7 @@ void GPU::UpdateGraphics(int cycles) {
     }
 }
 
-uint8_t GPU::IsLCDEnabled() {
+int GPU::IsLCDEnabled() {
     uint8_t byte = memory->ReadByteMemory(0xFF40);
     return TestBit(byte, 7);
 } 
@@ -302,7 +302,7 @@ int GPU::GetColor(uint8_t color_id, uint16_t address) {
     return (bit_1 << 1) | bit_0;    
 }
 
-void GPU::PrintPixels() {
+void GPU::RenderGraphics() {
     SDL_UpdateTexture(texture.get(), NULL, pixels, 160 * sizeof(Uint32));
     SDL_RenderClear(renderer.get());
     const SDL_Rect dest = {.x = 0, .y = 0, .w = 160, .h = 144};

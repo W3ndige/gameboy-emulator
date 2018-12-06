@@ -1,0 +1,88 @@
+\hypertarget{classGPU}{}\section{G\+PU Class Reference}
+\label{classGPU}\index{G\+PU@{G\+PU}}
+
+
+Class containing logic of \mbox{\hyperlink{classGPU}{G\+PU}}.  
+
+
+
+
+{\ttfamily \#include $<$gpu.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGPU_a18e803c48776e14aa5b04d58a35ec4ac}{G\+PU}} (\mbox{\hyperlink{classMemory}{Memory}} $\ast$mem, \mbox{\hyperlink{classCPU}{C\+PU}} $\ast$cpu)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classGPU}{G\+PU}} object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGPU_ac4d153a08d3b9f40e5a8f1634f4a9e78}\label{classGPU_ac4d153a08d3b9f40e5a8f1634f4a9e78}} 
+\mbox{\hyperlink{classGPU_ac4d153a08d3b9f40e5a8f1634f4a9e78}{$\sim$\+G\+PU}} ()
+\begin{DoxyCompactList}\small\item\em Destroy the \mbox{\hyperlink{classGPU}{G\+PU}} object. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classGPU_a712acb0ed0ea3baf05379b26922d43f7}{Init}} ()
+\begin{DoxyCompactList}\small\item\em Initialize the values in \mbox{\hyperlink{classGPU}{G\+PU}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGPU_af0b1df5eb7c5270a81fc12aebb89e641}{Update\+Graphics}} (int cycles)
+\begin{DoxyCompactList}\small\item\em Update the \mbox{\hyperlink{classGPU}{G\+PU}} during every cycle of emulator. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGPU_af176f18efc74597769280ecc610daea5}\label{classGPU_af176f18efc74597769280ecc610daea5}} 
+void \mbox{\hyperlink{classGPU_af176f18efc74597769280ecc610daea5}{Render\+Graphics}} ()
+\begin{DoxyCompactList}\small\item\em Render graphics to screen with S\+D\+L2. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class containing logic of \mbox{\hyperlink{classGPU}{G\+PU}}. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGPU_a18e803c48776e14aa5b04d58a35ec4ac}\label{classGPU_a18e803c48776e14aa5b04d58a35ec4ac}} 
+\index{G\+PU@{G\+PU}!G\+PU@{G\+PU}}
+\index{G\+PU@{G\+PU}!G\+PU@{G\+PU}}
+\subsubsection{\texorpdfstring{G\+P\+U()}{GPU()}}
+{\footnotesize\ttfamily G\+P\+U\+::\+G\+PU (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMemory}{Memory}} $\ast$}]{mem,  }\item[{\mbox{\hyperlink{classCPU}{C\+PU}} $\ast$}]{cpu }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{classGPU}{G\+PU}} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mem} & Pointer to \mbox{\hyperlink{classMemory}{Memory}} object. \\
+\hline
+{\em cpu} & Pointer to \mbox{\hyperlink{classCPU}{C\+PU}} object. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classGPU_a712acb0ed0ea3baf05379b26922d43f7}\label{classGPU_a712acb0ed0ea3baf05379b26922d43f7}} 
+\index{G\+PU@{G\+PU}!Init@{Init}}
+\index{Init@{Init}!G\+PU@{G\+PU}}
+\subsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily bool G\+P\+U\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initialize the values in \mbox{\hyperlink{classGPU}{G\+PU}}. 
+
+\begin{DoxyReturn}{Returns}
+true Initialization succeed. 
+
+false Initialization failed. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGPU_af0b1df5eb7c5270a81fc12aebb89e641}\label{classGPU_af0b1df5eb7c5270a81fc12aebb89e641}} 
+\index{G\+PU@{G\+PU}!Update\+Graphics@{Update\+Graphics}}
+\index{Update\+Graphics@{Update\+Graphics}!G\+PU@{G\+PU}}
+\subsubsection{\texorpdfstring{Update\+Graphics()}{UpdateGraphics()}}
+{\footnotesize\ttfamily void G\+P\+U\+::\+Update\+Graphics (\begin{DoxyParamCaption}\item[{int}]{cycles }\end{DoxyParamCaption})}
+
+
+
+Update the \mbox{\hyperlink{classGPU}{G\+PU}} during every cycle of emulator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cycles} & Value of cycles that were used by last instruction in \mbox{\hyperlink{classCPU}{C\+PU}}. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gpu/\mbox{\hyperlink{gpu_8hpp}{gpu.\+hpp}}\item 
+src/gpu/gpu.\+cpp\end{DoxyCompactItemize}

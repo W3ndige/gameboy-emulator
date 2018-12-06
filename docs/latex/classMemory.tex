@@ -1,0 +1,216 @@
+\hypertarget{classMemory}{}\section{Memory Class Reference}
+\label{classMemory}\index{Memory@{Memory}}
+
+
+Class contains memory management unit logic.  
+
+
+
+
+{\ttfamily \#include $<$memory.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMemory_a585d7bb6fc6f2237bcebf94a86b7dd99}\label{classMemory_a585d7bb6fc6f2237bcebf94a86b7dd99}} 
+\mbox{\hyperlink{classMemory_a585d7bb6fc6f2237bcebf94a86b7dd99}{Memory}} ()
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classMemory}{Memory}} object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMemory_ae7d7eeb8e69216af894e25c93624c98f}\label{classMemory_ae7d7eeb8e69216af894e25c93624c98f}} 
+void \mbox{\hyperlink{classMemory_ae7d7eeb8e69216af894e25c93624c98f}{Disable\+Booting}} ()
+\begin{DoxyCompactList}\small\item\em Set booting flag to false. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classMemory_a39bd949ca21b0ecde1406c17cf7f3366}{Is\+Booting}} ()
+\begin{DoxyCompactList}\small\item\em Return true if booting, otherwise false. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classMemory_aa118a4c741282594d0c0d913ceac3da4}{Load\+Cartridge}} (std\+::string rom\+\_\+file)
+\begin{DoxyCompactList}\small\item\em Load cartridge R\+OM into memory, return true if loaded, false if exception occured. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMemory_a84956bc02c2c6ac6b0bc88de9cb6584e}\label{classMemory_a84956bc02c2c6ac6b0bc88de9cb6584e}} 
+void \mbox{\hyperlink{classMemory_a84956bc02c2c6ac6b0bc88de9cb6584e}{Load\+Cartridge\+Header}} ()
+\begin{DoxyCompactList}\small\item\em Load values from cartridge into the \mbox{\hyperlink{structCartidgeHeader}{Cartidge\+Header}} structure. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMemory_a82280ff8234c97746eb14dfcb60f102a}{Write\+Byte\+Memory}} (uint16\+\_\+t address, uint8\+\_\+t data)
+\begin{DoxyCompactList}\small\item\em Set the byte of memory array at address to value of data, while checking conditions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMemory_a70a1de728fa4adac9b2da63c8434d909}{Privilaged\+Byte\+Write}} (uint16\+\_\+t address, uint8\+\_\+t data)
+\begin{DoxyCompactList}\small\item\em Set the byte of memory array at address to value of data, without checking conditions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMemory_a64cd99f25f9224f17c0a5ee3aaba2887}{Write\+Word\+Memory}} (uint16\+\_\+t address, uint16\+\_\+t data)
+\begin{DoxyCompactList}\small\item\em Set the word of memory at address, and address + 1, to the word of data, while checking conditions. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{classMemory_a2f04d90cf6d05ab12b52c1d6aef862a4}{Read\+Byte\+Memory}} (uint16\+\_\+t address)
+\begin{DoxyCompactList}\small\item\em Read the byte from memory, or set the state of joypad if address is 0x\+F\+F00. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{classMemory_a564d7bb2a8fc303f95af1a02756b882e}{Privilaged\+Read\+Byte\+Memory}} (uint16\+\_\+t address)
+\begin{DoxyCompactList}\small\item\em Read the byte from memory, without setting joypad state. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{classMemory_ad314fa06068d46d02aabd53277c24b48}{Read\+Word\+Memory}} (uint16\+\_\+t address)
+\begin{DoxyCompactList}\small\item\em Read the word from memory. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMemory_a017768e957671d02872ad12ca3de3e6a}\label{classMemory_a017768e957671d02872ad12ca3de3e6a}} 
+void \mbox{\hyperlink{classMemory_a017768e957671d02872ad12ca3de3e6a}{Dump\+Memory}} ()
+\begin{DoxyCompactList}\small\item\em Load contents of memory to the file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classMemory_a2f955513866ad9611418411e921ac120}{joypad\+\_\+state}}
+\item 
+\mbox{\hyperlink{structCartidgeHeader}{Cartidge\+Header}} \mbox{\hyperlink{classMemory_a6459c5b106a92a3f24673a3448a1bab0}{cartridge\+\_\+header}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class contains memory management unit logic. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classMemory_a39bd949ca21b0ecde1406c17cf7f3366}\label{classMemory_a39bd949ca21b0ecde1406c17cf7f3366}} 
+\index{Memory@{Memory}!Is\+Booting@{Is\+Booting}}
+\index{Is\+Booting@{Is\+Booting}!Memory@{Memory}}
+\subsubsection{\texorpdfstring{Is\+Booting()}{IsBooting()}}
+{\footnotesize\ttfamily bool Memory\+::\+Is\+Booting (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Return true if booting, otherwise false. 
+
+\begin{DoxyReturn}{Returns}
+true \mbox{\hyperlink{classGameboy}{Gameboy}} is booting. 
+
+false \mbox{\hyperlink{classGameboy}{Gameboy}} is not booting. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMemory_aa118a4c741282594d0c0d913ceac3da4}\label{classMemory_aa118a4c741282594d0c0d913ceac3da4}} 
+\index{Memory@{Memory}!Load\+Cartridge@{Load\+Cartridge}}
+\index{Load\+Cartridge@{Load\+Cartridge}!Memory@{Memory}}
+\subsubsection{\texorpdfstring{Load\+Cartridge()}{LoadCartridge()}}
+{\footnotesize\ttfamily bool Memory\+::\+Load\+Cartridge (\begin{DoxyParamCaption}\item[{std\+::string}]{rom\+\_\+file }\end{DoxyParamCaption})}
+
+
+
+Load cartridge R\+OM into memory, return true if loaded, false if exception occured. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rom\+\_\+file} & Name of the R\+OM file to load. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true Loading worked. 
+
+false Exception in loading occured. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMemory_a70a1de728fa4adac9b2da63c8434d909}\label{classMemory_a70a1de728fa4adac9b2da63c8434d909}} 
+\index{Memory@{Memory}!Privilaged\+Byte\+Write@{Privilaged\+Byte\+Write}}
+\index{Privilaged\+Byte\+Write@{Privilaged\+Byte\+Write}!Memory@{Memory}}
+\subsubsection{\texorpdfstring{Privilaged\+Byte\+Write()}{PrivilagedByteWrite()}}
+{\footnotesize\ttfamily void Memory\+::\+Privilaged\+Byte\+Write (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{address,  }\item[{uint8\+\_\+t}]{data }\end{DoxyParamCaption})}
+
+
+
+Set the byte of memory array at address to value of data, without checking conditions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em address} & Offset in memory \\
+\hline
+{\em data} & Byte of data to write \\
+\hline
+\end{DoxyParams}
+$<$ Some system functions have to write beyond limits \mbox{\Hypertarget{classMemory_a564d7bb2a8fc303f95af1a02756b882e}\label{classMemory_a564d7bb2a8fc303f95af1a02756b882e}} 
+\index{Memory@{Memory}!Privilaged\+Read\+Byte\+Memory@{Privilaged\+Read\+Byte\+Memory}}
+\index{Privilaged\+Read\+Byte\+Memory@{Privilaged\+Read\+Byte\+Memory}!Memory@{Memory}}
+\subsubsection{\texorpdfstring{Privilaged\+Read\+Byte\+Memory()}{PrivilagedReadByteMemory()}}
+{\footnotesize\ttfamily uint8\+\_\+t Memory\+::\+Privilaged\+Read\+Byte\+Memory (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{address }\end{DoxyParamCaption})}
+
+
+
+Read the byte from memory, without setting joypad state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em address} & offset in memory. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint8\+\_\+t Byte of data from memory. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMemory_a2f04d90cf6d05ab12b52c1d6aef862a4}\label{classMemory_a2f04d90cf6d05ab12b52c1d6aef862a4}} 
+\index{Memory@{Memory}!Read\+Byte\+Memory@{Read\+Byte\+Memory}}
+\index{Read\+Byte\+Memory@{Read\+Byte\+Memory}!Memory@{Memory}}
+\subsubsection{\texorpdfstring{Read\+Byte\+Memory()}{ReadByteMemory()}}
+{\footnotesize\ttfamily uint8\+\_\+t Memory\+::\+Read\+Byte\+Memory (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{address }\end{DoxyParamCaption})}
+
+
+
+Read the byte from memory, or set the state of joypad if address is 0x\+F\+F00. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em address} & Offset in memory \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint8\+\_\+t Byte of data from memory. 
+\end{DoxyReturn}
+$<$ If booting we want to read from bootstrap memory \mbox{\Hypertarget{classMemory_ad314fa06068d46d02aabd53277c24b48}\label{classMemory_ad314fa06068d46d02aabd53277c24b48}} 
+\index{Memory@{Memory}!Read\+Word\+Memory@{Read\+Word\+Memory}}
+\index{Read\+Word\+Memory@{Read\+Word\+Memory}!Memory@{Memory}}
+\subsubsection{\texorpdfstring{Read\+Word\+Memory()}{ReadWordMemory()}}
+{\footnotesize\ttfamily uint16\+\_\+t Memory\+::\+Read\+Word\+Memory (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{address }\end{DoxyParamCaption})}
+
+
+
+Read the word from memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em address} & offset in memory. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint16\+\_\+t Word of data from memory. 
+\end{DoxyReturn}
+$<$ Read word in little endian format \mbox{\Hypertarget{classMemory_a82280ff8234c97746eb14dfcb60f102a}\label{classMemory_a82280ff8234c97746eb14dfcb60f102a}} 
+\index{Memory@{Memory}!Write\+Byte\+Memory@{Write\+Byte\+Memory}}
+\index{Write\+Byte\+Memory@{Write\+Byte\+Memory}!Memory@{Memory}}
+\subsubsection{\texorpdfstring{Write\+Byte\+Memory()}{WriteByteMemory()}}
+{\footnotesize\ttfamily void Memory\+::\+Write\+Byte\+Memory (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{address,  }\item[{uint8\+\_\+t}]{data }\end{DoxyParamCaption})}
+
+
+
+Set the byte of memory array at address to value of data, while checking conditions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em address} & Offset in memory \\
+\hline
+{\em data} & Byte of data value to write \\
+\hline
+\end{DoxyParams}
+$<$ Read Only \mbox{\hyperlink{classMemory}{Memory}} \mbox{\Hypertarget{classMemory_a64cd99f25f9224f17c0a5ee3aaba2887}\label{classMemory_a64cd99f25f9224f17c0a5ee3aaba2887}} 
+\index{Memory@{Memory}!Write\+Word\+Memory@{Write\+Word\+Memory}}
+\index{Write\+Word\+Memory@{Write\+Word\+Memory}!Memory@{Memory}}
+\subsubsection{\texorpdfstring{Write\+Word\+Memory()}{WriteWordMemory()}}
+{\footnotesize\ttfamily void Memory\+::\+Write\+Word\+Memory (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{address,  }\item[{uint16\+\_\+t}]{data }\end{DoxyParamCaption})}
+
+
+
+Set the word of memory at address, and address + 1, to the word of data, while checking conditions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em address} & Offset in memory \\
+\hline
+{\em data} & Word of data to write \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{classMemory_a6459c5b106a92a3f24673a3448a1bab0}\label{classMemory_a6459c5b106a92a3f24673a3448a1bab0}} 
+\index{Memory@{Memory}!cartridge\+\_\+header@{cartridge\+\_\+header}}
+\index{cartridge\+\_\+header@{cartridge\+\_\+header}!Memory@{Memory}}
+\subsubsection{\texorpdfstring{cartridge\+\_\+header}{cartridge\_header}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structCartidgeHeader}{Cartidge\+Header}} Memory\+::cartridge\+\_\+header}
+
+Contains information about the cartridge header \mbox{\Hypertarget{classMemory_a2f955513866ad9611418411e921ac120}\label{classMemory_a2f955513866ad9611418411e921ac120}} 
+\index{Memory@{Memory}!joypad\+\_\+state@{joypad\+\_\+state}}
+\index{joypad\+\_\+state@{joypad\+\_\+state}!Memory@{Memory}}
+\subsubsection{\texorpdfstring{joypad\+\_\+state}{joypad\_state}}
+{\footnotesize\ttfamily uint8\+\_\+t Memory\+::joypad\+\_\+state}
+
+State of the joypad 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/memory/\mbox{\hyperlink{memory_8hpp}{memory.\+hpp}}\item 
+src/memory/memory.\+cpp\end{DoxyCompactItemize}

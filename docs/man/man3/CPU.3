@@ -1,0 +1,103 @@
+.TH "CPU" 3 "Thu Dec 6 2018" "Gameboy Emulator" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+CPU
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBCPU\fP (\fBMemory\fP *mem)"
+.br
+.ti -1c
+.RI "bool \fBInit\fP (std::string rom_file, bool exit_on_inifite)"
+.br
+.ti -1c
+.RI "void \fBFetchAndDispatch\fP ()"
+.br
+.ti -1c
+.RI "void \fBExecuteInstruction\fP (uint8_t opcode)"
+.br
+.ti -1c
+.RI "void \fBExecuteExtendedInstruction\fP (uint8_t opcode)"
+.br
+.ti -1c
+.RI "uint16_t \fBGetProgramCounter\fP () const"
+.br
+.ti -1c
+.RI "uint16_t \fBGetStackPointer\fP () const"
+.br
+.ti -1c
+.RI "bool \fBIsClockEnabled\fP ()"
+.br
+.ti -1c
+.RI "uint8_t \fBGetClockFrequency\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetClockFrequency\fP ()"
+.br
+.ti -1c
+.RI "void \fBDividerRegister\fP (int cycles)"
+.br
+.ti -1c
+.RI "void \fBUpdateTimer\fP (int cycles)"
+.br
+.ti -1c
+.RI "void \fBRequestInterupt\fP (int id)"
+.br
+.ti -1c
+.RI "void \fBDoInterupts\fP ()"
+.br
+.ti -1c
+.RI "void \fBServiceInterupt\fP (int interupt)"
+.br
+.ti -1c
+.RI "unsigned int \fBGetTimer\fP ()"
+.br
+.ti -1c
+.RI "int \fBBreakpoint\fP (uint16_t pc)"
+.br
+.ti -1c
+.RI "void \fBDiagnostics\fP ()"
+.br
+.in -1c
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "bool \fBinterupts\fP"
+.br
+.ti -1c
+.RI "bool \fBpending_interupt_enabled\fP"
+.br
+.ti -1c
+.RI "bool \fBpending_interupt_disabled\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "CPU::CPU (\fBMemory\fP * mem)"
+\fBCPU\fP type of instructions 
+.SH "Member Function Documentation"
+.PP 
+.SS "void CPU::ExecuteInstruction (uint8_t opcode)"
+< Load 8 bit immediate value 
+.br
+ < Load register to register 
+.SS "uint16_t CPU::GetStackPointer () const"
+Timer type of instructions 
+.SS "bool CPU::Init (std::string rom_file, bool exit_on_inifite)"
+< If booting failed or stopped, initialize register with values that bootstrap sets 
+.br
+ < Place power up sequence values in memory 
+.SS "void CPU::ServiceInterupt (int interupt)"
+Debugging type of instructions 
+.SS "void CPU::UpdateTimer (int cycles)"
+Interrupts 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Gameboy Emulator from the source code\&.

@@ -1,0 +1,104 @@
+.TH "src/helper/helper.hpp" 3 "Thu Dec 6 2018" "Gameboy Emulator" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/helper/helper.hpp \- Helper functions used accross the project\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include '\&.\&./memory/memory\&.hpp'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBSetBit\fP (uint8_t &reg, uint8_t flag)"
+.br
+.RI "Set the flag-th bit of object\&. "
+.ti -1c
+.RI "int \fBTestBit\fP (uint8_t data, uint8_t flag)"
+.br
+.RI "Test the flag-th bit of object\&. "
+.ti -1c
+.RI "void \fBClearBit\fP (uint8_t &reg, uint8_t flag)"
+.br
+.RI "Clear the flag-th bit of object\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Helper functions used accross the project\&. 
+
+
+.PP
+\fBAuthor:\fP
+.RS 4
+w3ndige (w3ndige@protonmail.com) 
+.RE
+.PP
+\fBVersion:\fP
+.RS 4
+0\&.1 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+2018-12-06
+.RE
+.PP
+\fBCopyright:\fP
+.RS 4
+Copyright (c) 2018 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "void ClearBit (uint8_t & reg, uint8_t flag)"
+
+.PP
+Clear the flag-th bit of object\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Value to set the clear\&. 
+.br
+\fIflag\fP Number of bit to clear\&. 
+.RE
+.PP
+
+.SS "void SetBit (uint8_t & reg, uint8_t flag)"
+
+.PP
+Set the flag-th bit of object\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Value to set the bit\&. 
+.br
+\fIflag\fP Number of bit to set\&. 
+.RE
+.PP
+
+.SS "int TestBit (uint8_t data, uint8_t flag)"
+
+.PP
+Test the flag-th bit of object\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP Value from which we test a bit\&. 
+.br
+\fIflag\fP NUmber of bit to test 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+int Is a bit set or not\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Gameboy Emulator from the source code\&.

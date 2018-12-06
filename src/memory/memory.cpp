@@ -8,7 +8,6 @@ Memory::Memory(): memory() {
 void Memory::DMATransfer(uint8_t data) {
     uint16_t address = data << 8;
 
-    /**< Read sprite RAM between memory adddress 0xFE00-0xFE9F */
     for (size_t i = 0 ; i < 0xA0; i++) {
         WriteByteMemory(0xFE00 + i, ReadByteMemory(address + i));
     }

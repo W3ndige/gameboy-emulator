@@ -174,10 +174,6 @@ void CPU::ServiceInterupt(int id) {
    }
 }
 
-void CPU::ArtificialJump(int offset) {
-    program_counter += offset;
-}
-
 unsigned int CPU::GetTimer() {
     return clocks.t_cycles;
 }

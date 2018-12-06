@@ -1,0 +1,78 @@
+.TH "src/memory/memory.hpp" 3 "Thu Dec 6 2018" "Gameboy Emulator" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/memory/memory.hpp \- File containing MMU logic\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <iostream>\fP
+.br
+\fC#include <fstream>\fP
+.br
+\fC#include <cstdint>\fP
+.br
+\fC#include <string>\fP
+.br
+\fC#include '\&.\&./helper/helper\&.hpp'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBCartidgeHeader\fP"
+.br
+.RI "Structure contains information about cartridge\&. "
+.ti -1c
+.RI "class \fBMemory\fP"
+.br
+.RI "Class contains memory management unit logic\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "const int \fBMAX_BOOTSTRAP_SIZE\fP = 0x100"
+.br
+.ti -1c
+.RI "const int \fBMAX_MEMORY_SIZE\fP = 0x10000"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+File containing MMU logic\&. 
+
+
+.PP
+\fBAuthor:\fP
+.RS 4
+W3ndige (w3ndige@protonmail.com) 
+.RE
+.PP
+\fBVersion:\fP
+.RS 4
+0\&.1 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+2018-12-06
+.RE
+.PP
+\fBCopyright:\fP
+.RS 4
+Copyright (c) 2018 
+.RE
+.PP
+
+.SH "Variable Documentation"
+.PP 
+.SS "const int MAX_BOOTSTRAP_SIZE = 0x100"
+Maximum size of bootstrap array 
+.SS "const int MAX_MEMORY_SIZE = 0x10000"
+Maximum size of memory array 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Gameboy Emulator from the source code\&.

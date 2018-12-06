@@ -1,0 +1,44 @@
+.TH "CartidgeHeader" 3 "Thu Dec 6 2018" "Gameboy Emulator" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+CartidgeHeader \- Structure contains information about cartridge\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <memory\&.hpp>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "std::string \fBtitle\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBcartridge_type\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBrom_size\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBram_size\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure contains information about cartridge\&. 
+.SH "Field Documentation"
+.PP 
+.SS "uint8_t CartidgeHeader::cartridge_type"
+Specifies which MBC is used in the cartridge 
+.SS "uint8_t CartidgeHeader::ram_size"
+Specifies size of the RAM, if any 
+.SS "uint8_t CartidgeHeader::rom_size"
+Specifies size of the ROM 
+.SS "std::string CartidgeHeader::title"
+Maximum 16 characters 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Gameboy Emulator from the source code\&.

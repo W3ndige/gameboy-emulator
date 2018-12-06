@@ -1,0 +1,206 @@
+.TH "Memory" 3 "Thu Dec 6 2018" "Gameboy Emulator" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Memory \- Class contains memory management unit logic\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <memory\&.hpp>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBMemory\fP ()"
+.br
+.RI "Construct a new \fBMemory\fP object\&. "
+.ti -1c
+.RI "void \fBDisableBooting\fP ()"
+.br
+.RI "Set booting flag to false\&. "
+.ti -1c
+.RI "bool \fBIsBooting\fP ()"
+.br
+.RI "Return true if booting, otherwise false\&. "
+.ti -1c
+.RI "bool \fBLoadCartridge\fP (std::string rom_file)"
+.br
+.RI "Load cartridge ROM into memory, return true if loaded, false if exception occured\&. "
+.ti -1c
+.RI "void \fBLoadCartridgeHeader\fP ()"
+.br
+.RI "Load values from cartridge into the \fBCartidgeHeader\fP structure\&. "
+.ti -1c
+.RI "void \fBWriteByteMemory\fP (uint16_t address, uint8_t data)"
+.br
+.RI "Set the byte of memory array at address to value of data, while checking conditions\&. "
+.ti -1c
+.RI "void \fBPrivilagedByteWrite\fP (uint16_t address, uint8_t data)"
+.br
+.RI "Set the byte of memory array at address to value of data, without checking conditions\&. "
+.ti -1c
+.RI "void \fBWriteWordMemory\fP (uint16_t address, uint16_t data)"
+.br
+.RI "Set the word of memory at address, and address + 1, to the word of data, while checking conditions\&. "
+.ti -1c
+.RI "uint8_t \fBReadByteMemory\fP (uint16_t address)"
+.br
+.RI "Read the byte from memory, or set the state of joypad if address is 0xFF00\&. "
+.ti -1c
+.RI "uint8_t \fBPrivilagedReadByteMemory\fP (uint16_t address)"
+.br
+.RI "Read the byte from memory, without setting joypad state\&. "
+.ti -1c
+.RI "uint16_t \fBReadWordMemory\fP (uint16_t address)"
+.br
+.RI "Read the word from memory\&. "
+.ti -1c
+.RI "void \fBDumpMemory\fP ()"
+.br
+.RI "Load contents of memory to the file\&. "
+.in -1c
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "uint8_t \fBjoypad_state\fP"
+.br
+.ti -1c
+.RI "\fBCartidgeHeader\fP \fBcartridge_header\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Class contains memory management unit logic\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "bool Memory::IsBooting ()"
+
+.PP
+Return true if booting, otherwise false\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+true \fBGameboy\fP is booting\&. 
+.PP
+false \fBGameboy\fP is not booting\&. 
+.RE
+.PP
+
+.SS "bool Memory::LoadCartridge (std::string rom_file)"
+
+.PP
+Load cartridge ROM into memory, return true if loaded, false if exception occured\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIrom_file\fP Name of the ROM file to load\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+true Loading worked\&. 
+.PP
+false Exception in loading occured\&. 
+.RE
+.PP
+
+.SS "void Memory::PrivilagedByteWrite (uint16_t address, uint8_t data)"
+
+.PP
+Set the byte of memory array at address to value of data, without checking conditions\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIaddress\fP Offset in memory 
+.br
+\fIdata\fP Byte of data to write 
+.RE
+.PP
+< Some system functions have to write beyond limits 
+.SS "uint8_t Memory::PrivilagedReadByteMemory (uint16_t address)"
+
+.PP
+Read the byte from memory, without setting joypad state\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIaddress\fP offset in memory\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+uint8_t Byte of data from memory\&. 
+.RE
+.PP
+
+.SS "uint8_t Memory::ReadByteMemory (uint16_t address)"
+
+.PP
+Read the byte from memory, or set the state of joypad if address is 0xFF00\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIaddress\fP Offset in memory 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+uint8_t Byte of data from memory\&. 
+.RE
+.PP
+< If booting we want to read from bootstrap memory 
+.SS "uint16_t Memory::ReadWordMemory (uint16_t address)"
+
+.PP
+Read the word from memory\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIaddress\fP offset in memory\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+uint16_t Word of data from memory\&. 
+.RE
+.PP
+< Read word in little endian format 
+.SS "void Memory::WriteByteMemory (uint16_t address, uint8_t data)"
+
+.PP
+Set the byte of memory array at address to value of data, while checking conditions\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIaddress\fP Offset in memory 
+.br
+\fIdata\fP Byte of data value to write 
+.RE
+.PP
+< Read Only \fBMemory\fP 
+.SS "void Memory::WriteWordMemory (uint16_t address, uint16_t data)"
+
+.PP
+Set the word of memory at address, and address + 1, to the word of data, while checking conditions\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIaddress\fP Offset in memory 
+.br
+\fIdata\fP Word of data to write 
+.RE
+.PP
+
+.SH "Field Documentation"
+.PP 
+.SS "\fBCartidgeHeader\fP Memory::cartridge_header"
+Contains information about the cartridge header 
+.SS "uint8_t Memory::joypad_state"
+State of the joypad 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Gameboy Emulator from the source code\&.

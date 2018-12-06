@@ -1,0 +1,120 @@
+\hypertarget{classCPU}{}\section{C\+PU Class Reference}
+\label{classCPU}\index{C\+PU@{C\+PU}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCPU_a398bb4352a0dbaa9b2010f2084d9f8f7}{C\+PU}} (\mbox{\hyperlink{classMemory}{Memory}} $\ast$mem)
+\item 
+bool \mbox{\hyperlink{classCPU_a72afeb809bf193928349e6f948f60bfc}{Init}} (std\+::string rom\+\_\+file, bool exit\+\_\+on\+\_\+inifite)
+\item 
+\mbox{\Hypertarget{classCPU_a2f9a20451dd54b219cc09a879ff483da}\label{classCPU_a2f9a20451dd54b219cc09a879ff483da}} 
+void {\bfseries Fetch\+And\+Dispatch} ()
+\item 
+void \mbox{\hyperlink{classCPU_ad8e103aaedd1c250d33f9cc373f2f16b}{Execute\+Instruction}} (uint8\+\_\+t opcode)
+\item 
+\mbox{\Hypertarget{classCPU_ac2cebcf2ac957a884175b94ff5f62c15}\label{classCPU_ac2cebcf2ac957a884175b94ff5f62c15}} 
+void {\bfseries Execute\+Extended\+Instruction} (uint8\+\_\+t opcode)
+\item 
+\mbox{\Hypertarget{classCPU_a7882dfef1d06166e828f917368493625}\label{classCPU_a7882dfef1d06166e828f917368493625}} 
+uint16\+\_\+t {\bfseries Get\+Program\+Counter} () const
+\item 
+uint16\+\_\+t \mbox{\hyperlink{classCPU_a570d34ada158ddb45f8ba8dc0e5f218a}{Get\+Stack\+Pointer}} () const
+\item 
+\mbox{\Hypertarget{classCPU_a66108f133258f1d4348e79f19287d4ed}\label{classCPU_a66108f133258f1d4348e79f19287d4ed}} 
+bool {\bfseries Is\+Clock\+Enabled} ()
+\item 
+\mbox{\Hypertarget{classCPU_a852335312c1040d2fcde2a690443d425}\label{classCPU_a852335312c1040d2fcde2a690443d425}} 
+uint8\+\_\+t {\bfseries Get\+Clock\+Frequency} ()
+\item 
+\mbox{\Hypertarget{classCPU_ab9ecfdbbe82fef8bff9443ff94b7ca70}\label{classCPU_ab9ecfdbbe82fef8bff9443ff94b7ca70}} 
+void {\bfseries Set\+Clock\+Frequency} ()
+\item 
+\mbox{\Hypertarget{classCPU_ae6c57423f6edcd249286c73e8e620bb9}\label{classCPU_ae6c57423f6edcd249286c73e8e620bb9}} 
+void {\bfseries Divider\+Register} (int cycles)
+\item 
+void \mbox{\hyperlink{classCPU_ad8eb59dff5e4fe4c1b2881cc67574ddf}{Update\+Timer}} (int cycles)
+\item 
+\mbox{\Hypertarget{classCPU_ad65b0c4a4b9db9d040ddd22f8eb0bd08}\label{classCPU_ad65b0c4a4b9db9d040ddd22f8eb0bd08}} 
+void {\bfseries Request\+Interupt} (int id)
+\item 
+\mbox{\Hypertarget{classCPU_a65a4b697968c6a46b673f32a7817d757}\label{classCPU_a65a4b697968c6a46b673f32a7817d757}} 
+void {\bfseries Do\+Interupts} ()
+\item 
+void \mbox{\hyperlink{classCPU_ab932fc0e9d81733f90e878d644991e2e}{Service\+Interupt}} (int interupt)
+\item 
+\mbox{\Hypertarget{classCPU_a61fc2fe8c3cdbb6a5628ae5a1bfe3fa2}\label{classCPU_a61fc2fe8c3cdbb6a5628ae5a1bfe3fa2}} 
+unsigned int {\bfseries Get\+Timer} ()
+\item 
+\mbox{\Hypertarget{classCPU_af4808063d0a0951498356c5fe2acd658}\label{classCPU_af4808063d0a0951498356c5fe2acd658}} 
+int {\bfseries Breakpoint} (uint16\+\_\+t pc)
+\item 
+\mbox{\Hypertarget{classCPU_a4a20f8c57aaec340f263170d28c4e1cd}\label{classCPU_a4a20f8c57aaec340f263170d28c4e1cd}} 
+void {\bfseries Diagnostics} ()
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCPU_a797905d25211f84cb8b21bd1ddb0d5f2}\label{classCPU_a797905d25211f84cb8b21bd1ddb0d5f2}} 
+bool {\bfseries interupts}
+\item 
+\mbox{\Hypertarget{classCPU_a47fbbb6dd480628b4a70229b60780426}\label{classCPU_a47fbbb6dd480628b4a70229b60780426}} 
+bool {\bfseries pending\+\_\+interupt\+\_\+enabled}
+\item 
+\mbox{\Hypertarget{classCPU_ac51eaed220b85ec31587946bcbea6c48}\label{classCPU_ac51eaed220b85ec31587946bcbea6c48}} 
+bool {\bfseries pending\+\_\+interupt\+\_\+disabled}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classCPU_a398bb4352a0dbaa9b2010f2084d9f8f7}\label{classCPU_a398bb4352a0dbaa9b2010f2084d9f8f7}} 
+\index{C\+PU@{C\+PU}!C\+PU@{C\+PU}}
+\index{C\+PU@{C\+PU}!C\+PU@{C\+PU}}
+\subsubsection{\texorpdfstring{C\+P\+U()}{CPU()}}
+{\footnotesize\ttfamily C\+P\+U\+::\+C\+PU (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMemory}{Memory}} $\ast$}]{mem }\end{DoxyParamCaption})}
+
+\mbox{\hyperlink{classCPU}{C\+PU}} type of instructions 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classCPU_ad8e103aaedd1c250d33f9cc373f2f16b}\label{classCPU_ad8e103aaedd1c250d33f9cc373f2f16b}} 
+\index{C\+PU@{C\+PU}!Execute\+Instruction@{Execute\+Instruction}}
+\index{Execute\+Instruction@{Execute\+Instruction}!C\+PU@{C\+PU}}
+\subsubsection{\texorpdfstring{Execute\+Instruction()}{ExecuteInstruction()}}
+{\footnotesize\ttfamily void C\+P\+U\+::\+Execute\+Instruction (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{opcode }\end{DoxyParamCaption})}
+
+$<$ Load 8 bit immediate value ~\newline
+ $<$ Load register to register \mbox{\Hypertarget{classCPU_a570d34ada158ddb45f8ba8dc0e5f218a}\label{classCPU_a570d34ada158ddb45f8ba8dc0e5f218a}} 
+\index{C\+PU@{C\+PU}!Get\+Stack\+Pointer@{Get\+Stack\+Pointer}}
+\index{Get\+Stack\+Pointer@{Get\+Stack\+Pointer}!C\+PU@{C\+PU}}
+\subsubsection{\texorpdfstring{Get\+Stack\+Pointer()}{GetStackPointer()}}
+{\footnotesize\ttfamily uint16\+\_\+t C\+P\+U\+::\+Get\+Stack\+Pointer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Timer type of instructions \mbox{\Hypertarget{classCPU_a72afeb809bf193928349e6f948f60bfc}\label{classCPU_a72afeb809bf193928349e6f948f60bfc}} 
+\index{C\+PU@{C\+PU}!Init@{Init}}
+\index{Init@{Init}!C\+PU@{C\+PU}}
+\subsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily bool C\+P\+U\+::\+Init (\begin{DoxyParamCaption}\item[{std\+::string}]{rom\+\_\+file,  }\item[{bool}]{exit\+\_\+on\+\_\+inifite }\end{DoxyParamCaption})}
+
+$<$ If booting failed or stopped, initialize register with values that bootstrap sets ~\newline
+ $<$ Place power up sequence values in memory \mbox{\Hypertarget{classCPU_ab932fc0e9d81733f90e878d644991e2e}\label{classCPU_ab932fc0e9d81733f90e878d644991e2e}} 
+\index{C\+PU@{C\+PU}!Service\+Interupt@{Service\+Interupt}}
+\index{Service\+Interupt@{Service\+Interupt}!C\+PU@{C\+PU}}
+\subsubsection{\texorpdfstring{Service\+Interupt()}{ServiceInterupt()}}
+{\footnotesize\ttfamily void C\+P\+U\+::\+Service\+Interupt (\begin{DoxyParamCaption}\item[{int}]{interupt }\end{DoxyParamCaption})}
+
+Debugging type of instructions \mbox{\Hypertarget{classCPU_ad8eb59dff5e4fe4c1b2881cc67574ddf}\label{classCPU_ad8eb59dff5e4fe4c1b2881cc67574ddf}} 
+\index{C\+PU@{C\+PU}!Update\+Timer@{Update\+Timer}}
+\index{Update\+Timer@{Update\+Timer}!C\+PU@{C\+PU}}
+\subsubsection{\texorpdfstring{Update\+Timer()}{UpdateTimer()}}
+{\footnotesize\ttfamily void C\+P\+U\+::\+Update\+Timer (\begin{DoxyParamCaption}\item[{int}]{cycles }\end{DoxyParamCaption})}
+
+Interrupts 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/cpu/cpu.\+hpp\item 
+src/cpu/cpu.\+cpp\item 
+src/cpu/execution.\+cpp\item 
+src/cpu/opcodes/arithmetic.\+cpp\item 
+src/cpu/opcodes/extended.\+cpp\item 
+src/cpu/opcodes/loads.\+cpp\item 
+src/cpu/opcodes/miscellanous.\+cpp\end{DoxyCompactItemize}

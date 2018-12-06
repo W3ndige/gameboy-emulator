@@ -19,14 +19,14 @@ void CPU::Add8Bit(uint8_t reg) {
         SetBit(af_register.low, HALF_CARRY_FLAG);
     }
 
-    clocks.t_cycles += 1;
-    clocks.m_cycles += 4;
+    clocks.m_cycles += 1;
+    clocks.t_cycles += 4;
 }
 
 void CPU::Adc8Bit(uint8_t reg) {
     uint8_t before = af_register.high;
     uint8_t carry = TestBit(af_register.low, CARRY_FLAG);
-
+    
     af_register.low = 0;
     if ((before + reg + carry) > 0xFF) {
         SetBit(af_register.low, CARRY_FLAG);
@@ -42,8 +42,8 @@ void CPU::Adc8Bit(uint8_t reg) {
         SetBit(af_register.low, ZERO_FLAG);
     }
 
-    clocks.t_cycles += 1;
-    clocks.m_cycles += 4;
+    clocks.m_cycles += 1;
+    clocks.t_cycles += 4;
 }
 
 
@@ -241,12 +241,12 @@ void CPU::AddSP16Bit() {
 
 void CPU::Inc16Bit(uint16_t &reg) {
     reg++;
-    clocks.t_cycles += 1;
-    clocks.m_cycles += 8;
+    clocks.m_cycles += 1;
+    clocks.t_cycles += 8;
 }
 
 void CPU::Dec16Bit(uint16_t &reg) {
     reg--;
-    clocks.t_cycles += 1;
-    clocks.m_cycles += 8;
+    clocks.m_cycles += 1;
+    clocks.t_cycles += 8;
 }

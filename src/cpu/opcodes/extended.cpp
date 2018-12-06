@@ -135,8 +135,8 @@ void CPU::Swap(uint8_t &reg) {
         SetBit(af_register.low, ZERO_FLAG);
         //SetBit(af_register.high, ZERO_FLAG);
     }
-    clocks.t_cycles += 2;
-    clocks.m_cycles += 8;
+    clocks.m_cycles += 2;
+    clocks.t_cycles += 8;
 }
 
 void CPU::SRL(uint8_t &reg) {

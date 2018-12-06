@@ -57,6 +57,10 @@ void CPU::DAA() {
 
     if (af_register.high == 0)
         SetBit(af_register.low, ZERO_FLAG);
+    
+    /**< Fix this */
+    clocks.m_cycles += 2;
+    clocks.t_cycles += 16;
 }
 
 // Jumps
@@ -70,8 +74,8 @@ void CPU::JUMP(uint8_t flag, int condition, int use_condition) {
     else if (TestBit(af_register.low, flag) == condition) {
         program_counter = nn;
     }
-    clocks.t_cycles += 3;
-    clocks.m_cycles += 12;
+    clocks.m_cycles += 3;
+    clocks.t_cycles += 12;
 
 }
 
@@ -87,8 +91,8 @@ void CPU::JUMP_IMM(uint8_t flag, int condition, int use_condition) {
         program_counter += n;
     }
     program_counter++;
-    clocks.t_cycles += 2;
-    clocks.m_cycles += 8;
+    clocks.m_cycles += 2;
+    clocks.t_cycles += 8;
 
 }
 
@@ -105,13 +109,15 @@ void CPU::CALL(uint8_t flag, int condition, int use_condition) {
         Push(program_counter);
         program_counter = nn;
     }
-    clocks.t_cycles += 3;
-    clocks.m_cycles += 16;
+    clocks.m_cycles += 3;
+    clocks.t_cycles += 16;
 }
 
 void CPU::RST(uint8_t arg) {
 	Push(program_counter);
 	program_counter = arg;
+    clocks.m_cycles += 3;
+    clocks.t_cycles += 16;
 }
 
 void CPU::RET(uint8_t flag, int condition, int use_condition) {
@@ -121,8 +127,8 @@ void CPU::RET(uint8_t flag, int condition, int use_condition) {
     else if (TestBit(af_register.low, flag) == condition) {
         Pop(program_counter);
     }
-    clocks.t_cycles += 1;
-    clocks.m_cycles += 8;
+    clocks.m_cycles += 1;
+    clocks.t_cycles += 8;
 }
 
 /**< Unique arithmetic functions */
