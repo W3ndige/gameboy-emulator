@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_7egpu',['~GPU',['../classGPU.html#ac4d153a08d3b9f40e5a8f1634f4a9e78',1,'GPU']]]
+  ['or8bit',['Or8Bit',['../classCPU.html#af04bdaa9d65413761e931886aabe7421',1,'CPU']]]
 ];

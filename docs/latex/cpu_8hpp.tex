@@ -1,0 +1,85 @@
+\hypertarget{cpu_8hpp}{}\section{src/cpu/cpu.hpp File Reference}
+\label{cpu_8hpp}\index{src/cpu/cpu.\+hpp@{src/cpu/cpu.\+hpp}}
+
+
+File containing logic of the \mbox{\hyperlink{classCPU}{C\+PU}}.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$exception$>$}\newline
+{\ttfamily \#include \char`\"{}../memory/memory.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../helper/helper.\+hpp\char`\"{}}\newline
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+union \mbox{\hyperlink{unionRegister}{Register}}
+\begin{DoxyCompactList}\small\item\em Union of 16 bit size, allowing to access lower and higher bits. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structClocks}{Clocks}}
+\begin{DoxyCompactList}\small\item\em Structure containing information about the clock. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classCPU}{C\+PU}}
+\begin{DoxyCompactList}\small\item\em Class containing logic behind the \mbox{\hyperlink{classCPU}{C\+PU}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const int \mbox{\hyperlink{cpu_8hpp_a4f5fdde9fd64c5a78b1deb30ee11c617}{Z\+E\+R\+O\+\_\+\+F\+L\+AG}} = 7
+\item 
+const int \mbox{\hyperlink{cpu_8hpp_aecccead7518dbe130cbd187dc54ff636}{S\+U\+B\+S\+T\+R\+A\+C\+T\+\_\+\+F\+L\+AG}} = 6
+\item 
+const int \mbox{\hyperlink{cpu_8hpp_ad4d067515b282e4efe5f591a9a25db4d}{H\+A\+L\+F\+\_\+\+C\+A\+R\+R\+Y\+\_\+\+F\+L\+AG}} = 5
+\item 
+const int \mbox{\hyperlink{cpu_8hpp_a7097c5a41010c73a136a7917e68a6f96}{C\+A\+R\+R\+Y\+\_\+\+F\+L\+AG}} = 4
+\item 
+\mbox{\Hypertarget{cpu_8hpp_a77e0522c657ab371fb3f816a22f0b9df}\label{cpu_8hpp_a77e0522c657ab371fb3f816a22f0b9df}} 
+const int {\bfseries T\+I\+MA} = 0x\+F\+F05
+\item 
+\mbox{\Hypertarget{cpu_8hpp_a9daa5412b854241f702f855f2aa9292f}\label{cpu_8hpp_a9daa5412b854241f702f855f2aa9292f}} 
+const int {\bfseries T\+MA} = 0x\+F\+F06
+\item 
+\mbox{\Hypertarget{cpu_8hpp_a911b7306014d6b962a64ffd6952deaec}\label{cpu_8hpp_a911b7306014d6b962a64ffd6952deaec}} 
+const int {\bfseries T\+MC} = 0x\+F\+F07
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+File containing logic of the \mbox{\hyperlink{classCPU}{C\+PU}}. 
+
+\begin{DoxyAuthor}{Author}
+W3ndige (\href{mailto:w3ndige@protonmail.com}{\tt w3ndige@protonmail.\+com}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2018-\/12-\/07
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2018 
+\end{DoxyCopyright}
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{cpu_8hpp_a7097c5a41010c73a136a7917e68a6f96}\label{cpu_8hpp_a7097c5a41010c73a136a7917e68a6f96}} 
+\index{cpu.\+hpp@{cpu.\+hpp}!C\+A\+R\+R\+Y\+\_\+\+F\+L\+AG@{C\+A\+R\+R\+Y\+\_\+\+F\+L\+AG}}
+\index{C\+A\+R\+R\+Y\+\_\+\+F\+L\+AG@{C\+A\+R\+R\+Y\+\_\+\+F\+L\+AG}!cpu.\+hpp@{cpu.\+hpp}}
+\subsubsection{\texorpdfstring{C\+A\+R\+R\+Y\+\_\+\+F\+L\+AG}{CARRY\_FLAG}}
+{\footnotesize\ttfamily const int C\+A\+R\+R\+Y\+\_\+\+F\+L\+AG = 4}
+
+Carry flag \mbox{\Hypertarget{cpu_8hpp_ad4d067515b282e4efe5f591a9a25db4d}\label{cpu_8hpp_ad4d067515b282e4efe5f591a9a25db4d}} 
+\index{cpu.\+hpp@{cpu.\+hpp}!H\+A\+L\+F\+\_\+\+C\+A\+R\+R\+Y\+\_\+\+F\+L\+AG@{H\+A\+L\+F\+\_\+\+C\+A\+R\+R\+Y\+\_\+\+F\+L\+AG}}
+\index{H\+A\+L\+F\+\_\+\+C\+A\+R\+R\+Y\+\_\+\+F\+L\+AG@{H\+A\+L\+F\+\_\+\+C\+A\+R\+R\+Y\+\_\+\+F\+L\+AG}!cpu.\+hpp@{cpu.\+hpp}}
+\subsubsection{\texorpdfstring{H\+A\+L\+F\+\_\+\+C\+A\+R\+R\+Y\+\_\+\+F\+L\+AG}{HALF\_CARRY\_FLAG}}
+{\footnotesize\ttfamily const int H\+A\+L\+F\+\_\+\+C\+A\+R\+R\+Y\+\_\+\+F\+L\+AG = 5}
+
+Half carry flag \mbox{\Hypertarget{cpu_8hpp_aecccead7518dbe130cbd187dc54ff636}\label{cpu_8hpp_aecccead7518dbe130cbd187dc54ff636}} 
+\index{cpu.\+hpp@{cpu.\+hpp}!S\+U\+B\+S\+T\+R\+A\+C\+T\+\_\+\+F\+L\+AG@{S\+U\+B\+S\+T\+R\+A\+C\+T\+\_\+\+F\+L\+AG}}
+\index{S\+U\+B\+S\+T\+R\+A\+C\+T\+\_\+\+F\+L\+AG@{S\+U\+B\+S\+T\+R\+A\+C\+T\+\_\+\+F\+L\+AG}!cpu.\+hpp@{cpu.\+hpp}}
+\subsubsection{\texorpdfstring{S\+U\+B\+S\+T\+R\+A\+C\+T\+\_\+\+F\+L\+AG}{SUBSTRACT\_FLAG}}
+{\footnotesize\ttfamily const int S\+U\+B\+S\+T\+R\+A\+C\+T\+\_\+\+F\+L\+AG = 6}
+
+Substract flag \mbox{\Hypertarget{cpu_8hpp_a4f5fdde9fd64c5a78b1deb30ee11c617}\label{cpu_8hpp_a4f5fdde9fd64c5a78b1deb30ee11c617}} 
+\index{cpu.\+hpp@{cpu.\+hpp}!Z\+E\+R\+O\+\_\+\+F\+L\+AG@{Z\+E\+R\+O\+\_\+\+F\+L\+AG}}
+\index{Z\+E\+R\+O\+\_\+\+F\+L\+AG@{Z\+E\+R\+O\+\_\+\+F\+L\+AG}!cpu.\+hpp@{cpu.\+hpp}}
+\subsubsection{\texorpdfstring{Z\+E\+R\+O\+\_\+\+F\+L\+AG}{ZERO\_FLAG}}
+{\footnotesize\ttfamily const int Z\+E\+R\+O\+\_\+\+F\+L\+AG = 7}
+
+Zero flag 

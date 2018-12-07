@@ -1,11 +1,14 @@
-.TH "OpcodeInfo" 3 "Thu Dec 6 2018" "Gameboy Emulator" \" -*- nroff -*-
+.TH "OpcodeInfo" 3 "Fri Dec 7 2018" "Gameboy Emulator" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-OpcodeInfo
+OpcodeInfo \- Structure containing information about the opcode\&.  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include <disassembler\&.hpp>\fP
 .SS "Data Fields"
 
 .in +1c
@@ -16,6 +19,15 @@ OpcodeInfo
 .RI "uint16_t \fBjump_offset\fP"
 .br
 .in -1c
+.SH "Detailed Description"
+.PP 
+Structure containing information about the opcode\&. 
+.SH "Field Documentation"
+.PP 
+.SS "std::string OpcodeInfo::disassembled"
+Disassembled string 
+.SS "uint16_t OpcodeInfo::jump_offset"
+Value to increment PC 
 
 .SH "Author"
 .PP 

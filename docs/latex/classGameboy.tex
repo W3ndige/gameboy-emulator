@@ -1,23 +1,155 @@
 \hypertarget{classGameboy}{}\section{Gameboy Class Reference}
 \label{classGameboy}\index{Gameboy@{Gameboy}}
+
+
+Class connecting all of the components of \mbox{\hyperlink{classGameboy}{Gameboy}}.  
+
+
+
+
+{\ttfamily \#include $<$gameboy.\+hpp$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classGameboy_a2d4e84cda18ef3429a3dff15c7610265}\label{classGameboy_a2d4e84cda18ef3429a3dff15c7610265}} 
-{\bfseries Gameboy} (bool debug, bool without\+\_\+boot, bool exit\+\_\+on\+\_\+inifite, std\+::string rom\+\_\+file)
-\item 
+\mbox{\hyperlink{classGameboy_a2d4e84cda18ef3429a3dff15c7610265}{Gameboy}} (bool debug, bool without\+\_\+boot, bool exit\+\_\+on\+\_\+inifite, std\+::string rom\+\_\+file)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classGameboy}{Gameboy}} object. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classGameboy_ae61353b933089cf137da173a60fc59af}\label{classGameboy_ae61353b933089cf137da173a60fc59af}} 
-void {\bfseries Loop} ()
+void \mbox{\hyperlink{classGameboy_ae61353b933089cf137da173a60fc59af}{Loop}} ()
+\begin{DoxyCompactList}\small\item\em Main program loop, checks for events, emulates and renders. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGameboy_a0ff1e6cb04a2738296f238bf8205e62d}\label{classGameboy_a0ff1e6cb04a2738296f238bf8205e62d}} 
+void \mbox{\hyperlink{classGameboy_a0ff1e6cb04a2738296f238bf8205e62d}{Emulate}} ()
+\begin{DoxyCompactList}\small\item\em Emulate the logic. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameboy_a3da39e9c3ceb617ecf9070b71287a2af}{Set\+Key\+Pressed}} (int key)
+\begin{DoxyCompactList}\small\item\em Set the Key Pressed object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGameboy_a6ce894c73585fc90233c556a821a4e55}{Set\+Key\+Released}} (int key)
+\begin{DoxyCompactList}\small\item\em Set the Key Released object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classMemory}{Memory}} \mbox{\hyperlink{classGameboy_adf627b4691eb953f162584daf2b539a9}{memory}}
+\item 
+\mbox{\hyperlink{classCPU}{C\+PU}} \mbox{\hyperlink{classGameboy_a8efc19636204afd797a1fc3493bd2bce}{cpu}}
+\item 
+\mbox{\hyperlink{classGPU}{G\+PU}} \mbox{\hyperlink{classGameboy_ab5374ee382793a6e7f4fe26e55c9ff94}{gpu}}
+\item 
+bool \mbox{\hyperlink{classGameboy_a3806b14c93f07ab3aa7c8bce7f47ac5e}{debugging}}
+\item 
+\mbox{\hyperlink{classDebugger}{Debugger}} \mbox{\hyperlink{classGameboy_a284d695c0a40b955c520dab2e8ffd2be}{debugger}}
 \end{DoxyCompactItemize}
 \subsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classGameboy_af637948d2b98b924152a6f3bf5acdb6e}\label{classGameboy_af637948d2b98b924152a6f3bf5acdb6e}} 
-class {\bfseries Debugger}
+class \mbox{\hyperlink{classGameboy_af637948d2b98b924152a6f3bf5acdb6e}{Debugger}}
 \end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+Class connecting all of the components of \mbox{\hyperlink{classGameboy}{Gameboy}}. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGameboy_a2d4e84cda18ef3429a3dff15c7610265}\label{classGameboy_a2d4e84cda18ef3429a3dff15c7610265}} 
+\index{Gameboy@{Gameboy}!Gameboy@{Gameboy}}
+\index{Gameboy@{Gameboy}!Gameboy@{Gameboy}}
+\subsubsection{\texorpdfstring{Gameboy()}{Gameboy()}}
+{\footnotesize\ttfamily Gameboy\+::\+Gameboy (\begin{DoxyParamCaption}\item[{bool}]{debug,  }\item[{bool}]{without\+\_\+boot,  }\item[{bool}]{exit\+\_\+on\+\_\+inifite,  }\item[{std\+::string}]{rom\+\_\+file }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{classGameboy}{Gameboy}} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em debug} & Flag to run the debugger. \\
+\hline
+{\em without\+\_\+boot} & Flag to run without booting. \\
+\hline
+{\em exit\+\_\+on\+\_\+inifite} & Flag to exit on inifite loop. \\
+\hline
+{\em rom\+\_\+file} & Name of R\+OM file to run. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classGameboy_a3da39e9c3ceb617ecf9070b71287a2af}\label{classGameboy_a3da39e9c3ceb617ecf9070b71287a2af}} 
+\index{Gameboy@{Gameboy}!Set\+Key\+Pressed@{Set\+Key\+Pressed}}
+\index{Set\+Key\+Pressed@{Set\+Key\+Pressed}!Gameboy@{Gameboy}}
+\subsubsection{\texorpdfstring{Set\+Key\+Pressed()}{SetKeyPressed()}}
+{\footnotesize\ttfamily void Gameboy\+::\+Set\+Key\+Pressed (\begin{DoxyParamCaption}\item[{int}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Set the Key Pressed object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & Number of key that was pressed. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGameboy_a6ce894c73585fc90233c556a821a4e55}\label{classGameboy_a6ce894c73585fc90233c556a821a4e55}} 
+\index{Gameboy@{Gameboy}!Set\+Key\+Released@{Set\+Key\+Released}}
+\index{Set\+Key\+Released@{Set\+Key\+Released}!Gameboy@{Gameboy}}
+\subsubsection{\texorpdfstring{Set\+Key\+Released()}{SetKeyReleased()}}
+{\footnotesize\ttfamily void Gameboy\+::\+Set\+Key\+Released (\begin{DoxyParamCaption}\item[{int}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Set the Key Released object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & Number of key that was released. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classGameboy_af637948d2b98b924152a6f3bf5acdb6e}\label{classGameboy_af637948d2b98b924152a6f3bf5acdb6e}} 
+\index{Gameboy@{Gameboy}!Debugger@{Debugger}}
+\index{Debugger@{Debugger}!Gameboy@{Gameboy}}
+\subsubsection{\texorpdfstring{Debugger}{Debugger}}
+{\footnotesize\ttfamily friend class \mbox{\hyperlink{classDebugger}{Debugger}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+Friend class of debugger 
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{classGameboy_a8efc19636204afd797a1fc3493bd2bce}\label{classGameboy_a8efc19636204afd797a1fc3493bd2bce}} 
+\index{Gameboy@{Gameboy}!cpu@{cpu}}
+\index{cpu@{cpu}!Gameboy@{Gameboy}}
+\subsubsection{\texorpdfstring{cpu}{cpu}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classCPU}{C\+PU}} Gameboy\+::cpu\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\hyperlink{classCPU}{C\+PU}} object \mbox{\Hypertarget{classGameboy_a284d695c0a40b955c520dab2e8ffd2be}\label{classGameboy_a284d695c0a40b955c520dab2e8ffd2be}} 
+\index{Gameboy@{Gameboy}!debugger@{debugger}}
+\index{debugger@{debugger}!Gameboy@{Gameboy}}
+\subsubsection{\texorpdfstring{debugger}{debugger}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDebugger}{Debugger}} Gameboy\+::debugger\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\hyperlink{classDebugger}{Debugger}} object \mbox{\Hypertarget{classGameboy_a3806b14c93f07ab3aa7c8bce7f47ac5e}\label{classGameboy_a3806b14c93f07ab3aa7c8bce7f47ac5e}} 
+\index{Gameboy@{Gameboy}!debugging@{debugging}}
+\index{debugging@{debugging}!Gameboy@{Gameboy}}
+\subsubsection{\texorpdfstring{debugging}{debugging}}
+{\footnotesize\ttfamily bool Gameboy\+::debugging\hspace{0.3cm}{\ttfamily [private]}}
+
+Flag to check debugger ir ran. \mbox{\Hypertarget{classGameboy_ab5374ee382793a6e7f4fe26e55c9ff94}\label{classGameboy_ab5374ee382793a6e7f4fe26e55c9ff94}} 
+\index{Gameboy@{Gameboy}!gpu@{gpu}}
+\index{gpu@{gpu}!Gameboy@{Gameboy}}
+\subsubsection{\texorpdfstring{gpu}{gpu}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGPU}{G\+PU}} Gameboy\+::gpu\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\hyperlink{classGPU}{G\+PU}} object \mbox{\Hypertarget{classGameboy_adf627b4691eb953f162584daf2b539a9}\label{classGameboy_adf627b4691eb953f162584daf2b539a9}} 
+\index{Gameboy@{Gameboy}!memory@{memory}}
+\index{memory@{memory}!Gameboy@{Gameboy}}
+\subsubsection{\texorpdfstring{memory}{memory}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMemory}{Memory}} Gameboy\+::memory\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\hyperlink{classMemory}{Memory}} object 
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-src/gameboy/gameboy.\+hpp\item 
+src/gameboy/\mbox{\hyperlink{gameboy_8hpp}{gameboy.\+hpp}}\item 
 src/gameboy/gameboy.\+cpp\end{DoxyCompactItemize}

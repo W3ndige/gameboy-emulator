@@ -1,0 +1,124 @@
+.TH "src/gameboy/debugger.hpp" 3 "Fri Dec 7 2018" "Gameboy Emulator" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/gameboy/debugger.hpp \- File containing logic behind the debugger\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <vector>\fP
+.br
+\fC#include <string>\fP
+.br
+\fC#include <sstream>\fP
+.br
+\fC#include <iterator>\fP
+.br
+\fC#include <algorithm>\fP
+.br
+\fC#include <readline/readline\&.h>\fP
+.br
+\fC#include <readline/history\&.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBDebuggerState\fP"
+.br
+.RI "Structure containing information about the state of debugger\&. "
+.ti -1c
+.RI "struct \fBDebuggerCommand\fP"
+.br
+.RI "Structure containing parsed debugger command\&. "
+.ti -1c
+.RI "class \fBDebugger\fP"
+.br
+.RI "Class containing logic behind the debugger\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef std::vector< std::string > \fBArguments\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBCommand\fP { \fBCommand::Run\fP, \fBCommand::Step\fP, \fBCommand::Memory\fP, \fBCommand::Stack\fP, \fBCommand::Info\fP, \fBCommand::Break\fP, \fBCommand::Exit\fP, \fBCommand::Unknown\fP }"
+.br
+.RI "Commands that are available in debugger\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+File containing logic behind the debugger\&. 
+
+
+.PP
+\fBAuthor:\fP
+.RS 4
+W3ndige (w3ndige@protonmail.com) 
+.RE
+.PP
+\fBVersion:\fP
+.RS 4
+0\&.1 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+2018-12-07
+.RE
+.PP
+\fBCopyright:\fP
+.RS 4
+Copyright (c) 2018 
+.RE
+.PP
+
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef std::vector<std::string> \fBArguments\fP"
+Vector of arguments 
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBCommand\fP\fC [strong]\fP"
+
+.PP
+Commands that are available in debugger\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIRun \fP\fP
+Run the program 
+.TP
+\fB\fIStep \fP\fP
+Step instructions 
+.TP
+\fB\fIMemory \fP\fP
+Show memory 
+.TP
+\fB\fIStack \fP\fP
+Show stack 
+.TP
+\fB\fIInfo \fP\fP
+Show info about ROM 
+.TP
+\fB\fIBreak \fP\fP
+Set breakpoint 
+.TP
+\fB\fIExit \fP\fP
+Exit emulator 
+.TP
+\fB\fIUnknown \fP\fP
+Unknown command 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Gameboy Emulator from the source code\&.

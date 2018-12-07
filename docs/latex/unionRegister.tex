@@ -1,22 +1,54 @@
 \hypertarget{unionRegister}{}\section{Register Union Reference}
 \label{unionRegister}\index{Register@{Register}}
+
+
+Union of 16 bit size, allowing to access lower and higher bits.  
+
+
+
+
+{\ttfamily \#include $<$cpu.\+hpp$>$}
+
 \subsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{unionRegister_aac323348d1529a834f8b013deecf048c}\label{unionRegister_aac323348d1529a834f8b013deecf048c}} 
-uint16\+\_\+t {\bfseries pair}
+uint16\+\_\+t \mbox{\hyperlink{unionRegister_aac323348d1529a834f8b013deecf048c}{pair}}
 \item 
 \mbox{\Hypertarget{unionRegister_a3d15b31854b2177c78cc4240849ce47e}\label{unionRegister_a3d15b31854b2177c78cc4240849ce47e}} 
 \begin{tabbing}
 xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
 struct \{\\
-\>uint8\_t {\bfseries low}\\
-\>uint8\_t {\bfseries high}\\
+\>uint8\_t \mbox{\hyperlink{unionRegister_ab3de0c995f96ded882a98602123a2d0a}{low}}\\
+\>uint8\_t \mbox{\hyperlink{unionRegister_a65679413f32b134cc09b07783a772c75}{high}}\\
 \}; \\
 
 \end{tabbing}\end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+Union of 16 bit size, allowing to access lower and higher bits. 
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{unionRegister_a65679413f32b134cc09b07783a772c75}\label{unionRegister_a65679413f32b134cc09b07783a772c75}} 
+\index{Register@{Register}!high@{high}}
+\index{high@{high}!Register@{Register}}
+\subsubsection{\texorpdfstring{high}{high}}
+{\footnotesize\ttfamily uint8\+\_\+t Register\+::high}
+
+Higher 8 bits of register \mbox{\Hypertarget{unionRegister_ab3de0c995f96ded882a98602123a2d0a}\label{unionRegister_ab3de0c995f96ded882a98602123a2d0a}} 
+\index{Register@{Register}!low@{low}}
+\index{low@{low}!Register@{Register}}
+\subsubsection{\texorpdfstring{low}{low}}
+{\footnotesize\ttfamily uint8\+\_\+t Register\+::low}
+
+Lower 8 bits of regiser \mbox{\Hypertarget{unionRegister_aac323348d1529a834f8b013deecf048c}\label{unionRegister_aac323348d1529a834f8b013deecf048c}} 
+\index{Register@{Register}!pair@{pair}}
+\index{pair@{pair}!Register@{Register}}
+\subsubsection{\texorpdfstring{pair}{pair}}
+{\footnotesize\ttfamily uint16\+\_\+t Register\+::pair}
+
+Value of whole register 
+
 The documentation for this union was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-src/cpu/cpu.\+hpp\end{DoxyCompactItemize}
+src/cpu/\mbox{\hyperlink{cpu_8hpp}{cpu.\+hpp}}\end{DoxyCompactItemize}

@@ -1,11 +1,14 @@
-.TH "Register" 3 "Thu Dec 6 2018" "Gameboy Emulator" \" -*- nroff -*-
+.TH "Register" 3 "Fri Dec 7 2018" "Gameboy Emulator" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-Register
+Register \- Union of 16 bit size, allowing to access lower and higher bits\&.  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include <cpu\&.hpp>\fP
 .SS "Data Fields"
 
 .in +1c
@@ -25,6 +28,17 @@ Register
 .RI "}; "
 .br
 .in -1c
+.SH "Detailed Description"
+.PP 
+Union of 16 bit size, allowing to access lower and higher bits\&. 
+.SH "Field Documentation"
+.PP 
+.SS "uint8_t Register::high"
+Higher 8 bits of register 
+.SS "uint8_t Register::low"
+Lower 8 bits of regiser 
+.SS "uint16_t Register::pair"
+Value of whole register 
 
 .SH "Author"
 .PP 

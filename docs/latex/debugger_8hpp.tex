@@ -1,0 +1,117 @@
+\hypertarget{debugger_8hpp}{}\section{src/gameboy/debugger.hpp File Reference}
+\label{debugger_8hpp}\index{src/gameboy/debugger.\+hpp@{src/gameboy/debugger.\+hpp}}
+
+
+File containing logic behind the debugger.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$iterator$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$readline/readline.\+h$>$}\newline
+{\ttfamily \#include $<$readline/history.\+h$>$}\newline
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structDebuggerState}{Debugger\+State}}
+\begin{DoxyCompactList}\small\item\em Structure containing information about the state of debugger. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structDebuggerCommand}{Debugger\+Command}}
+\begin{DoxyCompactList}\small\item\em Structure containing parsed debugger command. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classDebugger}{Debugger}}
+\begin{DoxyCompactList}\small\item\em Class containing logic behind the debugger. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{debugger_8hpp_aca71abe8694d19d25f9f855f89eea3ce}{Arguments}}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153}{Command}} \{ \newline
+\mbox{\hyperlink{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153ac5301693c4e792bcd5a479ef38fb8f8d}{Command\+::\+Run}}, 
+\mbox{\hyperlink{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153a48c7c41b72e1d678923ce3571aa65b2d}{Command\+::\+Step}}, 
+\mbox{\hyperlink{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153a4789f23283b3a61f858b641a1bef19a3}{Command\+::\+Memory}}, 
+\mbox{\hyperlink{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153a2187e1021a911b3807cc1bea2eb1a9ca}{Command\+::\+Stack}}, 
+\newline
+\mbox{\hyperlink{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153a4059b0251f66a18cb56f544728796875}{Command\+::\+Info}}, 
+\mbox{\hyperlink{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153ae4c38d6d45baf080943d323dd51a2ce8}{Command\+::\+Break}}, 
+\mbox{\hyperlink{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153afef46e5063ce3dc78b8ae64fa474241d}{Command\+::\+Exit}}, 
+\mbox{\hyperlink{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153a88183b946cc5f0e8c96b2e66e1c74a7e}{Command\+::\+Unknown}}
+ \}
+\begin{DoxyCompactList}\small\item\em Commands that are available in debugger. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+File containing logic behind the debugger. 
+
+\begin{DoxyAuthor}{Author}
+W3ndige (\href{mailto:w3ndige@protonmail.com}{\tt w3ndige@protonmail.\+com}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2018-\/12-\/07
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2018 
+\end{DoxyCopyright}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{debugger_8hpp_aca71abe8694d19d25f9f855f89eea3ce}\label{debugger_8hpp_aca71abe8694d19d25f9f855f89eea3ce}} 
+\index{debugger.\+hpp@{debugger.\+hpp}!Arguments@{Arguments}}
+\index{Arguments@{Arguments}!debugger.\+hpp@{debugger.\+hpp}}
+\subsubsection{\texorpdfstring{Arguments}{Arguments}}
+{\footnotesize\ttfamily typedef std\+::vector$<$std\+::string$>$ \mbox{\hyperlink{debugger_8hpp_aca71abe8694d19d25f9f855f89eea3ce}{Arguments}}}
+
+Vector of arguments 
+
+\subsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153}\label{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153}} 
+\index{debugger.\+hpp@{debugger.\+hpp}!Command@{Command}}
+\index{Command@{Command}!debugger.\+hpp@{debugger.\+hpp}}
+\subsubsection{\texorpdfstring{Command}{Command}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153}{Command}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Commands that are available in debugger. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Run@{Run}!debugger.\+hpp@{debugger.\+hpp}}\index{debugger.\+hpp@{debugger.\+hpp}!Run@{Run}}}\mbox{\Hypertarget{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153ac5301693c4e792bcd5a479ef38fb8f8d}\label{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153ac5301693c4e792bcd5a479ef38fb8f8d}} 
+Run&Run the program \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Step@{Step}!debugger.\+hpp@{debugger.\+hpp}}\index{debugger.\+hpp@{debugger.\+hpp}!Step@{Step}}}\mbox{\Hypertarget{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153a48c7c41b72e1d678923ce3571aa65b2d}\label{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153a48c7c41b72e1d678923ce3571aa65b2d}} 
+Step&Step instructions \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Memory@{Memory}!debugger.\+hpp@{debugger.\+hpp}}\index{debugger.\+hpp@{debugger.\+hpp}!Memory@{Memory}}}\mbox{\Hypertarget{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153a4789f23283b3a61f858b641a1bef19a3}\label{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153a4789f23283b3a61f858b641a1bef19a3}} 
+Memory&Show memory \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Stack@{Stack}!debugger.\+hpp@{debugger.\+hpp}}\index{debugger.\+hpp@{debugger.\+hpp}!Stack@{Stack}}}\mbox{\Hypertarget{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153a2187e1021a911b3807cc1bea2eb1a9ca}\label{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153a2187e1021a911b3807cc1bea2eb1a9ca}} 
+Stack&Show stack \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Info@{Info}!debugger.\+hpp@{debugger.\+hpp}}\index{debugger.\+hpp@{debugger.\+hpp}!Info@{Info}}}\mbox{\Hypertarget{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153a4059b0251f66a18cb56f544728796875}\label{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153a4059b0251f66a18cb56f544728796875}} 
+Info&Show info about R\+OM \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Break@{Break}!debugger.\+hpp@{debugger.\+hpp}}\index{debugger.\+hpp@{debugger.\+hpp}!Break@{Break}}}\mbox{\Hypertarget{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153ae4c38d6d45baf080943d323dd51a2ce8}\label{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153ae4c38d6d45baf080943d323dd51a2ce8}} 
+Break&Set breakpoint \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Exit@{Exit}!debugger.\+hpp@{debugger.\+hpp}}\index{debugger.\+hpp@{debugger.\+hpp}!Exit@{Exit}}}\mbox{\Hypertarget{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153afef46e5063ce3dc78b8ae64fa474241d}\label{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153afef46e5063ce3dc78b8ae64fa474241d}} 
+Exit&Exit emulator \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Unknown@{Unknown}!debugger.\+hpp@{debugger.\+hpp}}\index{debugger.\+hpp@{debugger.\+hpp}!Unknown@{Unknown}}}\mbox{\Hypertarget{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153a88183b946cc5f0e8c96b2e66e1c74a7e}\label{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153a88183b946cc5f0e8c96b2e66e1c74a7e}} 
+Unknown&Unknown command \\
+\hline
+
+\end{DoxyEnumFields}

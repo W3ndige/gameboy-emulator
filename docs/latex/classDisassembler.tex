@@ -1,17 +1,65 @@
 \hypertarget{classDisassembler}{}\section{Disassembler Class Reference}
 \label{classDisassembler}\index{Disassembler@{Disassembler}}
+
+
+Class containing disassembler logic.  
+
+
+
+
+{\ttfamily \#include $<$disassembler.\+hpp$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classDisassembler_a569452759a1a0ae0ca52c0bb0d451c46}\label{classDisassembler_a569452759a1a0ae0ca52c0bb0d451c46}} 
-bool {\bfseries Init} (std\+::string rom\+\_\+file)
-\item 
+bool \mbox{\hyperlink{classDisassembler_a569452759a1a0ae0ca52c0bb0d451c46}{Init}} (std\+::string rom\+\_\+file)
+\begin{DoxyCompactList}\small\item\em Initialize the disassembler. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classDisassembler_a7dbc8f55be4a05749bf94a93d3e44d85}\label{classDisassembler_a7dbc8f55be4a05749bf94a93d3e44d85}} 
-void {\bfseries Disassemble} ()
+void \mbox{\hyperlink{classDisassembler_a7dbc8f55be4a05749bf94a93d3e44d85}{Disassemble}} ()
+\begin{DoxyCompactList}\small\item\em Disassemble to R\+OM file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classDisassembler_a190fc196a73e182f4d9b8292290196c0}{memory}} \mbox{[}0x8000\mbox{]}
 \end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+Class containing disassembler logic. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classDisassembler_a569452759a1a0ae0ca52c0bb0d451c46}\label{classDisassembler_a569452759a1a0ae0ca52c0bb0d451c46}} 
+\index{Disassembler@{Disassembler}!Init@{Init}}
+\index{Init@{Init}!Disassembler@{Disassembler}}
+\subsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily bool Disassembler\+::\+Init (\begin{DoxyParamCaption}\item[{std\+::string}]{rom\+\_\+file }\end{DoxyParamCaption})}
+
+
+
+Initialize the disassembler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rom\+\_\+file} & Name of the R\+OM to disassemble. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true Initialization sucedeed. 
+
+false Iniitalization failed. 
+\end{DoxyReturn}
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{classDisassembler_a190fc196a73e182f4d9b8292290196c0}\label{classDisassembler_a190fc196a73e182f4d9b8292290196c0}} 
+\index{Disassembler@{Disassembler}!memory@{memory}}
+\index{memory@{memory}!Disassembler@{Disassembler}}
+\subsubsection{\texorpdfstring{memory}{memory}}
+{\footnotesize\ttfamily uint8\+\_\+t Disassembler\+::memory\mbox{[}0x8000\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\hyperlink{classMemory}{Memory}} array 
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-src/gameboy/disassembler.\+hpp\item 
+src/gameboy/\mbox{\hyperlink{disassembler_8hpp}{disassembler.\+hpp}}\item 
 src/gameboy/disassembler.\+cpp\end{DoxyCompactItemize}

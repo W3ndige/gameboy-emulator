@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['serviceinterupt',['ServiceInterupt',['../classCPU.html#ab932fc0e9d81733f90e878d644991e2e',1,'CPU']]],
-  ['setbit',['SetBit',['../helper_8hpp.html#a5929b4c284cd600c1347fdf3002ce27d',1,'helper.cpp']]]
+  ['jump',['JUMP',['../classCPU.html#a24d4360b3948467f956fcb1b85c119d2',1,'CPU']]],
+  ['jump_5fimm',['JUMP_IMM',['../classCPU.html#af67fa16329e2c198a0594d0177fea86b',1,'CPU']]]
 ];

@@ -1,0 +1,64 @@
+\hypertarget{gameboy_8hpp}{}\section{src/gameboy/gameboy.hpp File Reference}
+\label{gameboy_8hpp}\index{src/gameboy/gameboy.\+hpp@{src/gameboy/gameboy.\+hpp}}
+
+
+File containting all of the \mbox{\hyperlink{classGameboy}{Gameboy}} components.  
+
+
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include \char`\"{}debugger.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../gpu/gpu.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../cpu/cpu.\+hpp\char`\"{}}\newline
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classGameboy}{Gameboy}}
+\begin{DoxyCompactList}\small\item\em Class connecting all of the components of \mbox{\hyperlink{classGameboy}{Gameboy}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const float \mbox{\hyperlink{gameboy_8hpp_a9d399528f424abf9c67546aad6785e33}{F\+PS}} = 59.\+73f
+\item 
+const int \mbox{\hyperlink{gameboy_8hpp_afe5d4021405adb70aa4a916d05632c05}{M\+A\+X\+\_\+\+C\+Y\+C\+L\+ES}} = 70224
+\item 
+const float \mbox{\hyperlink{gameboy_8hpp_a253e940ae1c7ecf909c5f69dd0be9376}{D\+E\+L\+A\+Y\+\_\+\+T\+I\+ME}} = 1000.\+0f / F\+PS
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+File containting all of the \mbox{\hyperlink{classGameboy}{Gameboy}} components. 
+
+\begin{DoxyAuthor}{Author}
+W3ndige (\href{mailto:w3ndige@protonmail.com}{\tt w3ndige@protonmail.\+com}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2018-\/12-\/07
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2018 
+\end{DoxyCopyright}
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{gameboy_8hpp_a253e940ae1c7ecf909c5f69dd0be9376}\label{gameboy_8hpp_a253e940ae1c7ecf909c5f69dd0be9376}} 
+\index{gameboy.\+hpp@{gameboy.\+hpp}!D\+E\+L\+A\+Y\+\_\+\+T\+I\+ME@{D\+E\+L\+A\+Y\+\_\+\+T\+I\+ME}}
+\index{D\+E\+L\+A\+Y\+\_\+\+T\+I\+ME@{D\+E\+L\+A\+Y\+\_\+\+T\+I\+ME}!gameboy.\+hpp@{gameboy.\+hpp}}
+\subsubsection{\texorpdfstring{D\+E\+L\+A\+Y\+\_\+\+T\+I\+ME}{DELAY\_TIME}}
+{\footnotesize\ttfamily const float D\+E\+L\+A\+Y\+\_\+\+T\+I\+ME = 1000.\+0f / F\+PS}
+
+Time of delay to emulate F\+PS \mbox{\Hypertarget{gameboy_8hpp_a9d399528f424abf9c67546aad6785e33}\label{gameboy_8hpp_a9d399528f424abf9c67546aad6785e33}} 
+\index{gameboy.\+hpp@{gameboy.\+hpp}!F\+PS@{F\+PS}}
+\index{F\+PS@{F\+PS}!gameboy.\+hpp@{gameboy.\+hpp}}
+\subsubsection{\texorpdfstring{F\+PS}{FPS}}
+{\footnotesize\ttfamily const float F\+PS = 59.\+73f}
+
+Number of F\+PS to emulate \mbox{\Hypertarget{gameboy_8hpp_afe5d4021405adb70aa4a916d05632c05}\label{gameboy_8hpp_afe5d4021405adb70aa4a916d05632c05}} 
+\index{gameboy.\+hpp@{gameboy.\+hpp}!M\+A\+X\+\_\+\+C\+Y\+C\+L\+ES@{M\+A\+X\+\_\+\+C\+Y\+C\+L\+ES}}
+\index{M\+A\+X\+\_\+\+C\+Y\+C\+L\+ES@{M\+A\+X\+\_\+\+C\+Y\+C\+L\+ES}!gameboy.\+hpp@{gameboy.\+hpp}}
+\subsubsection{\texorpdfstring{M\+A\+X\+\_\+\+C\+Y\+C\+L\+ES}{MAX\_CYCLES}}
+{\footnotesize\ttfamily const int M\+A\+X\+\_\+\+C\+Y\+C\+L\+ES = 70224}
+
+Maximum number of cycles 

@@ -12,7 +12,7 @@ Class containing logic of \mbox{\hyperlink{classGPU}{G\+PU}}.
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classGPU_a18e803c48776e14aa5b04d58a35ec4ac}{G\+PU}} (\mbox{\hyperlink{classMemory}{Memory}} $\ast$mem, \mbox{\hyperlink{classCPU}{C\+PU}} $\ast$cpu)
+\mbox{\hyperlink{classGPU_a18e803c48776e14aa5b04d58a35ec4ac}{G\+PU}} (\mbox{\hyperlink{classMemory}{Memory}} $\ast$mem, \mbox{\hyperlink{classCPU}{C\+PU}} $\ast$\mbox{\hyperlink{classGPU_ac0e1560d40298f3ae2548af7bb44e67d}{cpu}})
 \begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classGPU}{G\+PU}} object. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classGPU_ac4d153a08d3b9f40e5a8f1634f4a9e78}\label{classGPU_ac4d153a08d3b9f40e5a8f1634f4a9e78}} 
 \mbox{\hyperlink{classGPU_ac4d153a08d3b9f40e5a8f1634f4a9e78}{$\sim$\+G\+PU}} ()
@@ -24,6 +24,46 @@ void \mbox{\hyperlink{classGPU_af0b1df5eb7c5270a81fc12aebb89e641}{Update\+Graphi
 \mbox{\Hypertarget{classGPU_af176f18efc74597769280ecc610daea5}\label{classGPU_af176f18efc74597769280ecc610daea5}} 
 void \mbox{\hyperlink{classGPU_af176f18efc74597769280ecc610daea5}{Render\+Graphics}} ()
 \begin{DoxyCompactList}\small\item\em Render graphics to screen with S\+D\+L2. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classGPU_a6ecd1a465bf7bf337bd5a68b1f2c534f}{Is\+L\+C\+D\+Enabled}} ()
+\begin{DoxyCompactList}\small\item\em Returns 0 if the L\+CD is enabled or 0 if is not. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGPU_a853749a9269520cc960f086073091697}\label{classGPU_a853749a9269520cc960f086073091697}} 
+void \mbox{\hyperlink{classGPU_a853749a9269520cc960f086073091697}{Set\+L\+C\+D\+Status}} ()
+\begin{DoxyCompactList}\small\item\em Set the status according to memory address 0x\+F\+F41. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGPU_a6b60ee80bc625af7d695338bda4b2729}\label{classGPU_a6b60ee80bc625af7d695338bda4b2729}} 
+void \mbox{\hyperlink{classGPU_a6b60ee80bc625af7d695338bda4b2729}{Draw\+Scan\+Line}} ()
+\begin{DoxyCompactList}\small\item\em Decide between drawing background or drawing sprites. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGPU_a553781176d11209bcd137156c3c885e3}\label{classGPU_a553781176d11209bcd137156c3c885e3}} 
+void \mbox{\hyperlink{classGPU_a553781176d11209bcd137156c3c885e3}{Render\+Tiles}} ()
+\begin{DoxyCompactList}\small\item\em Draw background according to R\+OM into the pixels array. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGPU_a52964b88fff3d7341c965f2fe42dc0c8}\label{classGPU_a52964b88fff3d7341c965f2fe42dc0c8}} 
+void \mbox{\hyperlink{classGPU_a52964b88fff3d7341c965f2fe42dc0c8}{Render\+Sprites}} ()
+\begin{DoxyCompactList}\small\item\em Draw sprites according to R\+OM into the pixels array. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classGPU_ab71b7ac6de12c201a1d90c05590cb858}{Get\+Color}} (uint8\+\_\+t color\+\_\+id, uint16\+\_\+t addrress)
+\begin{DoxyCompactList}\small\item\em Get the color object according to the palette. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t $\ast$ \mbox{\hyperlink{classGPU_abf17e918bdde2a603aaaf9e0e1693e89}{pixels}}
+\item 
+std\+::unique\+\_\+ptr$<$ S\+D\+L\+\_\+\+Window, decltype(\&S\+D\+L\+\_\+\+Destroy\+Window)$>$ \mbox{\hyperlink{classGPU_ab7d41a21fcc7c1e1ab7e5cca3ac810cb}{window}}
+\item 
+std\+::unique\+\_\+ptr$<$ S\+D\+L\+\_\+\+Renderer, decltype(\&S\+D\+L\+\_\+\+Destroy\+Renderer)$>$ \mbox{\hyperlink{classGPU_a166f896881a453e5160a4b33810492e7}{renderer}}
+\item 
+std\+::unique\+\_\+ptr$<$ S\+D\+L\+\_\+\+Texture, decltype(\&S\+D\+L\+\_\+\+Destroy\+Texture)$>$ \mbox{\hyperlink{classGPU_a08c8831c262733c78b0bbd82488254f6}{texture}}
+\item 
+int \mbox{\hyperlink{classGPU_ad54a548926ae8f782f599339939d3454}{scanline\+\_\+counter}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classGPU_a947b1ca9b9a0c9497c3442c35331a476}{current\+\_\+mode}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classGPU_a32558942c706160b5810a5258a7824bb}{current\+\_\+line}}
+\item 
+\mbox{\hyperlink{classMemory}{Memory}} $\ast$ \mbox{\hyperlink{classGPU_a6ba605ef502ea7adb2bc4335a0817aca}{memory}}
+\item 
+\mbox{\hyperlink{classCPU}{C\+PU}} $\ast$ \mbox{\hyperlink{classGPU_ac0e1560d40298f3ae2548af7bb44e67d}{cpu}}
+\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -50,6 +90,26 @@ Construct a new \mbox{\hyperlink{classGPU}{G\+PU}} object.
 
 
 \subsection{Member Function Documentation}
+\mbox{\Hypertarget{classGPU_ab71b7ac6de12c201a1d90c05590cb858}\label{classGPU_ab71b7ac6de12c201a1d90c05590cb858}} 
+\index{G\+PU@{G\+PU}!Get\+Color@{Get\+Color}}
+\index{Get\+Color@{Get\+Color}!G\+PU@{G\+PU}}
+\subsubsection{\texorpdfstring{Get\+Color()}{GetColor()}}
+{\footnotesize\ttfamily int G\+P\+U\+::\+Get\+Color (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{color\+\_\+id,  }\item[{uint16\+\_\+t}]{addrress }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Get the color object according to the palette. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em color\+\_\+id} & Color ID to get. \\
+\hline
+{\em addrress} & Address of the colour palette. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Return color. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classGPU_a712acb0ed0ea3baf05379b26922d43f7}\label{classGPU_a712acb0ed0ea3baf05379b26922d43f7}} 
 \index{G\+PU@{G\+PU}!Init@{Init}}
 \index{Init@{Init}!G\+PU@{G\+PU}}
@@ -64,6 +124,19 @@ Initialize the values in \mbox{\hyperlink{classGPU}{G\+PU}}.
 true Initialization succeed. 
 
 false Initialization failed. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGPU_a6ecd1a465bf7bf337bd5a68b1f2c534f}\label{classGPU_a6ecd1a465bf7bf337bd5a68b1f2c534f}} 
+\index{G\+PU@{G\+PU}!Is\+L\+C\+D\+Enabled@{Is\+L\+C\+D\+Enabled}}
+\index{Is\+L\+C\+D\+Enabled@{Is\+L\+C\+D\+Enabled}!G\+PU@{G\+PU}}
+\subsubsection{\texorpdfstring{Is\+L\+C\+D\+Enabled()}{IsLCDEnabled()}}
+{\footnotesize\ttfamily int G\+P\+U\+::\+Is\+L\+C\+D\+Enabled (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Returns 0 if the L\+CD is enabled or 0 if is not. 
+
+\begin{DoxyReturn}{Returns}
+int Value of 7-\/th bit of L\+CD control register. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classGPU_af0b1df5eb7c5270a81fc12aebb89e641}\label{classGPU_af0b1df5eb7c5270a81fc12aebb89e641}} 
 \index{G\+PU@{G\+PU}!Update\+Graphics@{Update\+Graphics}}
@@ -81,6 +154,63 @@ Update the \mbox{\hyperlink{classGPU}{G\+PU}} during every cycle of emulator.
 \hline
 \end{DoxyParams}
 
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{classGPU_ac0e1560d40298f3ae2548af7bb44e67d}\label{classGPU_ac0e1560d40298f3ae2548af7bb44e67d}} 
+\index{G\+PU@{G\+PU}!cpu@{cpu}}
+\index{cpu@{cpu}!G\+PU@{G\+PU}}
+\subsubsection{\texorpdfstring{cpu}{cpu}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classCPU}{C\+PU}}$\ast$ G\+P\+U\+::cpu\hspace{0.3cm}{\ttfamily [private]}}
+
+Pointer to \mbox{\hyperlink{classCPU}{C\+PU}} object \mbox{\Hypertarget{classGPU_a32558942c706160b5810a5258a7824bb}\label{classGPU_a32558942c706160b5810a5258a7824bb}} 
+\index{G\+PU@{G\+PU}!current\+\_\+line@{current\+\_\+line}}
+\index{current\+\_\+line@{current\+\_\+line}!G\+PU@{G\+PU}}
+\subsubsection{\texorpdfstring{current\+\_\+line}{current\_line}}
+{\footnotesize\ttfamily uint8\+\_\+t G\+P\+U\+::current\+\_\+line\hspace{0.3cm}{\ttfamily [private]}}
+
+Current line being drawed. \mbox{\Hypertarget{classGPU_a947b1ca9b9a0c9497c3442c35331a476}\label{classGPU_a947b1ca9b9a0c9497c3442c35331a476}} 
+\index{G\+PU@{G\+PU}!current\+\_\+mode@{current\+\_\+mode}}
+\index{current\+\_\+mode@{current\+\_\+mode}!G\+PU@{G\+PU}}
+\subsubsection{\texorpdfstring{current\+\_\+mode}{current\_mode}}
+{\footnotesize\ttfamily uint8\+\_\+t G\+P\+U\+::current\+\_\+mode\hspace{0.3cm}{\ttfamily [private]}}
+
+Mode in which \mbox{\hyperlink{classGPU}{G\+PU}} is working. \mbox{\Hypertarget{classGPU_a6ba605ef502ea7adb2bc4335a0817aca}\label{classGPU_a6ba605ef502ea7adb2bc4335a0817aca}} 
+\index{G\+PU@{G\+PU}!memory@{memory}}
+\index{memory@{memory}!G\+PU@{G\+PU}}
+\subsubsection{\texorpdfstring{memory}{memory}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMemory}{Memory}}$\ast$ G\+P\+U\+::memory\hspace{0.3cm}{\ttfamily [private]}}
+
+Pointer to memory object. \mbox{\Hypertarget{classGPU_abf17e918bdde2a603aaaf9e0e1693e89}\label{classGPU_abf17e918bdde2a603aaaf9e0e1693e89}} 
+\index{G\+PU@{G\+PU}!pixels@{pixels}}
+\index{pixels@{pixels}!G\+PU@{G\+PU}}
+\subsubsection{\texorpdfstring{pixels}{pixels}}
+{\footnotesize\ttfamily uint32\+\_\+t$\ast$ G\+P\+U\+::pixels\hspace{0.3cm}{\ttfamily [private]}}
+
+Pointer to an array of pixels \mbox{\Hypertarget{classGPU_a166f896881a453e5160a4b33810492e7}\label{classGPU_a166f896881a453e5160a4b33810492e7}} 
+\index{G\+PU@{G\+PU}!renderer@{renderer}}
+\index{renderer@{renderer}!G\+PU@{G\+PU}}
+\subsubsection{\texorpdfstring{renderer}{renderer}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$S\+D\+L\+\_\+\+Renderer, decltype(\&S\+D\+L\+\_\+\+Destroy\+Renderer)$>$ G\+P\+U\+::renderer\hspace{0.3cm}{\ttfamily [private]}}
+
+Pointer to S\+D\+L\+\_\+\+Renderer \mbox{\Hypertarget{classGPU_ad54a548926ae8f782f599339939d3454}\label{classGPU_ad54a548926ae8f782f599339939d3454}} 
+\index{G\+PU@{G\+PU}!scanline\+\_\+counter@{scanline\+\_\+counter}}
+\index{scanline\+\_\+counter@{scanline\+\_\+counter}!G\+PU@{G\+PU}}
+\subsubsection{\texorpdfstring{scanline\+\_\+counter}{scanline\_counter}}
+{\footnotesize\ttfamily int G\+P\+U\+::scanline\+\_\+counter\hspace{0.3cm}{\ttfamily [private]}}
+
+Counter, when to move to the next line \mbox{\Hypertarget{classGPU_a08c8831c262733c78b0bbd82488254f6}\label{classGPU_a08c8831c262733c78b0bbd82488254f6}} 
+\index{G\+PU@{G\+PU}!texture@{texture}}
+\index{texture@{texture}!G\+PU@{G\+PU}}
+\subsubsection{\texorpdfstring{texture}{texture}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$S\+D\+L\+\_\+\+Texture, decltype(\&S\+D\+L\+\_\+\+Destroy\+Texture)$>$ G\+P\+U\+::texture\hspace{0.3cm}{\ttfamily [private]}}
+
+Pointer to S\+D\+L\+\_\+\+Texture \mbox{\Hypertarget{classGPU_ab7d41a21fcc7c1e1ab7e5cca3ac810cb}\label{classGPU_ab7d41a21fcc7c1e1ab7e5cca3ac810cb}} 
+\index{G\+PU@{G\+PU}!window@{window}}
+\index{window@{window}!G\+PU@{G\+PU}}
+\subsubsection{\texorpdfstring{window}{window}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$S\+D\+L\+\_\+\+Window, decltype(\&S\+D\+L\+\_\+\+Destroy\+Window)$>$ G\+P\+U\+::window\hspace{0.3cm}{\ttfamily [private]}}
+
+Pointer to S\+D\+L\+\_\+\+Window 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

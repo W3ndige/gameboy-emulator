@@ -1,21 +1,181 @@
-.TH "Debugger" 3 "Thu Dec 6 2018" "Gameboy Emulator" \" -*- nroff -*-
+.TH "Debugger" 3 "Fri Dec 7 2018" "Gameboy Emulator" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-Debugger
+Debugger \- Class containing logic behind the debugger\&.  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include <debugger\&.hpp>\fP
 .SS "Public Member Functions"
 
 .in +1c
 .ti -1c
 .RI "\fBDebugger\fP (\fBGameboy\fP &gameboy_state)"
 .br
+.RI "Construct a new \fBDebugger\fP object\&. "
 .ti -1c
 .RI "void \fBDebug\fP ()"
 .br
+.RI "Do the debugging\&. "
 .in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBPrintHelp\fP ()"
+.br
+.RI "Print help\&. "
+.ti -1c
+.RI "void \fBGetInput\fP ()"
+.br
+.RI "Get the input from the user\&. "
+.ti -1c
+.RI "\fBDebuggerCommand\fP \fBParseInput\fP (std::string input)"
+.br
+.RI "Parse the input from the user\&. "
+.ti -1c
+.RI "\fBCommand\fP \fBParseCommand\fP (std::string cmd)"
+.br
+.RI "Parse only command\&. "
+.ti -1c
+.RI "void \fBStepCommand\fP (\fBDebuggerCommand\fP input)"
+.br
+.RI "Step through the program\&. "
+.ti -1c
+.RI "void \fBMemoryCommand\fP (\fBDebuggerCommand\fP input)"
+.br
+.RI "Get the value from memory\&. "
+.ti -1c
+.RI "void \fBStackCommand\fP (\fBDebuggerCommand\fP input)"
+.br
+.RI "Get the value from stack\&. "
+.ti -1c
+.RI "void \fBInfoCommand\fP ()"
+.br
+.RI "Get the info about the program\&. "
+.ti -1c
+.RI "void \fBBreakpointCommand\fP (\fBDebuggerCommand\fP input)"
+.br
+.RI "Set the breakpoint\&. "
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBGameboy\fP & \fBgameboy\fP"
+.br
+.ti -1c
+.RI "\fBDebuggerState\fP \fBstate\fP"
+.br
+.ti -1c
+.RI "\fBDebuggerCommand\fP \fBlast_command\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Class containing logic behind the debugger\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Debugger::Debugger (\fBGameboy\fP & gameboy_state)"
+
+.PP
+Construct a new \fBDebugger\fP object\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIgameboy_state\fP Object of \fBGameboy\fP class\&. 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Debugger::BreakpointCommand (\fBDebuggerCommand\fP input)\fC [private]\fP"
+
+.PP
+Set the breakpoint\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIinput\fP Options of the command\&. 
+.RE
+.PP
+
+.SS "void Debugger::MemoryCommand (\fBDebuggerCommand\fP input)\fC [private]\fP"
+
+.PP
+Get the value from memory\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIinput\fP Options of the command\&. 
+.RE
+.PP
+
+.SS "\fBCommand\fP Debugger::ParseCommand (std::string cmd)\fC [private]\fP"
+
+.PP
+Parse only command\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcmd\fP String containing first part of input\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Command Parsed command\&. 
+.RE
+.PP
+
+.SS "\fBDebuggerCommand\fP Debugger::ParseInput (std::string input)\fC [private]\fP"
+
+.PP
+Parse the input from the user\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIinput\fP Input string\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+\fBDebuggerCommand\fP Structure of parsed command\&. 
+.RE
+.PP
+
+.SS "void Debugger::StackCommand (\fBDebuggerCommand\fP input)\fC [private]\fP"
+
+.PP
+Get the value from stack\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIinput\fP Options of the command\&. 
+.RE
+.PP
+
+.SS "void Debugger::StepCommand (\fBDebuggerCommand\fP input)\fC [private]\fP"
+
+.PP
+Step through the program\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIinput\fP Options of the command\&. 
+.RE
+.PP
+
+.SH "Field Documentation"
+.PP 
+.SS "\fBGameboy\fP& Debugger::gameboy\fC [private]\fP"
+Pointer to gameboy object 
+.SS "\fBDebuggerCommand\fP Debugger::last_command\fC [private]\fP"
+Last command entered 
+.SS "\fBDebuggerState\fP Debugger::state\fC [private]\fP"
+State of the debugger 
 
 .SH "Author"
 .PP 

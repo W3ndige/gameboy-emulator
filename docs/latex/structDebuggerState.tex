@@ -1,25 +1,65 @@
 \hypertarget{structDebuggerState}{}\section{Debugger\+State Struct Reference}
 \label{structDebuggerState}\index{Debugger\+State@{Debugger\+State}}
+
+
+Structure containing information about the state of debugger.  
+
+
+
+
+{\ttfamily \#include $<$debugger.\+hpp$>$}
+
 \subsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{structDebuggerState_a20cdc00f0d9054c48f13fb0312df8884}\label{structDebuggerState_a20cdc00f0d9054c48f13fb0312df8884}} 
-bool {\bfseries debugging}
+bool \mbox{\hyperlink{structDebuggerState_a20cdc00f0d9054c48f13fb0312df8884}{debugging}}
 \item 
-\mbox{\Hypertarget{structDebuggerState_a6639effd05e4732748f00d028147b78f}\label{structDebuggerState_a6639effd05e4732748f00d028147b78f}} 
-bool {\bfseries step\+\_\+set}
+bool \mbox{\hyperlink{structDebuggerState_a6639effd05e4732748f00d028147b78f}{step\+\_\+set}}
 \item 
-\mbox{\Hypertarget{structDebuggerState_a382993246ed27b0778d3069af4868aa5}\label{structDebuggerState_a382993246ed27b0778d3069af4868aa5}} 
-unsigned int {\bfseries stepper\+\_\+count}
+unsigned int \mbox{\hyperlink{structDebuggerState_a382993246ed27b0778d3069af4868aa5}{stepper\+\_\+count}}
 \item 
-\mbox{\Hypertarget{structDebuggerState_a4eeabf35f3cb6144f156a477402b3c5e}\label{structDebuggerState_a4eeabf35f3cb6144f156a477402b3c5e}} 
-bool {\bfseries breakpoint\+\_\+set}
+bool \mbox{\hyperlink{structDebuggerState_a4eeabf35f3cb6144f156a477402b3c5e}{breakpoint\+\_\+set}}
 \item 
-\mbox{\Hypertarget{structDebuggerState_a529202548c7619bed9e4e5bd32bb5ce8}\label{structDebuggerState_a529202548c7619bed9e4e5bd32bb5ce8}} 
-uint16\+\_\+t {\bfseries breakpoint}
+uint16\+\_\+t \mbox{\hyperlink{structDebuggerState_a529202548c7619bed9e4e5bd32bb5ce8}{breakpoint}}
 \end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+Structure containing information about the state of debugger. 
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structDebuggerState_a529202548c7619bed9e4e5bd32bb5ce8}\label{structDebuggerState_a529202548c7619bed9e4e5bd32bb5ce8}} 
+\index{Debugger\+State@{Debugger\+State}!breakpoint@{breakpoint}}
+\index{breakpoint@{breakpoint}!Debugger\+State@{Debugger\+State}}
+\subsubsection{\texorpdfstring{breakpoint}{breakpoint}}
+{\footnotesize\ttfamily uint16\+\_\+t Debugger\+State\+::breakpoint}
+
+Address where to set breakpoint \mbox{\Hypertarget{structDebuggerState_a4eeabf35f3cb6144f156a477402b3c5e}\label{structDebuggerState_a4eeabf35f3cb6144f156a477402b3c5e}} 
+\index{Debugger\+State@{Debugger\+State}!breakpoint\+\_\+set@{breakpoint\+\_\+set}}
+\index{breakpoint\+\_\+set@{breakpoint\+\_\+set}!Debugger\+State@{Debugger\+State}}
+\subsubsection{\texorpdfstring{breakpoint\+\_\+set}{breakpoint\_set}}
+{\footnotesize\ttfamily bool Debugger\+State\+::breakpoint\+\_\+set}
+
+Is breakpoint set \mbox{\Hypertarget{structDebuggerState_a20cdc00f0d9054c48f13fb0312df8884}\label{structDebuggerState_a20cdc00f0d9054c48f13fb0312df8884}} 
+\index{Debugger\+State@{Debugger\+State}!debugging@{debugging}}
+\index{debugging@{debugging}!Debugger\+State@{Debugger\+State}}
+\subsubsection{\texorpdfstring{debugging}{debugging}}
+{\footnotesize\ttfamily bool Debugger\+State\+::debugging}
+
+Is the debugger running \mbox{\Hypertarget{structDebuggerState_a6639effd05e4732748f00d028147b78f}\label{structDebuggerState_a6639effd05e4732748f00d028147b78f}} 
+\index{Debugger\+State@{Debugger\+State}!step\+\_\+set@{step\+\_\+set}}
+\index{step\+\_\+set@{step\+\_\+set}!Debugger\+State@{Debugger\+State}}
+\subsubsection{\texorpdfstring{step\+\_\+set}{step\_set}}
+{\footnotesize\ttfamily bool Debugger\+State\+::step\+\_\+set}
+
+Is stepping set \mbox{\Hypertarget{structDebuggerState_a382993246ed27b0778d3069af4868aa5}\label{structDebuggerState_a382993246ed27b0778d3069af4868aa5}} 
+\index{Debugger\+State@{Debugger\+State}!stepper\+\_\+count@{stepper\+\_\+count}}
+\index{stepper\+\_\+count@{stepper\+\_\+count}!Debugger\+State@{Debugger\+State}}
+\subsubsection{\texorpdfstring{stepper\+\_\+count}{stepper\_count}}
+{\footnotesize\ttfamily unsigned int Debugger\+State\+::stepper\+\_\+count}
+
+How much steps to run 
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-src/gameboy/debugger.\+hpp\end{DoxyCompactItemize}
+src/gameboy/\mbox{\hyperlink{debugger_8hpp}{debugger.\+hpp}}\end{DoxyCompactItemize}

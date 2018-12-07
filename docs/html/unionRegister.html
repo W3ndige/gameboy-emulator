@@ -68,23 +68,73 @@ $(function() {
 <div class="title">Register Union Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Union of 16 bit size, allowing to access lower and higher bits.  
+ <a href="unionRegister.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="cpu_8hpp_source.html">cpu.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:aac323348d1529a834f8b013deecf048c"><td class="memItemLeft" align="right" valign="top"><a id="aac323348d1529a834f8b013deecf048c"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>pair</b></td></tr>
+<tr class="memitem:aac323348d1529a834f8b013deecf048c"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionRegister.html#aac323348d1529a834f8b013deecf048c">pair</a></td></tr>
 <tr class="separator:aac323348d1529a834f8b013deecf048c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d15b31854b2177c78cc4240849ce47e"><td class="memItemLeft" ><a id="a3d15b31854b2177c78cc4240849ce47e"></a>
 struct {</td></tr>
-<tr class="memitem:a7bd85adbc8316b95426a39a4c4dede42"><td class="memItemLeft" >
-&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<b>low</b></td></tr>
+<tr class="memitem:a7bd85adbc8316b95426a39a4c4dede42"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="unionRegister.html#ab3de0c995f96ded882a98602123a2d0a">low</a></td></tr>
 <tr class="separator:a7bd85adbc8316b95426a39a4c4dede42"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cdb48f9294f1535fb47b47c1ca6b032"><td class="memItemLeft" >
-&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<b>high</b></td></tr>
+<tr class="memitem:a8cdb48f9294f1535fb47b47c1ca6b032"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="unionRegister.html#a65679413f32b134cc09b07783a772c75">high</a></td></tr>
 <tr class="separator:a8cdb48f9294f1535fb47b47c1ca6b032"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d15b31854b2177c78cc4240849ce47e"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 <tr class="separator:a3d15b31854b2177c78cc4240849ce47e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Union of 16 bit size, allowing to access lower and higher bits. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a id="a65679413f32b134cc09b07783a772c75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65679413f32b134cc09b07783a772c75">&#9670;&nbsp;</a></span>high</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Register::high</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Higher 8 bits of register </p>
+
+</div>
+</div>
+<a id="ab3de0c995f96ded882a98602123a2d0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3de0c995f96ded882a98602123a2d0a">&#9670;&nbsp;</a></span>low</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Register::low</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Lower 8 bits of regiser </p>
+
+</div>
+</div>
+<a id="aac323348d1529a834f8b013deecf048c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac323348d1529a834f8b013deecf048c">&#9670;&nbsp;</a></span>pair</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t Register::pair</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Value of whole register </p>
+
+</div>
+</div>
 <hr/>The documentation for this union was generated from the following file:<ul>
 <li>src/cpu/<a class="el" href="cpu_8hpp_source.html">cpu.hpp</a></li>
 </ul>

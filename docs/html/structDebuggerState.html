@@ -68,25 +68,103 @@ $(function() {
 <div class="title">DebuggerState Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Structure containing information about the state of debugger.  
+ <a href="structDebuggerState.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="debugger_8hpp_source.html">debugger.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a20cdc00f0d9054c48f13fb0312df8884"><td class="memItemLeft" align="right" valign="top"><a id="a20cdc00f0d9054c48f13fb0312df8884"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>debugging</b></td></tr>
+<tr class="memitem:a20cdc00f0d9054c48f13fb0312df8884"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structDebuggerState.html#a20cdc00f0d9054c48f13fb0312df8884">debugging</a></td></tr>
 <tr class="separator:a20cdc00f0d9054c48f13fb0312df8884"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6639effd05e4732748f00d028147b78f"><td class="memItemLeft" align="right" valign="top"><a id="a6639effd05e4732748f00d028147b78f"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>step_set</b></td></tr>
+<tr class="memitem:a6639effd05e4732748f00d028147b78f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structDebuggerState.html#a6639effd05e4732748f00d028147b78f">step_set</a></td></tr>
 <tr class="separator:a6639effd05e4732748f00d028147b78f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a382993246ed27b0778d3069af4868aa5"><td class="memItemLeft" align="right" valign="top"><a id="a382993246ed27b0778d3069af4868aa5"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>stepper_count</b></td></tr>
+<tr class="memitem:a382993246ed27b0778d3069af4868aa5"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structDebuggerState.html#a382993246ed27b0778d3069af4868aa5">stepper_count</a></td></tr>
 <tr class="separator:a382993246ed27b0778d3069af4868aa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4eeabf35f3cb6144f156a477402b3c5e"><td class="memItemLeft" align="right" valign="top"><a id="a4eeabf35f3cb6144f156a477402b3c5e"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>breakpoint_set</b></td></tr>
+<tr class="memitem:a4eeabf35f3cb6144f156a477402b3c5e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structDebuggerState.html#a4eeabf35f3cb6144f156a477402b3c5e">breakpoint_set</a></td></tr>
 <tr class="separator:a4eeabf35f3cb6144f156a477402b3c5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a529202548c7619bed9e4e5bd32bb5ce8"><td class="memItemLeft" align="right" valign="top"><a id="a529202548c7619bed9e4e5bd32bb5ce8"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>breakpoint</b></td></tr>
+<tr class="memitem:a529202548c7619bed9e4e5bd32bb5ce8"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structDebuggerState.html#a529202548c7619bed9e4e5bd32bb5ce8">breakpoint</a></td></tr>
 <tr class="separator:a529202548c7619bed9e4e5bd32bb5ce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Structure containing information about the state of debugger. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a id="a529202548c7619bed9e4e5bd32bb5ce8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a529202548c7619bed9e4e5bd32bb5ce8">&#9670;&nbsp;</a></span>breakpoint</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t DebuggerState::breakpoint</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Address where to set breakpoint </p>
+
+</div>
+</div>
+<a id="a4eeabf35f3cb6144f156a477402b3c5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4eeabf35f3cb6144f156a477402b3c5e">&#9670;&nbsp;</a></span>breakpoint_set</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DebuggerState::breakpoint_set</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Is breakpoint set </p>
+
+</div>
+</div>
+<a id="a20cdc00f0d9054c48f13fb0312df8884"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20cdc00f0d9054c48f13fb0312df8884">&#9670;&nbsp;</a></span>debugging</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DebuggerState::debugging</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Is the debugger running </p>
+
+</div>
+</div>
+<a id="a6639effd05e4732748f00d028147b78f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6639effd05e4732748f00d028147b78f">&#9670;&nbsp;</a></span>step_set</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DebuggerState::step_set</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Is stepping set </p>
+
+</div>
+</div>
+<a id="a382993246ed27b0778d3069af4868aa5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a382993246ed27b0778d3069af4868aa5">&#9670;&nbsp;</a></span>stepper_count</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int DebuggerState::stepper_count</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>How much steps to run </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/gameboy/<a class="el" href="debugger_8hpp_source.html">debugger.hpp</a></li>
 </ul>

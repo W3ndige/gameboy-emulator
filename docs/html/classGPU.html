@@ -63,7 +63,9 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">GPU Class Reference</div>  </div>
 </div><!--header-->
@@ -76,7 +78,7 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a18e803c48776e14aa5b04d58a35ec4ac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPU.html#a18e803c48776e14aa5b04d58a35ec4ac">GPU</a> (<a class="el" href="classMemory.html">Memory</a> *mem, <a class="el" href="classCPU.html">CPU</a> *cpu)</td></tr>
+<tr class="memitem:a18e803c48776e14aa5b04d58a35ec4ac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPU.html#a18e803c48776e14aa5b04d58a35ec4ac">GPU</a> (<a class="el" href="classMemory.html">Memory</a> *mem, <a class="el" href="classCPU.html">CPU</a> *<a class="el" href="classGPU.html#ac0e1560d40298f3ae2548af7bb44e67d">cpu</a>)</td></tr>
 <tr class="memdesc:a18e803c48776e14aa5b04d58a35ec4ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classGPU.html" title="Class containing logic of GPU. ">GPU</a> object.  <a href="#a18e803c48776e14aa5b04d58a35ec4ac">More...</a><br /></td></tr>
 <tr class="separator:a18e803c48776e14aa5b04d58a35ec4ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4d153a08d3b9f40e5a8f1634f4a9e78"><td class="memItemLeft" align="right" valign="top"><a id="ac4d153a08d3b9f40e5a8f1634f4a9e78"></a>
@@ -93,6 +95,52 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPU.html#af176f18efc74597769280ecc610daea5">RenderGraphics</a> ()</td></tr>
 <tr class="memdesc:af176f18efc74597769280ecc610daea5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Render graphics to screen with SDL2. <br /></td></tr>
 <tr class="separator:af176f18efc74597769280ecc610daea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a6ecd1a465bf7bf337bd5a68b1f2c534f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPU.html#a6ecd1a465bf7bf337bd5a68b1f2c534f">IsLCDEnabled</a> ()</td></tr>
+<tr class="memdesc:a6ecd1a465bf7bf337bd5a68b1f2c534f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns 0 if the LCD is enabled or 0 if is not.  <a href="#a6ecd1a465bf7bf337bd5a68b1f2c534f">More...</a><br /></td></tr>
+<tr class="separator:a6ecd1a465bf7bf337bd5a68b1f2c534f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a853749a9269520cc960f086073091697"><td class="memItemLeft" align="right" valign="top"><a id="a853749a9269520cc960f086073091697"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPU.html#a853749a9269520cc960f086073091697">SetLCDStatus</a> ()</td></tr>
+<tr class="memdesc:a853749a9269520cc960f086073091697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the status according to memory address 0xFF41. <br /></td></tr>
+<tr class="separator:a853749a9269520cc960f086073091697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b60ee80bc625af7d695338bda4b2729"><td class="memItemLeft" align="right" valign="top"><a id="a6b60ee80bc625af7d695338bda4b2729"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPU.html#a6b60ee80bc625af7d695338bda4b2729">DrawScanLine</a> ()</td></tr>
+<tr class="memdesc:a6b60ee80bc625af7d695338bda4b2729"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decide between drawing background or drawing sprites. <br /></td></tr>
+<tr class="separator:a6b60ee80bc625af7d695338bda4b2729"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a553781176d11209bcd137156c3c885e3"><td class="memItemLeft" align="right" valign="top"><a id="a553781176d11209bcd137156c3c885e3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPU.html#a553781176d11209bcd137156c3c885e3">RenderTiles</a> ()</td></tr>
+<tr class="memdesc:a553781176d11209bcd137156c3c885e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw background according to ROM into the pixels array. <br /></td></tr>
+<tr class="separator:a553781176d11209bcd137156c3c885e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52964b88fff3d7341c965f2fe42dc0c8"><td class="memItemLeft" align="right" valign="top"><a id="a52964b88fff3d7341c965f2fe42dc0c8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPU.html#a52964b88fff3d7341c965f2fe42dc0c8">RenderSprites</a> ()</td></tr>
+<tr class="memdesc:a52964b88fff3d7341c965f2fe42dc0c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw sprites according to ROM into the pixels array. <br /></td></tr>
+<tr class="separator:a52964b88fff3d7341c965f2fe42dc0c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab71b7ac6de12c201a1d90c05590cb858"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPU.html#ab71b7ac6de12c201a1d90c05590cb858">GetColor</a> (uint8_t color_id, uint16_t addrress)</td></tr>
+<tr class="memdesc:ab71b7ac6de12c201a1d90c05590cb858"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the color object according to the palette.  <a href="#ab71b7ac6de12c201a1d90c05590cb858">More...</a><br /></td></tr>
+<tr class="separator:ab71b7ac6de12c201a1d90c05590cb858"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:abf17e918bdde2a603aaaf9e0e1693e89"><td class="memItemLeft" align="right" valign="top">uint32_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPU.html#abf17e918bdde2a603aaaf9e0e1693e89">pixels</a></td></tr>
+<tr class="separator:abf17e918bdde2a603aaaf9e0e1693e89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7d41a21fcc7c1e1ab7e5cca3ac810cb"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; SDL_Window, decltype(&amp;SDL_DestroyWindow)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPU.html#ab7d41a21fcc7c1e1ab7e5cca3ac810cb">window</a></td></tr>
+<tr class="separator:ab7d41a21fcc7c1e1ab7e5cca3ac810cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a166f896881a453e5160a4b33810492e7"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; SDL_Renderer, decltype(&amp;SDL_DestroyRenderer)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPU.html#a166f896881a453e5160a4b33810492e7">renderer</a></td></tr>
+<tr class="separator:a166f896881a453e5160a4b33810492e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08c8831c262733c78b0bbd82488254f6"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; SDL_Texture, decltype(&amp;SDL_DestroyTexture)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPU.html#a08c8831c262733c78b0bbd82488254f6">texture</a></td></tr>
+<tr class="separator:a08c8831c262733c78b0bbd82488254f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad54a548926ae8f782f599339939d3454"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPU.html#ad54a548926ae8f782f599339939d3454">scanline_counter</a></td></tr>
+<tr class="separator:ad54a548926ae8f782f599339939d3454"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a947b1ca9b9a0c9497c3442c35331a476"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPU.html#a947b1ca9b9a0c9497c3442c35331a476">current_mode</a></td></tr>
+<tr class="separator:a947b1ca9b9a0c9497c3442c35331a476"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32558942c706160b5810a5258a7824bb"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPU.html#a32558942c706160b5810a5258a7824bb">current_line</a></td></tr>
+<tr class="separator:a32558942c706160b5810a5258a7824bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ba605ef502ea7adb2bc4335a0817aca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMemory.html">Memory</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPU.html#a6ba605ef502ea7adb2bc4335a0817aca">memory</a></td></tr>
+<tr class="separator:a6ba605ef502ea7adb2bc4335a0817aca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0e1560d40298f3ae2548af7bb44e67d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCPU.html">CPU</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGPU.html#ac0e1560d40298f3ae2548af7bb44e67d">cpu</a></td></tr>
+<tr class="separator:ac0e1560d40298f3ae2548af7bb44e67d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class containing logic of <a class="el" href="classGPU.html" title="Class containing logic of GPU. ">GPU</a>. </p>
@@ -127,7 +175,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mem</td><td>Pointer to <a class="el" href="classMemory.html" title="Class contains memory management unit logic. ">Memory</a> object. </td></tr>
-    <tr><td class="paramname">cpu</td><td>Pointer to <a class="el" href="classCPU.html">CPU</a> object. </td></tr>
+    <tr><td class="paramname">cpu</td><td>Pointer to <a class="el" href="classCPU.html" title="Class containing logic behind the CPU. ">CPU</a> object. </td></tr>
   </table>
   </dd>
 </dl>
@@ -135,6 +183,52 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab71b7ac6de12c201a1d90c05590cb858"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab71b7ac6de12c201a1d90c05590cb858">&#9670;&nbsp;</a></span>GetColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int GPU::GetColor </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>color_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>addrress</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the color object according to the palette. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">color_id</td><td>Color ID to get. </td></tr>
+    <tr><td class="paramname">addrress</td><td>Address of the colour palette. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int Return color. </dd></dl>
+
+</div>
+</div>
 <a id="a712acb0ed0ea3baf05379b26922d43f7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a712acb0ed0ea3baf05379b26922d43f7">&#9670;&nbsp;</a></span>Init()</h2>
 
@@ -157,6 +251,34 @@ false Initialization failed. </dd></dl>
 
 </div>
 </div>
+<a id="a6ecd1a465bf7bf337bd5a68b1f2c534f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ecd1a465bf7bf337bd5a68b1f2c534f">&#9670;&nbsp;</a></span>IsLCDEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int GPU::IsLCDEnabled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns 0 if the LCD is enabled or 0 if is not. </p>
+<dl class="section return"><dt>Returns</dt><dd>int Value of 7-th bit of LCD control register. </dd></dl>
+
+</div>
+</div>
 <a id="af0b1df5eb7c5270a81fc12aebb89e641"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af0b1df5eb7c5270a81fc12aebb89e641">&#9670;&nbsp;</a></span>UpdateGraphics()</h2>
 
@@ -176,10 +298,218 @@ false Initialization failed. </dd></dl>
 <p>Update the <a class="el" href="classGPU.html" title="Class containing logic of GPU. ">GPU</a> during every cycle of emulator. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">cycles</td><td>Value of cycles that were used by last instruction in <a class="el" href="classCPU.html">CPU</a>. </td></tr>
+    <tr><td class="paramname">cycles</td><td>Value of cycles that were used by last instruction in <a class="el" href="classCPU.html" title="Class containing logic behind the CPU. ">CPU</a>. </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="ac0e1560d40298f3ae2548af7bb44e67d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0e1560d40298f3ae2548af7bb44e67d">&#9670;&nbsp;</a></span>cpu</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classCPU.html">CPU</a>* GPU::cpu</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Pointer to <a class="el" href="classCPU.html" title="Class containing logic behind the CPU. ">CPU</a> object </p>
+
+</div>
+</div>
+<a id="a32558942c706160b5810a5258a7824bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32558942c706160b5810a5258a7824bb">&#9670;&nbsp;</a></span>current_line</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t GPU::current_line</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Current line being drawed. </p>
+
+</div>
+</div>
+<a id="a947b1ca9b9a0c9497c3442c35331a476"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a947b1ca9b9a0c9497c3442c35331a476">&#9670;&nbsp;</a></span>current_mode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t GPU::current_mode</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Mode in which <a class="el" href="classGPU.html" title="Class containing logic of GPU. ">GPU</a> is working. </p>
+
+</div>
+</div>
+<a id="a6ba605ef502ea7adb2bc4335a0817aca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ba605ef502ea7adb2bc4335a0817aca">&#9670;&nbsp;</a></span>memory</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMemory.html">Memory</a>* GPU::memory</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Pointer to memory object. </p>
+
+</div>
+</div>
+<a id="abf17e918bdde2a603aaaf9e0e1693e89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf17e918bdde2a603aaaf9e0e1693e89">&#9670;&nbsp;</a></span>pixels</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t* GPU::pixels</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Pointer to an array of pixels </p>
+
+</div>
+</div>
+<a id="a166f896881a453e5160a4b33810492e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a166f896881a453e5160a4b33810492e7">&#9670;&nbsp;</a></span>renderer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;SDL_Renderer, decltype(&amp;SDL_DestroyRenderer)&gt; GPU::renderer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Pointer to SDL_Renderer </p>
+
+</div>
+</div>
+<a id="ad54a548926ae8f782f599339939d3454"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad54a548926ae8f782f599339939d3454">&#9670;&nbsp;</a></span>scanline_counter</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int GPU::scanline_counter</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Counter, when to move to the next line </p>
+
+</div>
+</div>
+<a id="a08c8831c262733c78b0bbd82488254f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08c8831c262733c78b0bbd82488254f6">&#9670;&nbsp;</a></span>texture</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;SDL_Texture, decltype(&amp;SDL_DestroyTexture)&gt; GPU::texture</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Pointer to SDL_Texture </p>
+
+</div>
+</div>
+<a id="ab7d41a21fcc7c1e1ab7e5cca3ac810cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7d41a21fcc7c1e1ab7e5cca3ac810cb">&#9670;&nbsp;</a></span>window</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;SDL_Window, decltype(&amp;SDL_DestroyWindow)&gt; GPU::window</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Pointer to SDL_Window </p>
 
 </div>
 </div>

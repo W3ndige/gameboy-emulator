@@ -1,4 +1,4 @@
-.TH "GPU" 3 "Thu Dec 6 2018" "Gameboy Emulator" \" -*- nroff -*-
+.TH "GPU" 3 "Fri Dec 7 2018" "Gameboy Emulator" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -13,7 +13,7 @@ GPU \- Class containing logic of \fBGPU\fP\&.
 
 .in +1c
 .ti -1c
-.RI "\fBGPU\fP (\fBMemory\fP *mem, \fBCPU\fP *cpu)"
+.RI "\fBGPU\fP (\fBMemory\fP *mem, \fBCPU\fP *\fBcpu\fP)"
 .br
 .RI "Construct a new \fBGPU\fP object\&. "
 .ti -1c
@@ -32,6 +32,65 @@ GPU \- Class containing logic of \fBGPU\fP\&.
 .RI "void \fBRenderGraphics\fP ()"
 .br
 .RI "Render graphics to screen with SDL2\&. "
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBIsLCDEnabled\fP ()"
+.br
+.RI "Returns 0 if the LCD is enabled or 0 if is not\&. "
+.ti -1c
+.RI "void \fBSetLCDStatus\fP ()"
+.br
+.RI "Set the status according to memory address 0xFF41\&. "
+.ti -1c
+.RI "void \fBDrawScanLine\fP ()"
+.br
+.RI "Decide between drawing background or drawing sprites\&. "
+.ti -1c
+.RI "void \fBRenderTiles\fP ()"
+.br
+.RI "Draw background according to ROM into the pixels array\&. "
+.ti -1c
+.RI "void \fBRenderSprites\fP ()"
+.br
+.RI "Draw sprites according to ROM into the pixels array\&. "
+.ti -1c
+.RI "int \fBGetColor\fP (uint8_t color_id, uint16_t addrress)"
+.br
+.RI "Get the color object according to the palette\&. "
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "uint32_t * \fBpixels\fP"
+.br
+.ti -1c
+.RI "std::unique_ptr< SDL_Window, decltype(&SDL_DestroyWindow)> \fBwindow\fP"
+.br
+.ti -1c
+.RI "std::unique_ptr< SDL_Renderer, decltype(&SDL_DestroyRenderer)> \fBrenderer\fP"
+.br
+.ti -1c
+.RI "std::unique_ptr< SDL_Texture, decltype(&SDL_DestroyTexture)> \fBtexture\fP"
+.br
+.ti -1c
+.RI "int \fBscanline_counter\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBcurrent_mode\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBcurrent_line\fP"
+.br
+.ti -1c
+.RI "\fBMemory\fP * \fBmemory\fP"
+.br
+.ti -1c
+.RI "\fBCPU\fP * \fBcpu\fP"
+.br
 .in -1c
 .SH "Detailed Description"
 .PP 
@@ -53,6 +112,24 @@ Construct a new \fBGPU\fP object\&.
 
 .SH "Member Function Documentation"
 .PP 
+.SS "int GPU::GetColor (uint8_t color_id, uint16_t addrress)\fC [private]\fP"
+
+.PP
+Get the color object according to the palette\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcolor_id\fP Color ID to get\&. 
+.br
+\fIaddrress\fP Address of the colour palette\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+int Return color\&. 
+.RE
+.PP
+
 .SS "bool GPU::Init ()"
 
 .PP
@@ -63,6 +140,17 @@ Initialize the values in \fBGPU\fP\&.
 true Initialization succeed\&. 
 .PP
 false Initialization failed\&. 
+.RE
+.PP
+
+.SS "int GPU::IsLCDEnabled ()\fC [private]\fP"
+
+.PP
+Returns 0 if the LCD is enabled or 0 if is not\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+int Value of 7-th bit of LCD control register\&. 
 .RE
 .PP
 
@@ -77,6 +165,26 @@ Update the \fBGPU\fP during every cycle of emulator\&.
 .RE
 .PP
 
+.SH "Field Documentation"
+.PP 
+.SS "\fBCPU\fP* GPU::cpu\fC [private]\fP"
+Pointer to \fBCPU\fP object 
+.SS "uint8_t GPU::current_line\fC [private]\fP"
+Current line being drawed\&. 
+.SS "uint8_t GPU::current_mode\fC [private]\fP"
+Mode in which \fBGPU\fP is working\&. 
+.SS "\fBMemory\fP* GPU::memory\fC [private]\fP"
+Pointer to memory object\&. 
+.SS "uint32_t* GPU::pixels\fC [private]\fP"
+Pointer to an array of pixels 
+.SS "std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> GPU::renderer\fC [private]\fP"
+Pointer to SDL_Renderer 
+.SS "int GPU::scanline_counter\fC [private]\fP"
+Counter, when to move to the next line 
+.SS "std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> GPU::texture\fC [private]\fP"
+Pointer to SDL_Texture 
+.SS "std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> GPU::window\fC [private]\fP"
+Pointer to SDL_Window 
 
 .SH "Author"
 .PP 

@@ -63,21 +63,377 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">Debugger Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Class containing logic behind the debugger.  
+ <a href="classDebugger.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="debugger_8hpp_source.html">debugger.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a75b2a03d64e618c422e5082b39c5dc73"><td class="memItemLeft" align="right" valign="top"><a id="a75b2a03d64e618c422e5082b39c5dc73"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Debugger</b> (<a class="el" href="classGameboy.html">Gameboy</a> &amp;gameboy_state)</td></tr>
+<tr class="memitem:a75b2a03d64e618c422e5082b39c5dc73"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDebugger.html#a75b2a03d64e618c422e5082b39c5dc73">Debugger</a> (<a class="el" href="classGameboy.html">Gameboy</a> &amp;gameboy_state)</td></tr>
+<tr class="memdesc:a75b2a03d64e618c422e5082b39c5dc73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classDebugger.html" title="Class containing logic behind the debugger. ">Debugger</a> object.  <a href="#a75b2a03d64e618c422e5082b39c5dc73">More...</a><br /></td></tr>
 <tr class="separator:a75b2a03d64e618c422e5082b39c5dc73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c735f679f4e5195a976432156a9d9b1"><td class="memItemLeft" align="right" valign="top"><a id="a1c735f679f4e5195a976432156a9d9b1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Debug</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDebugger.html#a1c735f679f4e5195a976432156a9d9b1">Debug</a> ()</td></tr>
+<tr class="memdesc:a1c735f679f4e5195a976432156a9d9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Do the debugging. <br /></td></tr>
 <tr class="separator:a1c735f679f4e5195a976432156a9d9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ae66b0dfadc7193b527b7043227d9305d"><td class="memItemLeft" align="right" valign="top"><a id="ae66b0dfadc7193b527b7043227d9305d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDebugger.html#ae66b0dfadc7193b527b7043227d9305d">PrintHelp</a> ()</td></tr>
+<tr class="memdesc:ae66b0dfadc7193b527b7043227d9305d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print help. <br /></td></tr>
+<tr class="separator:ae66b0dfadc7193b527b7043227d9305d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa0e1715ca58184a633246d14f0a30a1"><td class="memItemLeft" align="right" valign="top"><a id="aaa0e1715ca58184a633246d14f0a30a1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDebugger.html#aaa0e1715ca58184a633246d14f0a30a1">GetInput</a> ()</td></tr>
+<tr class="memdesc:aaa0e1715ca58184a633246d14f0a30a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the input from the user. <br /></td></tr>
+<tr class="separator:aaa0e1715ca58184a633246d14f0a30a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e9ec9c48ced49c1b6ee3ca269b52511"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structDebuggerCommand.html">DebuggerCommand</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDebugger.html#a3e9ec9c48ced49c1b6ee3ca269b52511">ParseInput</a> (std::string input)</td></tr>
+<tr class="memdesc:a3e9ec9c48ced49c1b6ee3ca269b52511"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse the input from the user.  <a href="#a3e9ec9c48ced49c1b6ee3ca269b52511">More...</a><br /></td></tr>
+<tr class="separator:a3e9ec9c48ced49c1b6ee3ca269b52511"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b76c1eed577ef8e338073f8fc980d83"><td class="memItemLeft" align="right" valign="top"><a class="el" href="debugger_8hpp.html#a2afce0a47a93eee73a314d53e4890153">Command</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDebugger.html#a3b76c1eed577ef8e338073f8fc980d83">ParseCommand</a> (std::string cmd)</td></tr>
+<tr class="memdesc:a3b76c1eed577ef8e338073f8fc980d83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse only command.  <a href="#a3b76c1eed577ef8e338073f8fc980d83">More...</a><br /></td></tr>
+<tr class="separator:a3b76c1eed577ef8e338073f8fc980d83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a085572c1d390deeb33240dc36a4b9254"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDebugger.html#a085572c1d390deeb33240dc36a4b9254">StepCommand</a> (<a class="el" href="structDebuggerCommand.html">DebuggerCommand</a> input)</td></tr>
+<tr class="memdesc:a085572c1d390deeb33240dc36a4b9254"><td class="mdescLeft">&#160;</td><td class="mdescRight">Step through the program.  <a href="#a085572c1d390deeb33240dc36a4b9254">More...</a><br /></td></tr>
+<tr class="separator:a085572c1d390deeb33240dc36a4b9254"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8888a358dba262eaf7cc3f6d10b1acc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDebugger.html#af8888a358dba262eaf7cc3f6d10b1acc">MemoryCommand</a> (<a class="el" href="structDebuggerCommand.html">DebuggerCommand</a> input)</td></tr>
+<tr class="memdesc:af8888a358dba262eaf7cc3f6d10b1acc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value from memory.  <a href="#af8888a358dba262eaf7cc3f6d10b1acc">More...</a><br /></td></tr>
+<tr class="separator:af8888a358dba262eaf7cc3f6d10b1acc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad97d4a2bee23dd11e8a019caecbd298e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDebugger.html#ad97d4a2bee23dd11e8a019caecbd298e">StackCommand</a> (<a class="el" href="structDebuggerCommand.html">DebuggerCommand</a> input)</td></tr>
+<tr class="memdesc:ad97d4a2bee23dd11e8a019caecbd298e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value from stack.  <a href="#ad97d4a2bee23dd11e8a019caecbd298e">More...</a><br /></td></tr>
+<tr class="separator:ad97d4a2bee23dd11e8a019caecbd298e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa3ecb5e02221af361ffb85f86a59f00"><td class="memItemLeft" align="right" valign="top"><a id="aaa3ecb5e02221af361ffb85f86a59f00"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDebugger.html#aaa3ecb5e02221af361ffb85f86a59f00">InfoCommand</a> ()</td></tr>
+<tr class="memdesc:aaa3ecb5e02221af361ffb85f86a59f00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the info about the program. <br /></td></tr>
+<tr class="separator:aaa3ecb5e02221af361ffb85f86a59f00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d57cbb879d3fdb6f000e220acd3623c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDebugger.html#a6d57cbb879d3fdb6f000e220acd3623c">BreakpointCommand</a> (<a class="el" href="structDebuggerCommand.html">DebuggerCommand</a> input)</td></tr>
+<tr class="memdesc:a6d57cbb879d3fdb6f000e220acd3623c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the breakpoint.  <a href="#a6d57cbb879d3fdb6f000e220acd3623c">More...</a><br /></td></tr>
+<tr class="separator:a6d57cbb879d3fdb6f000e220acd3623c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:aecbc0ccbcf7cbd8d36724edd5b5352ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classGameboy.html">Gameboy</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDebugger.html#aecbc0ccbcf7cbd8d36724edd5b5352ea">gameboy</a></td></tr>
+<tr class="separator:aecbc0ccbcf7cbd8d36724edd5b5352ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e0c85871a95c23bf1141c2fd86fc798"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structDebuggerState.html">DebuggerState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDebugger.html#a3e0c85871a95c23bf1141c2fd86fc798">state</a></td></tr>
+<tr class="separator:a3e0c85871a95c23bf1141c2fd86fc798"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a115609b27926527f02ba9edcc4290669"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structDebuggerCommand.html">DebuggerCommand</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDebugger.html#a115609b27926527f02ba9edcc4290669">last_command</a></td></tr>
+<tr class="separator:a115609b27926527f02ba9edcc4290669"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class containing logic behind the debugger. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a75b2a03d64e618c422e5082b39c5dc73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75b2a03d64e618c422e5082b39c5dc73">&#9670;&nbsp;</a></span>Debugger()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Debugger::Debugger </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classGameboy.html">Gameboy</a> &amp;&#160;</td>
+          <td class="paramname"><em>gameboy_state</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="classDebugger.html" title="Class containing logic behind the debugger. ">Debugger</a> object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gameboy_state</td><td>Object of <a class="el" href="classGameboy.html" title="Class connecting all of the components of Gameboy. ">Gameboy</a> class. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6d57cbb879d3fdb6f000e220acd3623c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d57cbb879d3fdb6f000e220acd3623c">&#9670;&nbsp;</a></span>BreakpointCommand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Debugger::BreakpointCommand </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDebuggerCommand.html">DebuggerCommand</a>&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the breakpoint. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>Options of the command. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af8888a358dba262eaf7cc3f6d10b1acc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8888a358dba262eaf7cc3f6d10b1acc">&#9670;&nbsp;</a></span>MemoryCommand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Debugger::MemoryCommand </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDebuggerCommand.html">DebuggerCommand</a>&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the value from memory. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>Options of the command. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3b76c1eed577ef8e338073f8fc980d83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b76c1eed577ef8e338073f8fc980d83">&#9670;&nbsp;</a></span>ParseCommand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="debugger_8hpp.html#a2afce0a47a93eee73a314d53e4890153">Command</a> Debugger::ParseCommand </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>cmd</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Parse only command. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmd</td><td>String containing first part of input. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Command Parsed command. </dd></dl>
+
+</div>
+</div>
+<a id="a3e9ec9c48ced49c1b6ee3ca269b52511"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e9ec9c48ced49c1b6ee3ca269b52511">&#9670;&nbsp;</a></span>ParseInput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structDebuggerCommand.html">DebuggerCommand</a> Debugger::ParseInput </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Parse the input from the user. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>Input string. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structDebuggerCommand.html" title="Structure containing parsed debugger command. ">DebuggerCommand</a> Structure of parsed command. </dd></dl>
+
+</div>
+</div>
+<a id="ad97d4a2bee23dd11e8a019caecbd298e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad97d4a2bee23dd11e8a019caecbd298e">&#9670;&nbsp;</a></span>StackCommand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Debugger::StackCommand </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDebuggerCommand.html">DebuggerCommand</a>&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the value from stack. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>Options of the command. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a085572c1d390deeb33240dc36a4b9254"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a085572c1d390deeb33240dc36a4b9254">&#9670;&nbsp;</a></span>StepCommand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Debugger::StepCommand </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDebuggerCommand.html">DebuggerCommand</a>&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Step through the program. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>Options of the command. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="aecbc0ccbcf7cbd8d36724edd5b5352ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecbc0ccbcf7cbd8d36724edd5b5352ea">&#9670;&nbsp;</a></span>gameboy</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classGameboy.html">Gameboy</a>&amp; Debugger::gameboy</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Pointer to gameboy object </p>
+
+</div>
+</div>
+<a id="a115609b27926527f02ba9edcc4290669"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a115609b27926527f02ba9edcc4290669">&#9670;&nbsp;</a></span>last_command</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structDebuggerCommand.html">DebuggerCommand</a> Debugger::last_command</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Last command entered </p>
+
+</div>
+</div>
+<a id="a3e0c85871a95c23bf1141c2fd86fc798"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e0c85871a95c23bf1141c2fd86fc798">&#9670;&nbsp;</a></span>state</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structDebuggerState.html">DebuggerState</a> Debugger::state</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>State of the debugger </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/gameboy/<a class="el" href="debugger_8hpp_source.html">debugger.hpp</a></li>
 <li>src/gameboy/debugger.cpp</li>

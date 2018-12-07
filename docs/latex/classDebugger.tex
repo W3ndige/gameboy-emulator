@@ -1,17 +1,199 @@
 \hypertarget{classDebugger}{}\section{Debugger Class Reference}
 \label{classDebugger}\index{Debugger@{Debugger}}
+
+
+Class containing logic behind the debugger.  
+
+
+
+
+{\ttfamily \#include $<$debugger.\+hpp$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classDebugger_a75b2a03d64e618c422e5082b39c5dc73}\label{classDebugger_a75b2a03d64e618c422e5082b39c5dc73}} 
-{\bfseries Debugger} (\mbox{\hyperlink{classGameboy}{Gameboy}} \&gameboy\+\_\+state)
-\item 
+\mbox{\hyperlink{classDebugger_a75b2a03d64e618c422e5082b39c5dc73}{Debugger}} (\mbox{\hyperlink{classGameboy}{Gameboy}} \&gameboy\+\_\+state)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classDebugger}{Debugger}} object. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classDebugger_a1c735f679f4e5195a976432156a9d9b1}\label{classDebugger_a1c735f679f4e5195a976432156a9d9b1}} 
-void {\bfseries Debug} ()
+void \mbox{\hyperlink{classDebugger_a1c735f679f4e5195a976432156a9d9b1}{Debug}} ()
+\begin{DoxyCompactList}\small\item\em Do the debugging. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDebugger_ae66b0dfadc7193b527b7043227d9305d}\label{classDebugger_ae66b0dfadc7193b527b7043227d9305d}} 
+void \mbox{\hyperlink{classDebugger_ae66b0dfadc7193b527b7043227d9305d}{Print\+Help}} ()
+\begin{DoxyCompactList}\small\item\em Print help. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDebugger_aaa0e1715ca58184a633246d14f0a30a1}\label{classDebugger_aaa0e1715ca58184a633246d14f0a30a1}} 
+void \mbox{\hyperlink{classDebugger_aaa0e1715ca58184a633246d14f0a30a1}{Get\+Input}} ()
+\begin{DoxyCompactList}\small\item\em Get the input from the user. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structDebuggerCommand}{Debugger\+Command}} \mbox{\hyperlink{classDebugger_a3e9ec9c48ced49c1b6ee3ca269b52511}{Parse\+Input}} (std\+::string input)
+\begin{DoxyCompactList}\small\item\em Parse the input from the user. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153}{Command}} \mbox{\hyperlink{classDebugger_a3b76c1eed577ef8e338073f8fc980d83}{Parse\+Command}} (std\+::string cmd)
+\begin{DoxyCompactList}\small\item\em Parse only command. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDebugger_a085572c1d390deeb33240dc36a4b9254}{Step\+Command}} (\mbox{\hyperlink{structDebuggerCommand}{Debugger\+Command}} input)
+\begin{DoxyCompactList}\small\item\em Step through the program. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDebugger_af8888a358dba262eaf7cc3f6d10b1acc}{Memory\+Command}} (\mbox{\hyperlink{structDebuggerCommand}{Debugger\+Command}} input)
+\begin{DoxyCompactList}\small\item\em Get the value from memory. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDebugger_ad97d4a2bee23dd11e8a019caecbd298e}{Stack\+Command}} (\mbox{\hyperlink{structDebuggerCommand}{Debugger\+Command}} input)
+\begin{DoxyCompactList}\small\item\em Get the value from stack. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDebugger_aaa3ecb5e02221af361ffb85f86a59f00}\label{classDebugger_aaa3ecb5e02221af361ffb85f86a59f00}} 
+void \mbox{\hyperlink{classDebugger_aaa3ecb5e02221af361ffb85f86a59f00}{Info\+Command}} ()
+\begin{DoxyCompactList}\small\item\em Get the info about the program. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDebugger_a6d57cbb879d3fdb6f000e220acd3623c}{Breakpoint\+Command}} (\mbox{\hyperlink{structDebuggerCommand}{Debugger\+Command}} input)
+\begin{DoxyCompactList}\small\item\em Set the breakpoint. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGameboy}{Gameboy}} \& \mbox{\hyperlink{classDebugger_aecbc0ccbcf7cbd8d36724edd5b5352ea}{gameboy}}
+\item 
+\mbox{\hyperlink{structDebuggerState}{Debugger\+State}} \mbox{\hyperlink{classDebugger_a3e0c85871a95c23bf1141c2fd86fc798}{state}}
+\item 
+\mbox{\hyperlink{structDebuggerCommand}{Debugger\+Command}} \mbox{\hyperlink{classDebugger_a115609b27926527f02ba9edcc4290669}{last\+\_\+command}}
 \end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+Class containing logic behind the debugger. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classDebugger_a75b2a03d64e618c422e5082b39c5dc73}\label{classDebugger_a75b2a03d64e618c422e5082b39c5dc73}} 
+\index{Debugger@{Debugger}!Debugger@{Debugger}}
+\index{Debugger@{Debugger}!Debugger@{Debugger}}
+\subsubsection{\texorpdfstring{Debugger()}{Debugger()}}
+{\footnotesize\ttfamily Debugger\+::\+Debugger (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGameboy}{Gameboy}} \&}]{gameboy\+\_\+state }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{classDebugger}{Debugger}} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gameboy\+\_\+state} & Object of \mbox{\hyperlink{classGameboy}{Gameboy}} class. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classDebugger_a6d57cbb879d3fdb6f000e220acd3623c}\label{classDebugger_a6d57cbb879d3fdb6f000e220acd3623c}} 
+\index{Debugger@{Debugger}!Breakpoint\+Command@{Breakpoint\+Command}}
+\index{Breakpoint\+Command@{Breakpoint\+Command}!Debugger@{Debugger}}
+\subsubsection{\texorpdfstring{Breakpoint\+Command()}{BreakpointCommand()}}
+{\footnotesize\ttfamily void Debugger\+::\+Breakpoint\+Command (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDebuggerCommand}{Debugger\+Command}}}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Set the breakpoint. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & Options of the command. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDebugger_af8888a358dba262eaf7cc3f6d10b1acc}\label{classDebugger_af8888a358dba262eaf7cc3f6d10b1acc}} 
+\index{Debugger@{Debugger}!Memory\+Command@{Memory\+Command}}
+\index{Memory\+Command@{Memory\+Command}!Debugger@{Debugger}}
+\subsubsection{\texorpdfstring{Memory\+Command()}{MemoryCommand()}}
+{\footnotesize\ttfamily void Debugger\+::\+Memory\+Command (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDebuggerCommand}{Debugger\+Command}}}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Get the value from memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & Options of the command. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDebugger_a3b76c1eed577ef8e338073f8fc980d83}\label{classDebugger_a3b76c1eed577ef8e338073f8fc980d83}} 
+\index{Debugger@{Debugger}!Parse\+Command@{Parse\+Command}}
+\index{Parse\+Command@{Parse\+Command}!Debugger@{Debugger}}
+\subsubsection{\texorpdfstring{Parse\+Command()}{ParseCommand()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{debugger_8hpp_a2afce0a47a93eee73a314d53e4890153}{Command}} Debugger\+::\+Parse\+Command (\begin{DoxyParamCaption}\item[{std\+::string}]{cmd }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Parse only command. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd} & String containing first part of input. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Command Parsed command. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDebugger_a3e9ec9c48ced49c1b6ee3ca269b52511}\label{classDebugger_a3e9ec9c48ced49c1b6ee3ca269b52511}} 
+\index{Debugger@{Debugger}!Parse\+Input@{Parse\+Input}}
+\index{Parse\+Input@{Parse\+Input}!Debugger@{Debugger}}
+\subsubsection{\texorpdfstring{Parse\+Input()}{ParseInput()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structDebuggerCommand}{Debugger\+Command}} Debugger\+::\+Parse\+Input (\begin{DoxyParamCaption}\item[{std\+::string}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Parse the input from the user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & Input string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{structDebuggerCommand}{Debugger\+Command}} Structure of parsed command. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDebugger_ad97d4a2bee23dd11e8a019caecbd298e}\label{classDebugger_ad97d4a2bee23dd11e8a019caecbd298e}} 
+\index{Debugger@{Debugger}!Stack\+Command@{Stack\+Command}}
+\index{Stack\+Command@{Stack\+Command}!Debugger@{Debugger}}
+\subsubsection{\texorpdfstring{Stack\+Command()}{StackCommand()}}
+{\footnotesize\ttfamily void Debugger\+::\+Stack\+Command (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDebuggerCommand}{Debugger\+Command}}}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Get the value from stack. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & Options of the command. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDebugger_a085572c1d390deeb33240dc36a4b9254}\label{classDebugger_a085572c1d390deeb33240dc36a4b9254}} 
+\index{Debugger@{Debugger}!Step\+Command@{Step\+Command}}
+\index{Step\+Command@{Step\+Command}!Debugger@{Debugger}}
+\subsubsection{\texorpdfstring{Step\+Command()}{StepCommand()}}
+{\footnotesize\ttfamily void Debugger\+::\+Step\+Command (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDebuggerCommand}{Debugger\+Command}}}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Step through the program. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & Options of the command. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{classDebugger_aecbc0ccbcf7cbd8d36724edd5b5352ea}\label{classDebugger_aecbc0ccbcf7cbd8d36724edd5b5352ea}} 
+\index{Debugger@{Debugger}!gameboy@{gameboy}}
+\index{gameboy@{gameboy}!Debugger@{Debugger}}
+\subsubsection{\texorpdfstring{gameboy}{gameboy}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGameboy}{Gameboy}}\& Debugger\+::gameboy\hspace{0.3cm}{\ttfamily [private]}}
+
+Pointer to gameboy object \mbox{\Hypertarget{classDebugger_a115609b27926527f02ba9edcc4290669}\label{classDebugger_a115609b27926527f02ba9edcc4290669}} 
+\index{Debugger@{Debugger}!last\+\_\+command@{last\+\_\+command}}
+\index{last\+\_\+command@{last\+\_\+command}!Debugger@{Debugger}}
+\subsubsection{\texorpdfstring{last\+\_\+command}{last\_command}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structDebuggerCommand}{Debugger\+Command}} Debugger\+::last\+\_\+command\hspace{0.3cm}{\ttfamily [private]}}
+
+Last command entered \mbox{\Hypertarget{classDebugger_a3e0c85871a95c23bf1141c2fd86fc798}\label{classDebugger_a3e0c85871a95c23bf1141c2fd86fc798}} 
+\index{Debugger@{Debugger}!state@{state}}
+\index{state@{state}!Debugger@{Debugger}}
+\subsubsection{\texorpdfstring{state}{state}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structDebuggerState}{Debugger\+State}} Debugger\+::state\hspace{0.3cm}{\ttfamily [private]}}
+
+State of the debugger 
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-src/gameboy/debugger.\+hpp\item 
+src/gameboy/\mbox{\hyperlink{debugger_8hpp}{debugger.\+hpp}}\item 
 src/gameboy/debugger.\+cpp\end{DoxyCompactItemize}

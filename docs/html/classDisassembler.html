@@ -63,21 +63,89 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">Disassembler Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Class containing disassembler logic.  
+ <a href="classDisassembler.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="disassembler_8hpp_source.html">disassembler.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a569452759a1a0ae0ca52c0bb0d451c46"><td class="memItemLeft" align="right" valign="top"><a id="a569452759a1a0ae0ca52c0bb0d451c46"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>Init</b> (std::string rom_file)</td></tr>
+<tr class="memitem:a569452759a1a0ae0ca52c0bb0d451c46"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDisassembler.html#a569452759a1a0ae0ca52c0bb0d451c46">Init</a> (std::string rom_file)</td></tr>
+<tr class="memdesc:a569452759a1a0ae0ca52c0bb0d451c46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the disassembler.  <a href="#a569452759a1a0ae0ca52c0bb0d451c46">More...</a><br /></td></tr>
 <tr class="separator:a569452759a1a0ae0ca52c0bb0d451c46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7dbc8f55be4a05749bf94a93d3e44d85"><td class="memItemLeft" align="right" valign="top"><a id="a7dbc8f55be4a05749bf94a93d3e44d85"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Disassemble</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDisassembler.html#a7dbc8f55be4a05749bf94a93d3e44d85">Disassemble</a> ()</td></tr>
+<tr class="memdesc:a7dbc8f55be4a05749bf94a93d3e44d85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disassemble to ROM file. <br /></td></tr>
 <tr class="separator:a7dbc8f55be4a05749bf94a93d3e44d85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a190fc196a73e182f4d9b8292290196c0"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDisassembler.html#a190fc196a73e182f4d9b8292290196c0">memory</a> [0x8000]</td></tr>
+<tr class="separator:a190fc196a73e182f4d9b8292290196c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class containing disassembler logic. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a569452759a1a0ae0ca52c0bb0d451c46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a569452759a1a0ae0ca52c0bb0d451c46">&#9670;&nbsp;</a></span>Init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Disassembler::Init </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>rom_file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize the disassembler. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rom_file</td><td>Name of the ROM to disassemble. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true Initialization sucedeed. </dd>
+<dd>
+false Iniitalization failed. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="a190fc196a73e182f4d9b8292290196c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a190fc196a73e182f4d9b8292290196c0">&#9670;&nbsp;</a></span>memory</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Disassembler::memory[0x8000]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p><a class="el" href="classMemory.html" title="Class contains memory management unit logic. ">Memory</a> array </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/gameboy/<a class="el" href="disassembler_8hpp_source.html">disassembler.hpp</a></li>
 <li>src/gameboy/disassembler.cpp</li>

@@ -1,19 +1,59 @@
-.TH "Gameboy" 3 "Thu Dec 6 2018" "Gameboy Emulator" \" -*- nroff -*-
+.TH "Gameboy" 3 "Fri Dec 7 2018" "Gameboy Emulator" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-Gameboy
+Gameboy \- Class connecting all of the components of \fBGameboy\fP\&.  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include <gameboy\&.hpp>\fP
 .SS "Public Member Functions"
 
 .in +1c
 .ti -1c
 .RI "\fBGameboy\fP (bool debug, bool without_boot, bool exit_on_inifite, std::string rom_file)"
 .br
+.RI "Construct a new \fBGameboy\fP object\&. "
 .ti -1c
 .RI "void \fBLoop\fP ()"
+.br
+.RI "Main program loop, checks for events, emulates and renders\&. "
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBEmulate\fP ()"
+.br
+.RI "Emulate the logic\&. "
+.ti -1c
+.RI "void \fBSetKeyPressed\fP (int key)"
+.br
+.RI "Set the Key Pressed object\&. "
+.ti -1c
+.RI "void \fBSetKeyReleased\fP (int key)"
+.br
+.RI "Set the Key Released object\&. "
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBMemory\fP \fBmemory\fP"
+.br
+.ti -1c
+.RI "\fBCPU\fP \fBcpu\fP"
+.br
+.ti -1c
+.RI "\fBGPU\fP \fBgpu\fP"
+.br
+.ti -1c
+.RI "bool \fBdebugging\fP"
+.br
+.ti -1c
+.RI "\fBDebugger\fP \fBdebugger\fP"
 .br
 .in -1c
 .SS "Friends"
@@ -23,6 +63,68 @@ Gameboy
 .RI "class \fBDebugger\fP"
 .br
 .in -1c
+.SH "Detailed Description"
+.PP 
+Class connecting all of the components of \fBGameboy\fP\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Gameboy::Gameboy (bool debug, bool without_boot, bool exit_on_inifite, std::string rom_file)"
+
+.PP
+Construct a new \fBGameboy\fP object\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdebug\fP Flag to run the debugger\&. 
+.br
+\fIwithout_boot\fP Flag to run without booting\&. 
+.br
+\fIexit_on_inifite\fP Flag to exit on inifite loop\&. 
+.br
+\fIrom_file\fP Name of ROM file to run\&. 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Gameboy::SetKeyPressed (int key)\fC [private]\fP"
+
+.PP
+Set the Key Pressed object\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIkey\fP Number of key that was pressed\&. 
+.RE
+.PP
+
+.SS "void Gameboy::SetKeyReleased (int key)\fC [private]\fP"
+
+.PP
+Set the Key Released object\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIkey\fP Number of key that was released\&. 
+.RE
+.PP
+
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "friend class \fBDebugger\fP\fC [friend]\fP"
+Friend class of debugger 
+.SH "Field Documentation"
+.PP 
+.SS "\fBCPU\fP Gameboy::cpu\fC [private]\fP"
+\fBCPU\fP object 
+.SS "\fBDebugger\fP Gameboy::debugger\fC [private]\fP"
+\fBDebugger\fP object 
+.SS "bool Gameboy::debugging\fC [private]\fP"
+Flag to check debugger ir ran\&. 
+.SS "\fBGPU\fP Gameboy::gpu\fC [private]\fP"
+\fBGPU\fP object 
+.SS "\fBMemory\fP Gameboy::memory\fC [private]\fP"
+\fBMemory\fP object 
 
 .SH "Author"
 .PP 

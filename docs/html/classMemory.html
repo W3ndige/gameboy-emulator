@@ -64,7 +64,9 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Data Fields</a>  </div>
+<a href="#pub-attribs">Data Fields</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">Memory Class Reference</div>  </div>
 </div><!--header-->
@@ -124,10 +126,90 @@ Data Fields</h2></td></tr>
 <tr class="separator:a2f955513866ad9611418411e921ac120"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6459c5b106a92a3f24673a3448a1bab0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structCartidgeHeader.html">CartidgeHeader</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMemory.html#a6459c5b106a92a3f24673a3448a1bab0">cartridge_header</a></td></tr>
 <tr class="separator:a6459c5b106a92a3f24673a3448a1bab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ac486b5f70a08fc36bbda8e101e4ab635"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMemory.html#ac486b5f70a08fc36bbda8e101e4ab635">DMATransfer</a> (uint8_t data)</td></tr>
+<tr class="memdesc:ac486b5f70a08fc36bbda8e101e4ab635"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read sprite RAM between memory adddress 0xFE00-0xFE9F.  <a href="#ac486b5f70a08fc36bbda8e101e4ab635">More...</a><br /></td></tr>
+<tr class="separator:ac486b5f70a08fc36bbda8e101e4ab635"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10b757f7584012b719b3c81aa2688858"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMemory.html#a10b757f7584012b719b3c81aa2688858">GetJoypadState</a> ()</td></tr>
+<tr class="memdesc:a10b757f7584012b719b3c81aa2688858"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Joypad State object.  <a href="#a10b757f7584012b719b3c81aa2688858">More...</a><br /></td></tr>
+<tr class="separator:a10b757f7584012b719b3c81aa2688858"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a0fe4ff2902803cdbbb5922f2226e663b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMemory.html#a0fe4ff2902803cdbbb5922f2226e663b">booting</a></td></tr>
+<tr class="separator:a0fe4ff2902803cdbbb5922f2226e663b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8be148954eaf056979fc71314a794587"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMemory.html#a8be148954eaf056979fc71314a794587">bootstrap</a> [<a class="el" href="memory_8hpp.html#a31b15d7c0080f90bfd04277cf53e30ff">MAX_BOOTSTRAP_SIZE</a>]</td></tr>
+<tr class="separator:a8be148954eaf056979fc71314a794587"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebc199fcde72a7b3b64eb1a2b670e9ad"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMemory.html#aebc199fcde72a7b3b64eb1a2b670e9ad">memory</a> [<a class="el" href="memory_8hpp.html#a85ba7d05d77c30e9d24c88c1419b52b8">MAX_MEMORY_SIZE</a>]</td></tr>
+<tr class="separator:aebc199fcde72a7b3b64eb1a2b670e9ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class contains memory management unit logic. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac486b5f70a08fc36bbda8e101e4ab635"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac486b5f70a08fc36bbda8e101e4ab635">&#9670;&nbsp;</a></span>DMATransfer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Memory::DMATransfer </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Read sprite RAM between memory adddress 0xFE00-0xFE9F. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>Bit shifted address from where sprite data is read. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a10b757f7584012b719b3c81aa2688858"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10b757f7584012b719b3c81aa2688858">&#9670;&nbsp;</a></span>GetJoypadState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Memory::GetJoypadState </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the Joypad State object. </p>
+<dl class="section return"><dt>Returns</dt><dd>uint8_t State of joypad. </dd></dl>
+
+</div>
+</div>
 <a id="a39bd949ca21b0ecde1406c17cf7f3366"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a39bd949ca21b0ecde1406c17cf7f3366">&#9670;&nbsp;</a></span>IsBooting()</h2>
 
@@ -144,9 +226,9 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Return true if booting, otherwise false. </p>
-<dl class="section return"><dt>Returns</dt><dd>true <a class="el" href="classGameboy.html">Gameboy</a> is booting. </dd>
+<dl class="section return"><dt>Returns</dt><dd>true <a class="el" href="classGameboy.html" title="Class connecting all of the components of Gameboy. ">Gameboy</a> is booting. </dd>
 <dd>
-false <a class="el" href="classGameboy.html">Gameboy</a> is not booting. </dd></dl>
+false <a class="el" href="classGameboy.html" title="Class connecting all of the components of Gameboy. ">Gameboy</a> is not booting. </dd></dl>
 
 </div>
 </div>
@@ -376,6 +458,52 @@ false Exception in loading occured. </dd></dl>
 </div>
 </div>
 <h2 class="groupheader">Field Documentation</h2>
+<a id="a0fe4ff2902803cdbbb5922f2226e663b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fe4ff2902803cdbbb5922f2226e663b">&#9670;&nbsp;</a></span>booting</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Memory::booting</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>State of booting the <a class="el" href="classGameboy.html" title="Class connecting all of the components of Gameboy. ">Gameboy</a> </p>
+
+</div>
+</div>
+<a id="a8be148954eaf056979fc71314a794587"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8be148954eaf056979fc71314a794587">&#9670;&nbsp;</a></span>bootstrap</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Memory::bootstrap[<a class="el" href="memory_8hpp.html#a31b15d7c0080f90bfd04277cf53e30ff">MAX_BOOTSTRAP_SIZE</a>]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= { </div><div class="line">            0x31, 0xFE, 0xFF, 0xAF, 0x21, 0xFF, 0x9F, 0x32, 0xCB, 0x7C, 0x20, 0xFB,</div><div class="line">            0x21, 0x26, 0xFF, 0x0E, 0x11, 0x3E, 0x80, 0x32, 0xE2, 0x0C, 0x3E, 0xF3,</div><div class="line">            0xE2, 0x32, 0x3E, 0x77, 0x77, 0x3E, 0xFC, 0xE0, 0x47, 0x11, 0x04, 0x01,</div><div class="line">            0x21, 0x10, 0x80, 0x1A, 0xCD, 0x95, 0x00, 0xCD, 0x96, 0x00, 0x13, 0x7B,</div><div class="line">            0xFE, 0x34, 0x20, 0xF3, 0x11, 0xD8, 0x00, 0x06, 0x08, 0x1A, 0x13, 0x22,</div><div class="line">            0x23, 0x05, 0x20, 0xF9, 0x3E, 0x19, 0xEA, 0x10, 0x99, 0x21, 0x2F, 0x99,</div><div class="line">            0x0E, 0x0C, 0x3D, 0x28, 0x08, 0x32, 0x0D, 0x20, 0xF9, 0x2E, 0x0F, 0x18,</div><div class="line">            0xF3, 0x67, 0x3E, 0x64, 0x57, 0xE0, 0x42, 0x3E, 0x91, 0xE0, 0x40, 0x04,</div><div class="line">            0x1E, 0x02, 0x0E, 0x0C, 0xF0, 0x44, 0xFE, 0x90, 0x20, 0xFA, 0x0D, 0x20,</div><div class="line">            0xF7, 0x1D, 0x20, 0xF2, 0x0E, 0x13, 0x24, 0x7C, 0x1E, 0x83, 0xFE, 0x62,</div><div class="line">            0x28, 0x06, 0x1E, 0xC1, 0xFE, 0x64, 0x20, 0x06, 0x7B, 0xE2, 0x0C, 0x3E,</div><div class="line">            0x87, 0xE2, 0xF0, 0x42, 0x90, 0xE0, 0x42, 0x15, 0x20, 0xD2, 0x05, 0x20,</div><div class="line">            0x4F, 0x16, 0x20, 0x18, 0xCB, 0x4F, 0x06, 0x04, 0xC5, 0xCB, 0x11, 0x17,</div><div class="line">            0xC1, 0xCB, 0x11, 0x17, 0x05, 0x20, 0xF5, 0x22, 0x23, 0x22, 0x23, 0xC9,</div><div class="line">            0xCE, 0xED, 0x66, 0x66, 0xCC, 0x0D, 0x00, 0x0B, 0x03, 0x73, 0x00, 0x83,</div><div class="line">            0x00, 0x0C, 0x00, 0x0D, 0x00, 0x08, 0x11, 0x1F, 0x88, 0x89, 0x00, 0x0E,</div><div class="line">            0xDC, 0xCC, 0x6E, 0xE6, 0xDD, 0xDD, 0xD9, 0x99, 0xBB, 0xBB, 0x67, 0x63,</div><div class="line">            0x6E, 0x0E, 0xEC, 0xCC, 0xDD, 0xDC, 0x99, 0x9F, 0xBB, 0xB9, 0x33, 0x3E,</div><div class="line">            0x3C, 0x42, 0xB9, 0xA5, 0xB9, 0xA5, 0x42, 0x3C, 0x21, 0x04, 0x01, 0x11,</div><div class="line">            0xA8, 0x00, 0x1A, 0x13, 0xBE, 0x20, 0xFE, 0x23, 0x7D, 0xFE, 0x34, 0x20,</div><div class="line">            0xF5, 0x06, 0x19, 0x78, 0x86, 0x23, 0x05, 0x20, 0xFB, 0x86, 0x20, 0xFE,</div><div class="line">            0x3E, 0x01, 0xE0, 0x50}</div></div><!-- fragment --><p>256B of bootstrap memory </p>
+
+</div>
+</div>
 <a id="a6459c5b106a92a3f24673a3448a1bab0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6459c5b106a92a3f24673a3448a1bab0">&#9670;&nbsp;</a></span>cartridge_header</h2>
 
@@ -403,6 +531,29 @@ false Exception in loading occured. </dd></dl>
       </table>
 </div><div class="memdoc">
 <p>State of the joypad </p>
+
+</div>
+</div>
+<a id="aebc199fcde72a7b3b64eb1a2b670e9ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebc199fcde72a7b3b64eb1a2b670e9ad">&#9670;&nbsp;</a></span>memory</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Memory::memory[<a class="el" href="memory_8hpp.html#a85ba7d05d77c30e9d24c88c1419b52b8">MAX_MEMORY_SIZE</a>]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>64KB of memory </p>
 
 </div>
 </div>

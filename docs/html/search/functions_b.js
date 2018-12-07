@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['updategraphics',['UpdateGraphics',['../classGPU.html#af0b1df5eb7c5270a81fc12aebb89e641',1,'GPU']]],
-  ['updatetimer',['UpdateTimer',['../classCPU.html#ad8eb59dff5e4fe4c1b2881cc67574ddf',1,'CPU']]]
+  ['memory',['Memory',['../classMemory.html#a585d7bb6fc6f2237bcebf94a86b7dd99',1,'Memory']]],
+  ['memorycommand',['MemoryCommand',['../classDebugger.html#af8888a358dba262eaf7cc3f6d10b1acc',1,'Debugger']]]
 ];

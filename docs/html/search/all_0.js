@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['cartidgeheader',['CartidgeHeader',['../structCartidgeHeader.html',1,'']]],
-  ['cartridge_5fheader',['cartridge_header',['../classMemory.html#a6459c5b106a92a3f24673a3448a1bab0',1,'Memory']]],
-  ['cartridge_5ftype',['cartridge_type',['../structCartidgeHeader.html#ace024d4f3f989eef279c9c0620818e07',1,'CartidgeHeader']]],
-  ['clearbit',['ClearBit',['../helper_8hpp.html#ae90bba1914f962fe10bb37a2c7e3b7b7',1,'helper.cpp']]],
-  ['clocks',['Clocks',['../structClocks.html',1,'']]],
-  ['cpu',['CPU',['../classCPU.html',1,'CPU'],['../classCPU.html#a398bb4352a0dbaa9b2010f2084d9f8f7',1,'CPU::CPU()']]]
+  ['adc8bit',['Adc8Bit',['../classCPU.html#a1ce2b87612cd02f3de675029d5ce436a',1,'CPU']]],
+  ['add16bit',['Add16Bit',['../classCPU.html#aa5a7f8e66efea2e1071c6fbb0e088e1d',1,'CPU']]],
+  ['add8bit',['Add8Bit',['../classCPU.html#ab0be615e4d0440a927b3e3a95e378d3a',1,'CPU']]],
+  ['addsp16bit',['AddSP16Bit',['../classCPU.html#aca034a9f8f8a900b48acf54398cd67ef',1,'CPU']]],
+  ['and8bit',['And8Bit',['../classCPU.html#a32632ab16ca2244110c9b732c3277851',1,'CPU']]],
+  ['args',['args',['../structDebuggerCommand.html#af6535e5e0020c0423e4d4b02c4f20867',1,'DebuggerCommand']]],
+  ['arguments',['Arguments',['../debugger_8hpp.html#aca71abe8694d19d25f9f855f89eea3ce',1,'debugger.hpp']]]
 ];

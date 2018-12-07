@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['screen_5fheigh',['SCREEN_HEIGH',['../gpu_8hpp.html#a82caa66fd8fe7f699bad634ae634a20b',1,'gpu.hpp']]],
-  ['screen_5fwidth',['SCREEN_WIDTH',['../gpu_8hpp.html#a3482785bd2a4c8b307f9e0b6f54e2c36',1,'gpu.hpp']]]
+  ['exit_5fon_5finifite_5floop',['exit_on_inifite_loop',['../classCPU.html#a16be551906c5f6c501348ec25e57d7b4',1,'CPU']]]
 ];

@@ -1,21 +1,33 @@
-.TH "DebuggerCommand" 3 "Thu Dec 6 2018" "Gameboy Emulator" \" -*- nroff -*-
+.TH "DebuggerCommand" 3 "Fri Dec 7 2018" "Gameboy Emulator" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-DebuggerCommand
+DebuggerCommand \- Structure containing parsed debugger command\&.  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include <debugger\&.hpp>\fP
 .SS "Data Fields"
 
 .in +1c
 .ti -1c
-.RI "Command \fBcmd\fP"
+.RI "\fBCommand\fP \fBcmd\fP"
 .br
 .ti -1c
-.RI "Arguments \fBargs\fP"
+.RI "\fBArguments\fP \fBargs\fP"
 .br
 .in -1c
+.SH "Detailed Description"
+.PP 
+Structure containing parsed debugger command\&. 
+.SH "Field Documentation"
+.PP 
+.SS "\fBArguments\fP DebuggerCommand::args"
+Vector of arguemts 
+.SS "\fBCommand\fP DebuggerCommand::cmd"
+Enum of command 
 
 .SH "Author"
 .PP 

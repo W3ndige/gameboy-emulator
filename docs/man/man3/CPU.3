@@ -1,68 +1,89 @@
-.TH "CPU" 3 "Thu Dec 6 2018" "Gameboy Emulator" \" -*- nroff -*-
+.TH "CPU" 3 "Fri Dec 7 2018" "Gameboy Emulator" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-CPU
+CPU \- Class containing logic behind the \fBCPU\fP\&.  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include <cpu\&.hpp>\fP
 .SS "Public Member Functions"
 
 .in +1c
 .ti -1c
 .RI "\fBCPU\fP (\fBMemory\fP *mem)"
 .br
+.RI "Construct a new \fBCPU\fP object\&. "
 .ti -1c
 .RI "bool \fBInit\fP (std::string rom_file, bool exit_on_inifite)"
 .br
+.RI "Initialize the \fBCPU\fP\&. "
 .ti -1c
 .RI "void \fBFetchAndDispatch\fP ()"
 .br
+.RI "Fetch the opcode, pass to execution function and increment PC\&. "
 .ti -1c
 .RI "void \fBExecuteInstruction\fP (uint8_t opcode)"
 .br
+.RI "Execute instruction\&. "
 .ti -1c
 .RI "void \fBExecuteExtendedInstruction\fP (uint8_t opcode)"
 .br
+.RI "Execute extended instruction\&. "
 .ti -1c
 .RI "uint16_t \fBGetProgramCounter\fP () const"
 .br
+.RI "Get the Program Counter value\&. "
 .ti -1c
 .RI "uint16_t \fBGetStackPointer\fP () const"
 .br
+.RI "Get the Stack Pointer value\&. "
 .ti -1c
 .RI "bool \fBIsClockEnabled\fP ()"
 .br
+.RI "Is clock enabled? "
 .ti -1c
 .RI "uint8_t \fBGetClockFrequency\fP ()"
 .br
+.RI "Get the Clock Frequency\&. "
 .ti -1c
 .RI "void \fBSetClockFrequency\fP ()"
 .br
+.RI "Set the Clock Frequency\&. "
 .ti -1c
 .RI "void \fBDividerRegister\fP (int cycles)"
 .br
+.RI "TODO\&. "
 .ti -1c
 .RI "void \fBUpdateTimer\fP (int cycles)"
 .br
+.RI "Update timer register\&. "
 .ti -1c
 .RI "void \fBRequestInterupt\fP (int id)"
 .br
+.RI "Request an interrupt\&. "
 .ti -1c
 .RI "void \fBDoInterupts\fP ()"
 .br
+.RI "Iterate over interrupt register and service interrupt\&. "
 .ti -1c
 .RI "void \fBServiceInterupt\fP (int interupt)"
 .br
+.RI "Service specified interrupt\&. "
 .ti -1c
 .RI "unsigned int \fBGetTimer\fP ()"
 .br
+.RI "Get the Timer value\&. "
 .ti -1c
 .RI "int \fBBreakpoint\fP (uint16_t pc)"
 .br
+.RI "Set breakpoint in \fBCPU\fP\&. "
 .ti -1c
 .RI "void \fBDiagnostics\fP ()"
 .br
+.RI "Show the value in registers\&. "
 .in -1c
 .SS "Data Fields"
 
@@ -77,26 +98,887 @@ CPU
 .RI "bool \fBpending_interupt_disabled\fP"
 .br
 .in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBPrintFlags\fP ()"
+.br
+.RI "Print the current flags\&. "
+.ti -1c
+.RI "void \fBNOP\fP ()"
+.br
+.RI "No operation\&. "
+.ti -1c
+.RI "void \fBHALT\fP ()"
+.br
+.RI "Power down \fBCPU\fP until an interrupt occurs\&. "
+.ti -1c
+.RI "void \fBSTOP\fP ()"
+.br
+.RI "Halt \fBCPU\fP & LCD display until button pressed\&. "
+.ti -1c
+.RI "void \fBDI\fP ()"
+.br
+.RI "This instruction disables interrupts but not immediately\&. Interrupts are disabled after instruction after DI is executed\&. "
+.ti -1c
+.RI "void \fBEI\fP ()"
+.br
+.RI "This intruction enables interrupts but not immediately\&. Interrupts are enabled after instruction after EI is executed\&. "
+.ti -1c
+.RI "void \fBLD8_r_nn\fP (uint8_t &reg)"
+.br
+.RI "Load immediate value into the register\&. "
+.ti -1c
+.RI "void \fBLD8_r1_r2\fP (uint8_t &reg1, uint8_t reg2)"
+.br
+.RI "Load register 2 into register 1\&. "
+.ti -1c
+.RI "void \fBLD8_r1_mem\fP (uint8_t &reg, uint16_t address)"
+.br
+.RI "Load the value from memory into register\&. "
+.ti -1c
+.RI "void \fBLD8_mem_r1\fP (uint16_t address, uint8_t reg)"
+.br
+.RI "Put the value from register to memory\&. "
+.ti -1c
+.RI "void \fBLD16_r_nn\fP (uint16_t &reg)"
+.br
+.RI "Put the 16 bit immediate value into register pair\&. "
+.ti -1c
+.RI "void \fBPush\fP (uint16_t &reg)"
+.br
+.RI "Push the value of register onto the stack\&. "
+.ti -1c
+.RI "void \fBPop\fP (uint16_t &reg)"
+.br
+.RI "Pop the value from the stack into the register pair\&. "
+.ti -1c
+.RI "void \fBPopAF\fP ()"
+.br
+.RI "Pop AF register\&. "
+.ti -1c
+.RI "void \fBAdd8Bit\fP (uint8_t reg)"
+.br
+.RI "Add 8 bit register to the A register\&. "
+.ti -1c
+.RI "void \fBAdc8Bit\fP (uint8_t reg)"
+.br
+.RI "Add 8 bit register to the A register, including carry flag\&. "
+.ti -1c
+.RI "void \fBSub8Bit\fP (uint8_t reg)"
+.br
+.RI "Substract 8 bit register from the A register\&. "
+.ti -1c
+.RI "void \fBSubc8Bit\fP (uint8_t reg)"
+.br
+.RI "Add 8 bit register to the A register, including carry flag\&. "
+.ti -1c
+.RI "void \fBAnd8Bit\fP (uint8_t reg)"
+.br
+.RI "Perform bitwise AND operation on A register and passed register\&. "
+.ti -1c
+.RI "void \fBOr8Bit\fP (uint8_t reg)"
+.br
+.RI "Perform bitwise OR operation on A register and passed register\&. "
+.ti -1c
+.RI "void \fBXor8Bit\fP (uint8_t reg)"
+.br
+.RI "Perform bitwise XOR operation on A register and passed register\&. "
+.ti -1c
+.RI "void \fBCmp8Bit\fP (uint8_t reg)"
+.br
+.RI "Perform comparision betwenA register and passed register\&. Set flags accordingly\&. "
+.ti -1c
+.RI "void \fBInc8Bit\fP (uint8_t &reg)"
+.br
+.RI "Increment passed register\&. "
+.ti -1c
+.RI "void \fBDec8Bit\fP (uint8_t &reg)"
+.br
+.RI "Decrement passed register\&. "
+.ti -1c
+.RI "void \fBAdd16Bit\fP (uint16_t reg)"
+.br
+.RI "Add the value from passed register to register HL\&. "
+.ti -1c
+.RI "void \fBAddSP16Bit\fP ()"
+.br
+.RI "Add the value from passed register to register SP\&. "
+.ti -1c
+.RI "void \fBInc16Bit\fP (uint16_t &reg)"
+.br
+.RI "Increment 16 bit register\&. "
+.ti -1c
+.RI "void \fBDec16Bit\fP (uint16_t &reg)"
+.br
+.RI "Decrement 16 bit register\&. "
+.ti -1c
+.RI "void \fBRLC\fP (uint8_t &reg)"
+.br
+.RI "Rotate n left\&. Old bit 7 to Carry flag\&. "
+.ti -1c
+.RI "void \fBRRC\fP (uint8_t &reg)"
+.br
+.RI "Rotate n right\&. Old bit 0 to Carry flag\&. "
+.ti -1c
+.RI "void \fBRL\fP (uint8_t &reg)"
+.br
+.RI "Rotate n left through Carry flag\&. "
+.ti -1c
+.RI "void \fBRR\fP (uint8_t &reg)"
+.br
+.RI "Rotate n right through Carry flag\&. "
+.ti -1c
+.RI "void \fBSLA\fP (uint8_t &reg)"
+.br
+.RI "Shift n left into Carry\&. LSB of n set to 0\&. "
+.ti -1c
+.RI "void \fBSRA\fP (uint8_t &reg)"
+.br
+.RI "Shift n right into Carry\&. MSB doesn't change\&. "
+.ti -1c
+.RI "void \fBSwap\fP (uint8_t &reg)"
+.br
+.RI "Swap lower and upper 4 bits of an register\&. "
+.ti -1c
+.RI "void \fBSRL\fP (uint8_t &reg)"
+.br
+.RI "Shift n right into Carry\&. MSB set to 0\&. "
+.ti -1c
+.RI "void \fBBit\fP (uint8_t &reg, uint8_t bit)"
+.br
+.RI "Test bit b in register r\&. "
+.ti -1c
+.RI "void \fBRes\fP (uint8_t &reg, uint8_t bit)"
+.br
+.RI "Reset bit b in register r\&. "
+.ti -1c
+.RI "void \fBSet\fP (uint8_t &reg, uint8_t bit)"
+.br
+.RI "Set bit b in register r\&. "
+.ti -1c
+.RI "void \fBDAA\fP ()"
+.br
+.RI "Decimal adjust register A\&. "
+.ti -1c
+.RI "void \fBRLCA\fP ()"
+.br
+.RI "Rotate A left\&. Old bit 7 to Carry flag\&. "
+.ti -1c
+.RI "void \fBRLA\fP ()"
+.br
+.RI "Rotate A left through Carry flag\&. "
+.ti -1c
+.RI "void \fBRRCA\fP ()"
+.br
+.RI "Rotate A right\&. Old bit 0 to Carry flag\&. "
+.ti -1c
+.RI "void \fBRRA\fP ()"
+.br
+.RI "Rotate A right through Carry flag\&. "
+.ti -1c
+.RI "void \fBJUMP\fP (uint8_t flag, int condition, int use_condition)"
+.br
+.RI "Set program counter to the immediate value\&. "
+.ti -1c
+.RI "void \fBJUMP_IMM\fP (uint8_t flag, int condition, int use_condition)"
+.br
+.RI "Increment program counter by the immediate value\&. "
+.ti -1c
+.RI "void \fBCALL\fP (uint8_t flag, int condition, int use_condition)"
+.br
+.RI "Call the function at address used in immediate value\&. Push current PC at the stack\&. "
+.ti -1c
+.RI "void \fBRST\fP (uint8_t arg)"
+.br
+.RI "Push present address onto stack\&. Jump to address $0000 + n\&. "
+.ti -1c
+.RI "void \fBRET\fP (uint8_t flag, int condition, int use_condition)"
+.br
+.RI "Return from function, Set the PC to the popped value from stack\&. "
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBRegister\fP \fBaf_register\fP"
+.br
+.ti -1c
+.RI "\fBRegister\fP \fBbc_register\fP"
+.br
+.ti -1c
+.RI "\fBRegister\fP \fBde_register\fP"
+.br
+.ti -1c
+.RI "\fBRegister\fP \fBhl_register\fP"
+.br
+.ti -1c
+.RI "\fBRegister\fP \fBsp_register\fP"
+.br
+.ti -1c
+.RI "uint16_t \fBprogram_counter\fP"
+.br
+.ti -1c
+.RI "\fBMemory\fP * \fBmemory\fP"
+.br
+.ti -1c
+.RI "\fBClocks\fP \fBclocks\fP"
+.br
+.ti -1c
+.RI "bool \fBexit_on_inifite_loop\fP"
+.br
+.ti -1c
+.RI "int \fBhalt\fP"
+.br
+.ti -1c
+.RI "int \fBstop\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Class containing logic behind the \fBCPU\fP\&. 
 .SH "Constructor & Destructor Documentation"
 .PP 
 .SS "CPU::CPU (\fBMemory\fP * mem)"
-\fBCPU\fP type of instructions 
+
+.PP
+Construct a new \fBCPU\fP object\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImem\fP Pointer to memory object\&. 
+.RE
+.PP
+
 .SH "Member Function Documentation"
 .PP 
+.SS "void CPU::Adc8Bit (uint8_t reg)\fC [private]\fP"
+
+.PP
+Add 8 bit register to the A register, including carry flag\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Value of register\&. 
+.RE
+.PP
+
+.SS "void CPU::Add16Bit (uint16_t reg)\fC [private]\fP"
+
+.PP
+Add the value from passed register to register HL\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Value of passed register\&. 
+.RE
+.PP
+
+.SS "void CPU::Add8Bit (uint8_t reg)\fC [private]\fP"
+
+.PP
+Add 8 bit register to the A register\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Value of register\&.
+.RE
+.PP
+< 8 bit ALU 
+.SS "void CPU::AddSP16Bit ()\fC [private]\fP"
+
+.PP
+Add the value from passed register to register SP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Value of passed register\&. 
+.RE
+.PP
+
+.SS "void CPU::And8Bit (uint8_t reg)\fC [private]\fP"
+
+.PP
+Perform bitwise AND operation on A register and passed register\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Value of register\&. 
+.RE
+.PP
+
+.SS "void CPU::Bit (uint8_t & reg, uint8_t bit)\fC [private]\fP"
+
+.PP
+Test bit b in register r\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Address of passed register\&. 
+.br
+\fIbit\fP Index of bit to test\&. 
+.RE
+.PP
+
+.SS "int CPU::Breakpoint (uint16_t pc)"
+
+.PP
+Set breakpoint in \fBCPU\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpc\fP Program counter at which we set a breakpoint\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+int Return 1 if encountered breakpoint, else 0\&. 
+.RE
+.PP
+
+.SS "void CPU::CALL (uint8_t flag, int condition, int use_condition)\fC [private]\fP"
+
+.PP
+Call the function at address used in immediate value\&. Push current PC at the stack\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIflag\fP Flag is used in condition\&. 
+.br
+\fIcondition\fP Condition used in jump\&. 
+.br
+\fIuse_condition\fP Are we using condition\&. 
+.RE
+.PP
+
+.SS "void CPU::Cmp8Bit (uint8_t reg)\fC [private]\fP"
+
+.PP
+Perform comparision betwenA register and passed register\&. Set flags accordingly\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Value of passed register\&. 
+.RE
+.PP
+
+.SS "void CPU::DAA ()\fC [private]\fP"
+
+.PP
+Decimal adjust register A\&. < Fix this 
+.SS "void CPU::Dec16Bit (uint16_t & reg)\fC [private]\fP"
+
+.PP
+Decrement 16 bit register\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Address of passed register\&. 
+.RE
+.PP
+
+.SS "void CPU::Dec8Bit (uint8_t & reg)\fC [private]\fP"
+
+.PP
+Decrement passed register\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Value of passed register\&.
+.RE
+.PP
+16 bit ALU 
+.SS "void CPU::DividerRegister (int cycles)"
+
+.PP
+TODO\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcycles\fP Number of cycles that last instruction took\&. 
+.RE
+.PP
+
+.SS "void CPU::ExecuteExtendedInstruction (uint8_t opcode)"
+
+.PP
+Execute extended instruction\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIopcode\fP Second byte of extended instruction set opcode\&. 
+.RE
+.PP
+
 .SS "void CPU::ExecuteInstruction (uint8_t opcode)"
+
+.PP
+Execute instruction\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIopcode\fP Opcode to execute\&. 
+.RE
+.PP
 < Load 8 bit immediate value 
 .br
  < Load register to register 
+.SS "uint8_t CPU::GetClockFrequency ()"
+
+.PP
+Get the Clock Frequency\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+uint8_t Frequency of the clock\&. 
+.RE
+.PP
+
+.SS "uint16_t CPU::GetProgramCounter () const"
+
+.PP
+Get the Program Counter value\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+uint16_t Value of PC\&. 
+.RE
+.PP
+
 .SS "uint16_t CPU::GetStackPointer () const"
-Timer type of instructions 
+
+.PP
+Get the Stack Pointer value\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+uint16_t Value of SP\&. 
+.RE
+.PP
+
+.SS "unsigned int CPU::GetTimer ()"
+
+.PP
+Get the Timer value\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+unsigned int Value of timer\&. 
+.RE
+.PP
+
+.SS "void CPU::Inc16Bit (uint16_t & reg)\fC [private]\fP"
+
+.PP
+Increment 16 bit register\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Address of passed register\&. 
+.RE
+.PP
+
+.SS "void CPU::Inc8Bit (uint8_t & reg)\fC [private]\fP"
+
+.PP
+Increment passed register\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Value of passed register\&. 
+.RE
+.PP
+
 .SS "bool CPU::Init (std::string rom_file, bool exit_on_inifite)"
+
+.PP
+Initialize the \fBCPU\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIrom_file\fP ROM file to load\&. 
+.br
+\fIexit_on_inifite\fP Do we exit on ininite loop 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+true Initialization suceeded\&. 
+.PP
+false Initialization failed\&. 
+.RE
+.PP
 < If booting failed or stopped, initialize register with values that bootstrap sets 
 .br
  < Place power up sequence values in memory 
+.SS "bool CPU::IsClockEnabled ()"
+
+.PP
+Is clock enabled? 
+.PP
+\fBReturns:\fP
+.RS 4
+true True if clock is enabled\&. 
+.PP
+false False if clock is disabled\&. 
+.RE
+.PP
+
+.SS "void CPU::JUMP (uint8_t flag, int condition, int use_condition)\fC [private]\fP"
+
+.PP
+Set program counter to the immediate value\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIflag\fP Flag is used in condition\&. 
+.br
+\fIcondition\fP Condition used in jump\&. 
+.br
+\fIuse_condition\fP Are we using condition\&. 
+.RE
+.PP
+
+.SS "void CPU::JUMP_IMM (uint8_t flag, int condition, int use_condition)\fC [private]\fP"
+
+.PP
+Increment program counter by the immediate value\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIflag\fP Flag is used in condition\&. 
+.br
+\fIcondition\fP Condition used in jump\&. 
+.br
+\fIuse_condition\fP Are we using condition\&. 
+.RE
+.PP
+
+.SS "void CPU::LD16_r_nn (uint16_t & reg)\fC [private]\fP"
+
+.PP
+Put the 16 bit immediate value into register pair\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Address of register pair\&. 
+.RE
+.PP
+
+.SS "void CPU::LD8_mem_r1 (uint16_t address, uint8_t reg)\fC [private]\fP"
+
+.PP
+Put the value from register to memory\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIaddress\fP Address in memory\&. 
+.br
+\fIreg\fP Address of passed register\&.
+.RE
+.PP
+16 Bit Loads 
+.SS "void CPU::LD8_r1_mem (uint8_t & reg, uint16_t address)\fC [private]\fP"
+
+.PP
+Load the value from memory into register\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Address of passed register\&. 
+.br
+\fIaddress\fP Address in memory\&. 
+.RE
+.PP
+
+.SS "void CPU::LD8_r1_r2 (uint8_t & reg1, uint8_t reg2)\fC [private]\fP"
+
+.PP
+Load register 2 into register 1\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg1\fP Address of passed register 1\&. 
+.br
+\fIreg2\fP Address of passed register 2\&. 
+.RE
+.PP
+
+.SS "void CPU::LD8_r_nn (uint8_t & reg)\fC [private]\fP"
+
+.PP
+Load immediate value into the register\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Address of passed register\&.
+.RE
+.PP
+< 8 Bit Loads 
+.SS "void CPU::Or8Bit (uint8_t reg)\fC [private]\fP"
+
+.PP
+Perform bitwise OR operation on A register and passed register\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Value of register\&. 
+.RE
+.PP
+
+.SS "void CPU::Pop (uint16_t & reg)\fC [private]\fP"
+
+.PP
+Pop the value from the stack into the register pair\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Address of register pair\&.
+.RE
+.PP
+When performing a POP AF instruction, bits 0 - 3 are ignored/masked out 
+.SS "void CPU::PrintFlags ()\fC [private]\fP"
+
+.PP
+Print the current flags\&. Stop the \fBCPU\fP 
+.SS "void CPU::Push (uint16_t & reg)\fC [private]\fP"
+
+.PP
+Push the value of register onto the stack\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Address of register pair\&. 
+.RE
+.PP
+
+.SS "void CPU::RequestInterupt (int id)"
+
+.PP
+Request an interrupt\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIid\fP Id of interrupt\&. 
+.RE
+.PP
+
+.SS "void CPU::Res (uint8_t & reg, uint8_t bit)\fC [private]\fP"
+
+.PP
+Reset bit b in register r\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Address of passed register\&. 
+.br
+\fIbit\fP Index of bit to reset\&. 
+.RE
+.PP
+
+.SS "void CPU::RET (uint8_t flag, int condition, int use_condition)\fC [private]\fP"
+
+.PP
+Return from function, Set the PC to the popped value from stack\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIflag\fP Flag is used in condition\&. 
+.br
+\fIcondition\fP Condition used in jump\&. 
+.br
+\fIuse_condition\fP Are we using condition\&.
+.RE
+.PP
+Unique arithmetic functions 
+.SS "void CPU::RL (uint8_t & reg)\fC [private]\fP"
+
+.PP
+Rotate n left through Carry flag\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Address of passed register\&. 
+.RE
+.PP
+
+.SS "void CPU::RLC (uint8_t & reg)\fC [private]\fP"
+
+.PP
+Rotate n left\&. Old bit 7 to Carry flag\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Address of passed register\&. 
+.RE
+.PP
+
+.SS "void CPU::RR (uint8_t & reg)\fC [private]\fP"
+
+.PP
+Rotate n right through Carry flag\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Address of passed register\&. 
+.RE
+.PP
+
+.SS "void CPU::RRC (uint8_t & reg)\fC [private]\fP"
+
+.PP
+Rotate n right\&. Old bit 0 to Carry flag\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Address of passed register\&. 
+.RE
+.PP
+
+.SS "void CPU::RST (uint8_t arg)\fC [private]\fP"
+
+.PP
+Push present address onto stack\&. Jump to address $0000 + n\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIarg\fP Value of n\&. 
+.RE
+.PP
+
 .SS "void CPU::ServiceInterupt (int interupt)"
-Debugging type of instructions 
+
+.PP
+Service specified interrupt\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIinterupt\fP Interrupt to service\&. Debugging type of instructions 
+.RE
+.PP
+
+.SS "void CPU::Set (uint8_t & reg, uint8_t bit)\fC [private]\fP"
+
+.PP
+Set bit b in register r\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Address of passed register\&. 
+.br
+\fIbit\fP Index of bit to set\&. 
+.RE
+.PP
+
+.SS "void CPU::SLA (uint8_t & reg)\fC [private]\fP"
+
+.PP
+Shift n left into Carry\&. LSB of n set to 0\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Address of passed register\&. 
+.RE
+.PP
+
+.SS "void CPU::SRA (uint8_t & reg)\fC [private]\fP"
+
+.PP
+Shift n right into Carry\&. MSB doesn't change\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Address of passed register\&. 
+.RE
+.PP
+
+.SS "void CPU::SRL (uint8_t & reg)\fC [private]\fP"
+
+.PP
+Shift n right into Carry\&. MSB set to 0\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Address of passed register\&. 
+.RE
+.PP
+
+.SS "void CPU::Sub8Bit (uint8_t reg)\fC [private]\fP"
+
+.PP
+Substract 8 bit register from the A register\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Value of register\&. 
+.RE
+.PP
+
+.SS "void CPU::Subc8Bit (uint8_t reg)\fC [private]\fP"
+
+.PP
+Add 8 bit register to the A register, including carry flag\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Value of register\&. 
+.RE
+.PP
+
+.SS "void CPU::Swap (uint8_t & reg)\fC [private]\fP"
+
+.PP
+Swap lower and upper 4 bits of an register\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Address of passed register\&. 
+.RE
+.PP
+< ??? 
 .SS "void CPU::UpdateTimer (int cycles)"
-Interrupts 
+
+.PP
+Update timer register\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcycles\fP Number of cycles that last instruction took\&. 
+.RE
+.PP
+
+.SS "void CPU::Xor8Bit (uint8_t reg)\fC [private]\fP"
+
+.PP
+Perform bitwise XOR operation on A register and passed register\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreg\fP Value of register\&. 
+.RE
+.PP
+
+.SH "Field Documentation"
+.PP 
+.SS "\fBClocks\fP CPU::clocks\fC [private]\fP"
+Pointer to memory object \fBClocks\fP structure 
+.SS "bool CPU::exit_on_inifite_loop\fC [private]\fP"
+Do we exit on infinite loop 
+.SS "\fBRegister\fP CPU::hl_register\fC [private]\fP"
+General purpose register 
+.SS "bool CPU::interupts"
+Are interrupts enabled 
+.SS "bool CPU::pending_interupt_disabled"
+Is pending interrupt disabled 
+.SS "bool CPU::pending_interupt_enabled"
+Is pending interrupt enabled 
+.SS "uint16_t CPU::program_counter\fC [private]\fP"
+Program counter register 
+.SS "\fBRegister\fP CPU::sp_register\fC [private]\fP"
+Stack pointer register 
+.SS "int CPU::stop\fC [private]\fP"
+Halt the \fBCPU\fP 
 
 .SH "Author"
 .PP 

@@ -64,27 +64,323 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">Gameboy Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Class connecting all of the components of <a class="el" href="classGameboy.html" title="Class connecting all of the components of Gameboy. ">Gameboy</a>.  
+ <a href="classGameboy.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="gameboy_8hpp_source.html">gameboy.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2d4e84cda18ef3429a3dff15c7610265"><td class="memItemLeft" align="right" valign="top"><a id="a2d4e84cda18ef3429a3dff15c7610265"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Gameboy</b> (bool debug, bool without_boot, bool exit_on_inifite, std::string rom_file)</td></tr>
+<tr class="memitem:a2d4e84cda18ef3429a3dff15c7610265"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameboy.html#a2d4e84cda18ef3429a3dff15c7610265">Gameboy</a> (bool debug, bool without_boot, bool exit_on_inifite, std::string rom_file)</td></tr>
+<tr class="memdesc:a2d4e84cda18ef3429a3dff15c7610265"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classGameboy.html" title="Class connecting all of the components of Gameboy. ">Gameboy</a> object.  <a href="#a2d4e84cda18ef3429a3dff15c7610265">More...</a><br /></td></tr>
 <tr class="separator:a2d4e84cda18ef3429a3dff15c7610265"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae61353b933089cf137da173a60fc59af"><td class="memItemLeft" align="right" valign="top"><a id="ae61353b933089cf137da173a60fc59af"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Loop</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameboy.html#ae61353b933089cf137da173a60fc59af">Loop</a> ()</td></tr>
+<tr class="memdesc:ae61353b933089cf137da173a60fc59af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main program loop, checks for events, emulates and renders. <br /></td></tr>
 <tr class="separator:ae61353b933089cf137da173a60fc59af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a0ff1e6cb04a2738296f238bf8205e62d"><td class="memItemLeft" align="right" valign="top"><a id="a0ff1e6cb04a2738296f238bf8205e62d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameboy.html#a0ff1e6cb04a2738296f238bf8205e62d">Emulate</a> ()</td></tr>
+<tr class="memdesc:a0ff1e6cb04a2738296f238bf8205e62d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emulate the logic. <br /></td></tr>
+<tr class="separator:a0ff1e6cb04a2738296f238bf8205e62d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3da39e9c3ceb617ecf9070b71287a2af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameboy.html#a3da39e9c3ceb617ecf9070b71287a2af">SetKeyPressed</a> (int key)</td></tr>
+<tr class="memdesc:a3da39e9c3ceb617ecf9070b71287a2af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Key Pressed object.  <a href="#a3da39e9c3ceb617ecf9070b71287a2af">More...</a><br /></td></tr>
+<tr class="separator:a3da39e9c3ceb617ecf9070b71287a2af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ce894c73585fc90233c556a821a4e55"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameboy.html#a6ce894c73585fc90233c556a821a4e55">SetKeyReleased</a> (int key)</td></tr>
+<tr class="memdesc:a6ce894c73585fc90233c556a821a4e55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Key Released object.  <a href="#a6ce894c73585fc90233c556a821a4e55">More...</a><br /></td></tr>
+<tr class="separator:a6ce894c73585fc90233c556a821a4e55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:adf627b4691eb953f162584daf2b539a9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMemory.html">Memory</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameboy.html#adf627b4691eb953f162584daf2b539a9">memory</a></td></tr>
+<tr class="separator:adf627b4691eb953f162584daf2b539a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8efc19636204afd797a1fc3493bd2bce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCPU.html">CPU</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameboy.html#a8efc19636204afd797a1fc3493bd2bce">cpu</a></td></tr>
+<tr class="separator:a8efc19636204afd797a1fc3493bd2bce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5374ee382793a6e7f4fe26e55c9ff94"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classGPU.html">GPU</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameboy.html#ab5374ee382793a6e7f4fe26e55c9ff94">gpu</a></td></tr>
+<tr class="separator:ab5374ee382793a6e7f4fe26e55c9ff94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3806b14c93f07ab3aa7c8bce7f47ac5e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameboy.html#a3806b14c93f07ab3aa7c8bce7f47ac5e">debugging</a></td></tr>
+<tr class="separator:a3806b14c93f07ab3aa7c8bce7f47ac5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a284d695c0a40b955c520dab2e8ffd2be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDebugger.html">Debugger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameboy.html#a284d695c0a40b955c520dab2e8ffd2be">debugger</a></td></tr>
+<tr class="separator:a284d695c0a40b955c520dab2e8ffd2be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:af637948d2b98b924152a6f3bf5acdb6e"><td class="memItemLeft" align="right" valign="top"><a id="af637948d2b98b924152a6f3bf5acdb6e"></a>
-class&#160;</td><td class="memItemRight" valign="bottom"><b>Debugger</b></td></tr>
+<tr class="memitem:af637948d2b98b924152a6f3bf5acdb6e"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameboy.html#af637948d2b98b924152a6f3bf5acdb6e">Debugger</a></td></tr>
 <tr class="separator:af637948d2b98b924152a6f3bf5acdb6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class connecting all of the components of <a class="el" href="classGameboy.html" title="Class connecting all of the components of Gameboy. ">Gameboy</a>. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a2d4e84cda18ef3429a3dff15c7610265"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d4e84cda18ef3429a3dff15c7610265">&#9670;&nbsp;</a></span>Gameboy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Gameboy::Gameboy </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>debug</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>without_boot</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>exit_on_inifite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>rom_file</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="classGameboy.html" title="Class connecting all of the components of Gameboy. ">Gameboy</a> object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">debug</td><td>Flag to run the debugger. </td></tr>
+    <tr><td class="paramname">without_boot</td><td>Flag to run without booting. </td></tr>
+    <tr><td class="paramname">exit_on_inifite</td><td>Flag to exit on inifite loop. </td></tr>
+    <tr><td class="paramname">rom_file</td><td>Name of ROM file to run. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3da39e9c3ceb617ecf9070b71287a2af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3da39e9c3ceb617ecf9070b71287a2af">&#9670;&nbsp;</a></span>SetKeyPressed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Gameboy::SetKeyPressed </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the Key Pressed object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Number of key that was pressed. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6ce894c73585fc90233c556a821a4e55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ce894c73585fc90233c556a821a4e55">&#9670;&nbsp;</a></span>SetKeyReleased()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Gameboy::SetKeyReleased </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the Key Released object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Number of key that was released. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="af637948d2b98b924152a6f3bf5acdb6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af637948d2b98b924152a6f3bf5acdb6e">&#9670;&nbsp;</a></span>Debugger</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classDebugger.html">Debugger</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Friend class of debugger </p>
+
+</div>
+</div>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="a8efc19636204afd797a1fc3493bd2bce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8efc19636204afd797a1fc3493bd2bce">&#9670;&nbsp;</a></span>cpu</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classCPU.html">CPU</a> Gameboy::cpu</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p><a class="el" href="classCPU.html" title="Class containing logic behind the CPU. ">CPU</a> object </p>
+
+</div>
+</div>
+<a id="a284d695c0a40b955c520dab2e8ffd2be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a284d695c0a40b955c520dab2e8ffd2be">&#9670;&nbsp;</a></span>debugger</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classDebugger.html">Debugger</a> Gameboy::debugger</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p><a class="el" href="classDebugger.html" title="Class containing logic behind the debugger. ">Debugger</a> object </p>
+
+</div>
+</div>
+<a id="a3806b14c93f07ab3aa7c8bce7f47ac5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3806b14c93f07ab3aa7c8bce7f47ac5e">&#9670;&nbsp;</a></span>debugging</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Gameboy::debugging</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Flag to check debugger ir ran. </p>
+
+</div>
+</div>
+<a id="ab5374ee382793a6e7f4fe26e55c9ff94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5374ee382793a6e7f4fe26e55c9ff94">&#9670;&nbsp;</a></span>gpu</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classGPU.html">GPU</a> Gameboy::gpu</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p><a class="el" href="classGPU.html" title="Class containing logic of GPU. ">GPU</a> object </p>
+
+</div>
+</div>
+<a id="adf627b4691eb953f162584daf2b539a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf627b4691eb953f162584daf2b539a9">&#9670;&nbsp;</a></span>memory</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMemory.html">Memory</a> Gameboy::memory</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p><a class="el" href="classMemory.html" title="Class contains memory management unit logic. ">Memory</a> object </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/gameboy/<a class="el" href="gameboy_8hpp_source.html">gameboy.hpp</a></li>
 <li>src/gameboy/gameboy.cpp</li>

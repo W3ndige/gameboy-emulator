@@ -1,0 +1,77 @@
+.TH "src/gameboy/gameboy.hpp" 3 "Fri Dec 7 2018" "Gameboy Emulator" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/gameboy/gameboy.hpp \- File containting all of the \fBGameboy\fP components\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <thread>\fP
+.br
+\fC#include 'debugger\&.hpp'\fP
+.br
+\fC#include '\&.\&./gpu/gpu\&.hpp'\fP
+.br
+\fC#include '\&.\&./cpu/cpu\&.hpp'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "class \fBGameboy\fP"
+.br
+.RI "Class connecting all of the components of \fBGameboy\fP\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "const float \fBFPS\fP = 59\&.73f"
+.br
+.ti -1c
+.RI "const int \fBMAX_CYCLES\fP = 70224"
+.br
+.ti -1c
+.RI "const float \fBDELAY_TIME\fP = 1000\&.0f / FPS"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+File containting all of the \fBGameboy\fP components\&. 
+
+
+.PP
+\fBAuthor:\fP
+.RS 4
+W3ndige (w3ndige@protonmail.com) 
+.RE
+.PP
+\fBVersion:\fP
+.RS 4
+0\&.1 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+2018-12-07
+.RE
+.PP
+\fBCopyright:\fP
+.RS 4
+Copyright (c) 2018 
+.RE
+.PP
+
+.SH "Variable Documentation"
+.PP 
+.SS "const float DELAY_TIME = 1000\&.0f / FPS"
+Time of delay to emulate FPS 
+.SS "const float FPS = 59\&.73f"
+Number of FPS to emulate 
+.SS "const int MAX_CYCLES = 70224"
+Maximum number of cycles 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Gameboy Emulator from the source code\&.

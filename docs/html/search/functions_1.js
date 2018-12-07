@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['disablebooting',['DisableBooting',['../classMemory.html#ae7d7eeb8e69216af894e25c93624c98f',1,'Memory']]],
-  ['dumpmemory',['DumpMemory',['../classMemory.html#a017768e957671d02872ad12ca3de3e6a',1,'Memory']]]
+  ['bit',['Bit',['../classCPU.html#ad260c5b0e5222059080f696f06b6085e',1,'CPU']]],
+  ['breakpoint',['Breakpoint',['../classCPU.html#af4808063d0a0951498356c5fe2acd658',1,'CPU']]],
+  ['breakpointcommand',['BreakpointCommand',['../classDebugger.html#a6d57cbb879d3fdb6f000e220acd3623c',1,'Debugger']]]
 ];

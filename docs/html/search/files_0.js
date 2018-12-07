@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gpu_2ehpp',['gpu.hpp',['../gpu_8hpp.html',1,'']]]
+  ['cpu_2ehpp',['cpu.hpp',['../cpu_8hpp.html',1,'']]]
 ];

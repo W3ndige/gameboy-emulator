@@ -1,11 +1,14 @@
-.TH "DebuggerState" 3 "Thu Dec 6 2018" "Gameboy Emulator" \" -*- nroff -*-
+.TH "DebuggerState" 3 "Fri Dec 7 2018" "Gameboy Emulator" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-DebuggerState
+DebuggerState \- Structure containing information about the state of debugger\&.  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include <debugger\&.hpp>\fP
 .SS "Data Fields"
 
 .in +1c
@@ -25,6 +28,21 @@ DebuggerState
 .RI "uint16_t \fBbreakpoint\fP"
 .br
 .in -1c
+.SH "Detailed Description"
+.PP 
+Structure containing information about the state of debugger\&. 
+.SH "Field Documentation"
+.PP 
+.SS "uint16_t DebuggerState::breakpoint"
+Address where to set breakpoint 
+.SS "bool DebuggerState::breakpoint_set"
+Is breakpoint set 
+.SS "bool DebuggerState::debugging"
+Is the debugger running 
+.SS "bool DebuggerState::step_set"
+Is stepping set 
+.SS "unsigned int DebuggerState::stepper_count"
+How much steps to run 
 
 .SH "Author"
 .PP 

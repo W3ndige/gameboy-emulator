@@ -1,21 +1,60 @@
-.TH "Disassembler" 3 "Thu Dec 6 2018" "Gameboy Emulator" \" -*- nroff -*-
+.TH "Disassembler" 3 "Fri Dec 7 2018" "Gameboy Emulator" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-Disassembler
+Disassembler \- Class containing disassembler logic\&.  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include <disassembler\&.hpp>\fP
 .SS "Public Member Functions"
 
 .in +1c
 .ti -1c
 .RI "bool \fBInit\fP (std::string rom_file)"
 .br
+.RI "Initialize the disassembler\&. "
 .ti -1c
 .RI "void \fBDisassemble\fP ()"
 .br
+.RI "Disassemble to ROM file\&. "
 .in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "uint8_t \fBmemory\fP [0x8000]"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Class containing disassembler logic\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "bool Disassembler::Init (std::string rom_file)"
+
+.PP
+Initialize the disassembler\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIrom_file\fP Name of the ROM to disassemble\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+true Initialization sucedeed\&. 
+.PP
+false Iniitalization failed\&. 
+.RE
+.PP
+
+.SH "Field Documentation"
+.PP 
+.SS "uint8_t Disassembler::memory[0x8000]\fC [private]\fP"
+\fBMemory\fP array 
 
 .SH "Author"
 .PP 

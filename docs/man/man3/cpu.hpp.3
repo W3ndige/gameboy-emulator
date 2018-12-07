@@ -1,0 +1,99 @@
+.TH "src/cpu/cpu.hpp" 3 "Fri Dec 7 2018" "Gameboy Emulator" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/cpu/cpu.hpp \- File containing logic of the \fBCPU\fP\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <iostream>\fP
+.br
+\fC#include <exception>\fP
+.br
+\fC#include '\&.\&./memory/memory\&.hpp'\fP
+.br
+\fC#include '\&.\&./helper/helper\&.hpp'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "union \fBRegister\fP"
+.br
+.RI "Union of 16 bit size, allowing to access lower and higher bits\&. "
+.ti -1c
+.RI "struct \fBClocks\fP"
+.br
+.RI "Structure containing information about the clock\&. "
+.ti -1c
+.RI "class \fBCPU\fP"
+.br
+.RI "Class containing logic behind the \fBCPU\fP\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "const int \fBZERO_FLAG\fP = 7"
+.br
+.ti -1c
+.RI "const int \fBSUBSTRACT_FLAG\fP = 6"
+.br
+.ti -1c
+.RI "const int \fBHALF_CARRY_FLAG\fP = 5"
+.br
+.ti -1c
+.RI "const int \fBCARRY_FLAG\fP = 4"
+.br
+.ti -1c
+.RI "const int \fBTIMA\fP = 0xFF05"
+.br
+.ti -1c
+.RI "const int \fBTMA\fP = 0xFF06"
+.br
+.ti -1c
+.RI "const int \fBTMC\fP = 0xFF07"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+File containing logic of the \fBCPU\fP\&. 
+
+
+.PP
+\fBAuthor:\fP
+.RS 4
+W3ndige (w3ndige@protonmail.com) 
+.RE
+.PP
+\fBVersion:\fP
+.RS 4
+0\&.1 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+2018-12-07
+.RE
+.PP
+\fBCopyright:\fP
+.RS 4
+Copyright (c) 2018 
+.RE
+.PP
+
+.SH "Variable Documentation"
+.PP 
+.SS "const int CARRY_FLAG = 4"
+Carry flag 
+.SS "const int HALF_CARRY_FLAG = 5"
+Half carry flag 
+.SS "const int SUBSTRACT_FLAG = 6"
+Substract flag 
+.SS "const int ZERO_FLAG = 7"
+Zero flag 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Gameboy Emulator from the source code\&.
