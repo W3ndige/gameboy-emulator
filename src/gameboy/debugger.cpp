@@ -36,8 +36,7 @@ void Debugger::Debug() {
 
 void Debugger::PrintHelp() {
 
-    printf("");
-
+    printf("View README.md");
 
 }
 

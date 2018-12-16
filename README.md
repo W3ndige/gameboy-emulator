@@ -1,38 +1,32 @@
 Gameboy Emulator
 ==============
 
-Gameboy Emulator written in C++ and SDL2.
+Simple Gameboy Emulator written in C++ and SDL2, with debugger and disassembler.
 
-Description
------------
+To-Do List
+----------
 
-...
-
+* Allow support for memory banking.
+* GPU issues with Flappyboy.
+* Disassembler code review. 
+* Code review.
 
 Usage
 -----
 
-...
+#### Boot options
 
-Notes
------
+* `./bin/emulator ROM_GAME` -- run the emulator with specified ROM.
+* `./bin/emulator -q ROM_GAME` -- run the emulator without boot sequence.
+* `./bin/emulator -j ROM_GAME` -- run the emulator, exiting while infinite loop is encountered.
+* `./bin/emulator -e ROM_GAME` -- disassemble the ROM.
+* `./bin/emulator -d ROM_GAME` -- run the debugger.
 
+#### Debugger commands
 
-Distribution of the 64KB address space provided by the Game Boy’s memory system.
-
-```
-0000-3FFF 16KB ROM Bank 00 (in cartridge, fixed at bank 00)
-4000-7FFF 16KB ROM Bank 01..NN (in cartridge, switchable bank number)
-8000-9FFF 8KB Video RAM (VRAM) (switchable bank 0-1 in CGB Mode)
-A000-BFFF 8KB External RAM (in cartridge, switchable bank, if any)
-C000-CFFF 4KB Work RAM Bank 0 (WRAM)
-D000-DFFF 4KB Work RAM Bank 1 (WRAM) (switchable bank 1-7 in CGB Mode)
-E000-FDFF Same as C000-DDFF (ECHO) (typically not used)
-FE00-FE9F Sprite Attribute Table (OAM)
-FEA0-FEFF Not Usable
-FF00-FF7F I/O Ports
-FF80-FFFE High RAM (HRAM)
-FFFF Interrupt Enable Register 
-```
-
-[Gameboy Bootstrap](http://gbdev.gg8.se/wiki/articles/Gameboy_Bootstrap_ROM)
+* `run` or `r` -- run the ROM.
+* `step` or `s` -- step one instruction.
+* `memory addr num` or `m` -- view num of bytes from memory at address addr.
+* `stack num` or `s` -- view num of bytes from stack.
+* `info` or `i` -- get the information about the cartridge
+* `break addr` or `b` -- set the breakpoint at address addr.

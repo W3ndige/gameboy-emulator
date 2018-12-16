@@ -105,10 +105,9 @@ void Gameboy::Emulate() {
         gpu.UpdateGraphics(current_cycles);
         cpu.DoInterupts();
 
-        cycles += current_cycles;
+        cycles += current_cycles + 3;
     }
 
-    //gpu.RenderGraphics();
 }
 
 void Gameboy::SetKeyPressed(int key) {

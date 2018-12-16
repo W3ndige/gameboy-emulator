@@ -143,7 +143,7 @@ class CPU {
         void SetClockFrequency();
 
         /**
-         * @brief TODO
+         * @brief Update divider register.
          * 
          * @param cycles Number of cycles that last instruction took.
          */
